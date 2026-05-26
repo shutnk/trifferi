@@ -1,4 +1,4 @@
-import os, logging, threading
+import os, logging, asyncio, threading
 from flask import Flask, render_template, jsonify
 from telegram import Update, WebAppInfo, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, ContextTypes
@@ -42,14 +42,25 @@ async def shop_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🛍 Каталог:", reply_markup=InlineKeyboardMarkup(kb))
 
 def run_bot():
-    application = Application.builder().token(TOKEN).build()
-    application.add_handler(CommandHandler("start", start_cmd))
-    application.add_handler(CommandHandler("shop", shop_cmd))
-    logger.info("🤖 Бот запущен...")
-    application.run_polling(allowed_updates=Update.ALL_TYPES)
+    """Запуск бота с созданием event loop"""
+    async def start_bot():
+        application = Application.builder().token(TOKEN).build()
+        application.add_handler(CommandHandler("start", start_cmd))
+        application.add_handler(CommandHandler("shop", shop_cmd))
+        logger.info("🤖 Бот запущен...")
+        await application.start_polling(allowed_updates=Update.ALL_TYPES)
+    
+    # Создаём новый event loop для этого потока
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(start_bot())
 
 if __name__ == '__main__':
     logger.info(f"🚀 Server: http://0.0.0.0:{PORT}")
+    
+    # Запускаем бота в фоне
     t = threading.Thread(target=run_bot, daemon=True)
     t.start()
+    
+    # Запускаем Flask
     app.run(host='0.0.0.0', port=PORT, debug=False)
