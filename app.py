@@ -1,4 +1,4 @@
-import os, logging, asyncio, threading
+import os, logging, threading
 from flask import Flask, render_template, jsonify
 from telegram import Update, WebAppInfo, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, ContextTypes
@@ -41,27 +41,25 @@ async def shop_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     kb = [[InlineKeyboardButton("🛒 Каталог", web_app=WebAppInfo(url=webapp_url))]]
     await update.message.reply_text("🛍 Каталог:", reply_markup=InlineKeyboardMarkup(kb))
 
+def run_flask():
+    """Запуск Flask в отдельном потоке"""
+    logger.info(f"🚀 Flask server: http://0.0.0.0:{PORT}")
+    app.run(host='0.0.0.0', port=PORT, debug=False, use_reloader=False)
+
 def run_bot():
-    """Запуск бота с созданием event loop"""
-    # Создаём и устанавливаем event loop для этого потока
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    
-    try:
-        application = Application.builder().token(TOKEN).build()
-        application.add_handler(CommandHandler("start", start_cmd))
-        application.add_handler(CommandHandler("shop", shop_cmd))
-        logger.info("🤖 Бот запущен...")
-        application.run_polling(allowed_updates=Update.ALL_TYPES)
-    finally:
-        loop.close()
+    """Запуск бота в основном потоке (требуется для signal handlers)"""
+    logger.info("🤖 Запуск бота...")
+    application = Application.builder().token(TOKEN).build()
+    application.add_handler(CommandHandler("start", start_cmd))
+    application.add_handler(CommandHandler("shop", shop_cmd))
+    logger.info("✅ Бот запущен и слушает команды...")
+    # run_polling должен работать в main thread
+    application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 if __name__ == '__main__':
-    logger.info(f"🚀 Server: http://0.0.0.0:{PORT}")
+    # Flask в фоне, бот в main thread
+    flask_thread = threading.Thread(target=run_flask, daemon=True)
+    flask_thread.start()
     
-    # Запускаем бота в фоне
-    t = threading.Thread(target=run_bot, daemon=True)
-    t.start()
-    
-    # Запускаем Flask
-    app.run(host='0.0.0.0', port=PORT, debug=False)
+    # Бот в основном потоке
+    run_bot()
