@@ -1,4 +1,4 @@
-import os, logging, threading
+import os, logging, asyncio, threading
 from flask import Flask, render_template, jsonify
 from telegram import Update, WebAppInfo, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, ContextTypes
@@ -42,13 +42,19 @@ async def shop_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🛍 Каталог:", reply_markup=InlineKeyboardMarkup(kb))
 
 def run_bot():
-    """Запуск бота - PTB 20.6: run_polling() синхронный"""
-    application = Application.builder().token(TOKEN).build()
-    application.add_handler(CommandHandler("start", start_cmd))
-    application.add_handler(CommandHandler("shop", shop_cmd))
-    logger.info("🤖 Бот запущен...")
-    # run_polling() - blocking call, perfect for thread
-    application.run_polling(allowed_updates=Update.ALL_TYPES)
+    """Запуск бота с созданием event loop"""
+    # Создаём и устанавливаем event loop для этого потока
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    
+    try:
+        application = Application.builder().token(TOKEN).build()
+        application.add_handler(CommandHandler("start", start_cmd))
+        application.add_handler(CommandHandler("shop", shop_cmd))
+        logger.info("🤖 Бот запущен...")
+        application.run_polling(allowed_updates=Update.ALL_TYPES)
+    finally:
+        loop.close()
 
 if __name__ == '__main__':
     logger.info(f"🚀 Server: http://0.0.0.0:{PORT}")
