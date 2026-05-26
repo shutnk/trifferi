@@ -24,7 +24,6 @@ def get_products():
             {'id': 1, 'name': 'LUNA', 'type': 'Сумка', 'price': 12990},
             {'id': 2, 'name': 'AURORA', 'type': 'Кроссовки', 'price': 7450},
             {'id': 3, 'name': 'SKY', 'type': 'Очки', 'price': 4100},
-            {'id': 4, 'name': 'SILK', 'type': 'Шарф', 'price': 3200},
         ]
     })
 
@@ -33,34 +32,24 @@ async def start_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     webapp_url = f"{WEB_URL}?startapp=main&user_id={user.id}"
     kb = [[InlineKeyboardButton("🛍 Открыть магазин", web_app=WebAppInfo(url=webapp_url))]]
     await update.message.reply_text(
-        f"👋 *Привет, {user.first_name}!*\n\nДобро пожаловать в *TRIFFERI* ✨\n\n"
-        f"Нажми кнопку ниже:",
+        f"👋 *Привет, {user.first_name}!*\n\nДобро пожаловать в *TRIFFERI* ✨",
         reply_markup=InlineKeyboardMarkup(kb), parse_mode='Markdown'
     )
 
 async def shop_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user = update.effective_user
-    webapp_url = f"{WEB_URL}?startapp=shop&user_id={user.id}"
+    webapp_url = f"{WEB_URL}?startapp=shop"
     kb = [[InlineKeyboardButton("🛒 Каталог", web_app=WebAppInfo(url=webapp_url))]]
-    await update.message.reply_text("🛍 Открываю каталог...", reply_markup=InlineKeyboardMarkup(kb))
+    await update.message.reply_text("🛍 Каталог:", reply_markup=InlineKeyboardMarkup(kb))
 
 def run_bot():
-    """Запуск бота (PTB 20+ API)"""
     application = Application.builder().token(TOKEN).build()
     application.add_handler(CommandHandler("start", start_cmd))
     application.add_handler(CommandHandler("shop", shop_cmd))
-    application.add_handler(CommandHandler("help", start_cmd))
     logger.info("🤖 Бот запущен...")
-    # Правильный метод для PTB 20+: run_polling()
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 if __name__ == '__main__':
-    logger.info(f"🚀 TRIFFERI Server: http://0.0.0.0:{PORT}")
-    logger.info(f"🔗 WebApp: {WEB_URL}")
-    
-    # Запускаем бота в фоне
+    logger.info(f"🚀 Server: http://0.0.0.0:{PORT}")
     t = threading.Thread(target=run_bot, daemon=True)
     t.start()
-    
-    # Запускаем Flask
     app.run(host='0.0.0.0', port=PORT, debug=False)
