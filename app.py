@@ -6,6 +6,8 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 TOKEN = "8934522015:AAHJuYuqOu9-CYyhTZavQ-MDlCn1Sw4T4vw"
 PORT = int(os.environ.get("PORT", 8080))
 WEB_URL = os.environ.get("WEB_URL", "http://localhost:8080")
+# Добавляем версию для обхода кэша Telegram
+APP_VERSION = "v1.2"
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -20,10 +22,6 @@ def index():
 def catalog():
     return render_template('catalog.html')
 
-@app.route('/test')
-def test_page():
-    return render_template('test.html')
-
 @app.route('/api/products')
 def get_products():
     return jsonify({
@@ -37,14 +35,18 @@ def get_products():
 
 async def start_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
-    webapp_url = f"{WEB_URL}?startapp=main&user_id={user.id}"
+    # Добавляем версию для обхода кэша
+    webapp_url = f"{WEB_URL}?v={APP_VERSION}&startapp=main&user_id={user.id}"
     kb = [[InlineKeyboardButton("🛍 Открыть магазин", web_app=WebAppInfo(url=webapp_url))]]
-    await update.message.reply_text(f"👋 *Привет, {user.first_name}!*\n\nДобро пожаловать в *TRIFFERI* ✨", reply_markup=InlineKeyboardMarkup(kb), parse_mode='Markdown')
+    await update.message.reply_text(
+        f"👋 *Привет, {user.first_name}!*\n\nДобро пожаловать в *TRIFFERI* ✨\n\nНажми кнопку ниже, чтобы открыть магазин:",
+        reply_markup=InlineKeyboardMarkup(kb), parse_mode='Markdown'
+    )
 
 async def shop_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    webapp_url = f"{WEB_URL}?startapp=shop"
+    webapp_url = f"{WEB_URL}/catalog?v={APP_VERSION}&startapp=shop"
     kb = [[InlineKeyboardButton("🛒 Каталог", web_app=WebAppInfo(url=webapp_url))]]
-    await update.message.reply_text("🛍 Каталог:", reply_markup=InlineKeyboardMarkup(kb))
+    await update.message.reply_text("🛍 Открываю каталог...", reply_markup=InlineKeyboardMarkup(kb))
 
 def run_flask():
     logger.info(f"🚀 Flask server: http://0.0.0.0:{PORT}")
