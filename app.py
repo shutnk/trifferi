@@ -24,6 +24,10 @@ def catalog():
 def wishlist():
     return render_template('wishlist.html')
 
+@app.route('/cart')
+def cart():
+    return render_template('cart.html')
+
 @app.route('/api/products')
 def get_products():
     return jsonify({
@@ -63,11 +67,3 @@ if __name__ == '__main__':
     flask_thread = threading.Thread(target=run_flask, daemon=True)
     flask_thread.start()
     run_bot()
-
-@app.route('/cart')
-def cart():
-    return render_template('cart.html')
-
-@app.route('/cart')
-def cart():
-    return render_template('cart.html')
