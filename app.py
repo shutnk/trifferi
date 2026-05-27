@@ -15,14 +15,23 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
 @app.route('/')
+@app.route('/wishlist')
+def wishlist():
+    return render_template('wishlist.html')
 def index():
     return render_template('index.html')
 
 @app.route('/catalog')
+@app.route('/wishlist')
+def wishlist():
+    return render_template('wishlist.html')
 def catalog():
     return render_template('catalog.html')
 
 @app.route('/api/products')
+@app.route('/wishlist')
+def wishlist():
+    return render_template('wishlist.html')
 def get_products():
     return jsonify({
         'status': 'ok',
