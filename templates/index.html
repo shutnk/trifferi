@@ -59,13 +59,14 @@ body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#e8f4f8,#f
 <nav class="nav">
 <button class="nav-btn active" onclick="setActive(this)"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></button>
 <button class="nav-btn" onclick="goToCatalog()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></button>
-<button class="nav-btn" onclick="setActive(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+<button class="nav-btn" onclick="goToWishlist()"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
 <button class="nav-btn" onclick="setActive(this)"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button>
 <button class="nav-btn" onclick="setActive(this)"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
 </nav></div><div class="toast" id="toast"></div>
 <script>
-function goToWishlist(){window.location.href=window.location.origin+"/wishlist";}
+function goToHome(){window.location.href=window.location.origin+'/';}
 function goToCatalog(){window.location.href=window.location.origin+'/catalog';}
+function goToWishlist(){window.location.href=window.location.origin+'/wishlist';}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');if(window.Telegram?.WebApp?.HapticFeedback){window.Telegram.WebApp.HapticFeedback.impactOccurred('light')}setTimeout(()=>t.classList.remove('show'),1800);}
 function setActive(el){document.querySelectorAll('.nav-btn').forEach(n=>n.classList.remove('active'));el.classList.add('active');}
 document.addEventListener('DOMContentLoaded',()=>{if(window.Telegram?.WebApp){const tg=window.Telegram.WebApp;tg.ready();tg.expand();tg.setHeaderColor('#f8f9fc');tg.setBackgroundColor('#f0e6f6');}});
