@@ -46,3 +46,7 @@ def run_bot():
 if __name__=='__main__':
     threading.Thread(target=run_flask,daemon=True).start()
     run_bot()
+
+@app.route('/test')
+def test_page():
+    return render_template('test.html')
