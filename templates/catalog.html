@@ -58,6 +58,7 @@ body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#e8f4f8,#f
 <script>
 function goToHome(){window.location.href=window.location.origin+'/';}
 function goToCatalog(){window.location.href=window.location.origin+'/catalog';}
+function goToCart(){window.location.href=window.location.origin+"/cart";}
 function goToWishlist(){window.location.href=window.location.origin+'/wishlist';}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');if(window.Telegram?.WebApp?.HapticFeedback){window.Telegram.WebApp.HapticFeedback.impactOccurred('light')}setTimeout(()=>t.classList.remove('show'),1800);}
 function setFilter(el){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');toast('Фильтр: '+el.textContent);}
