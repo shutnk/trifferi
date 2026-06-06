@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRIFFERI</title>
+<style>
+:root{--bg:#030308;--txt:#f8f8ff;--blue:#1a56db;--blue2:#4d8bf5}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif}
+body{background:var(--bg);color:var(--txt);overflow-x:hidden;min-height:100vh;
+background-image:radial-gradient(circle at 20% 20%,#1a2b5e40 0%,transparent 40%),radial-gradient(circle at 80% 80%,#2d1b4e30 0%,transparent 40%)}
+.nav{position:fixed;top:0;left:0;right:0;padding:16px;display:flex;justify-content:space-between;align-items:center;z-index:100;
+background:rgba(3,3,8,.85);backdrop-filter:blur(12px);border-bottom:1px solid #ffffff10}
+.logo{font-weight:800;letter-spacing:4px;font-size:18px;background:linear-gradient(90deg,#fff,var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-btn{background:#fff1;border:1px solid #fff2;padding:8px 12px;border-radius:10px;cursor:pointer;position:relative;font-size:18px}
+.badge{position:absolute;top:-4px;right:-4px;background:var(--blue);font-size:10px;padding:2px 5px;border-radius:50%;display:none;color:#fff}
+.page{display:none;padding:80px 16px 90px;min-height:100vh;animation:fade .4s}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hero{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:75vh;text-align:center}
+.hero h1{font-size:clamp(36px,9vw,80px);font-weight:900;line-height:1;margin-bottom:16px}
+.hero h1 span{background:linear-gradient(90deg,var(--blue2),#c8b6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#ffffff80;margin-bottom:32px;max-width:380px;font-size:15px}
+.btn{padding:14px 28px;border-radius:50px;border:none;font-weight:600;cursor:pointer;transition:.2s;font-size:15px}
+.btn1{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;box-shadow:0 4px 20px #1a56db40}
+.btn2{background:#fff1;color:#fff;border:1px solid #fff2}
+.btn:hover{transform:translateY(-2px)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:24px}
+.card{background:#fff08;border:1px solid #fff1;border-radius:16px;padding:14px;text-align:center;cursor:pointer;transition:.3s}
+.card:hover{border-color:var(--blue2);transform:translateY(-4px);background:#fff1}
+.card .emoji{font-size:44px;margin-bottom:8px;display:block}
+.card h3{font-size:16px;margin-bottom:4px}
+.card .cat{font-size:12px;color:#ffffff60;margin-bottom:8px}
+.card .price{font-weight:800;color:var(--blue2);font-size:17px}
+.bnav{position:fixed;bottom:0;left:0;right:0;background:#030308ee;backdrop-filter:blur(12px);border-top:1px solid #fff1;
+display:flex;justify-content:space-around;padding:10px 0 20px;z-index:100}
+.bnav div{display:flex;flex-direction:column;align-items:center;font-size:10px;color:#ffffff60;cursor:pointer;padding:4px 12px;border-radius:10px;transition:.2s}
+.bnav div.active{color:var(--blue2)}
+.bnav span{font-size:22px;margin-bottom:2px}
+.empty{text-align:center;padding:60px 20px;color:#ffffff80}
+.cart-row{display:flex;justify-content:space-between;align-items:center;background:#fff08;border:1px solid #fff1;padding:12px;border-radius:12px;margin-bottom:10px}
+.qty{display:flex;gap:8px;align-items:center}
+.qty button{background:#fff1;border:none;color:#fff;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:14px}
+.qty button:hover{background:var(--blue)}
+.summary{background:#fff08;border:1px solid #fff1;padding:16px;border-radius:16px;margin-top:20px;text-align:center}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;padding:10px 24px;border-radius:50px;font-size:14px;opacity:0;transition:.3s;pointer-events:none;z-index:200}
+.toast.show{opacity:1}
+.section-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue2);margin-bottom:12px}
+@media(min-width:600px){.grid{grid-template-columns:repeat(3,1fr)}}</style>
+</head>
+<body>
+<nav class="nav"><div class="logo">TRIFFERI</div><div class="nav-btn" onclick="go('cart')">🛒<span class="badge" id="badge">0</span></div></nav>
+
+<div class="page active" id="home">
+<div class="hero">
+<h1>Весенний <span>Блеск</span></h1>
+<p>Стиль и элегантность в каждой детали. Без серверов, без задержек.</p>
+<button class="btn btn1" onclick="go('cat')">Каталог →</button>
+</div>
+<div class="section-label">Новинки</div>
+<div class="grid" id="homeGrid"></div>
+</div>
+
+<div class="page" id="cat">
+<div class="section-label">Каталог</div>
+<div class="grid" id="catGrid"></div>
+</div>
+
+<div class="page" id="cart">
+<div class="section-label">Корзина</div>
+<div id="cartList"></div>
+</div>
+
+<nav class="bnav">
+<div class="active" onclick="go('home')"><span>🏠</span>Главная</div>
+<div onclick="go('cat')"><span>🧭</span>Каталог</div>
+<div onclick="go('cart')"><span>🛒</span>Корзина</div>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const P=[
+{id:1,n:'LUNA',c:'Сумка',p:12990,e:'👜'},
+{id:2,n:'AURORA',c:'Кроссовки',p:7450,e:'👟'},
+{id:3,n:'SKY',c:'Очки',p:4100,e:'🕶'},
+{id:4,n:'VELVET',c:'Платье',p:18900,e:'👗'},
+{id:5,n:'NOIR',c:'Часы',p:24500,e:'⌚'},
+{id:6,n:'BLAZE',c:'Куртка',p:15600,e:'🧥'}
+];
+let cart=JSON.parse(localStorage.getItem('t_cart'))||[];
+const $=s=>document.querySelector(s);
+const $$=s=>document.querySelectorAll(s);
+
+function go(id){
+$$('.page').forEach(p=>p.classList.remove('active'));
+$('#'+id).classList.add('active');
+$$('.bnav div').forEach((d,i)=>d.classList.toggle('active',['home','cat','cart'][i]===id));if(id==='cart')renderCart();
+window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function render(list,id){
+$('#'+id).innerHTML=list.map(i=>`
+<div class="card" onclick="add('${i.n}','${i.c}',${i.p},'${i.e}')">
+<div class="emoji">${i.e}</div>
+<h3>${i.n}</h3><div class="cat">${i.c}</div><div class="price">${i.p.toLocaleString()} ₽</div>
+</div>`).join('');
+}
+
+function add(n,c,p,e){
+let f=cart.find(x=>x.n===n);
+if(f)f.q++;else cart.push({n,c,p,e,q:1});
+localStorage.setItem('t_cart',JSON.stringify(cart));
+toast(`${e} ${n} добавлен`);
+updBadge();
+}
+
+function updBadge(){
+const c=cart.reduce((a,i)=>a+i.q,0);
+const b=$('#badge');b.textContent=c;b.style.display=c?'flex':'none';
+}
+
+function renderCart(){
+if(!cart.length){$('#cartList').innerHTML='<div class="empty"><p>Корзина пуста</p><button class="btn btn1" onclick="go(\'cat\')">В каталог</button></div>';return;}
+let html='',total=0;
+cart.forEach((i,idx)=>{
+total+=i.p*i.q;
+html+=`<div class="cart-row"><div><b>${i.n}</b><br><small>${i.c}</small></div>
+<div class="qty"><button onclick="chg(${idx},-1)">−</button><span>${i.q}</span><button onclick="chg(${idx},1)">+</button></div>
+<div style="font-weight:700;color:var(--blue2)">${(i.p*i.q).toLocaleString()} ₽</div></div>`;
+});
+html+=`<div class="summary"><div style="margin-bottom:12px">Итого: <b style="font-size:20px">${total.toLocaleString()} ₽</b></div>
+<button class="btn btn1" style="width:100%" onclick="checkout()">Оформить в Telegram →</button></div>`;
+$('#cartList').innerHTML=html;
+}
+
+function chg(idx,d){
+cart[idx].q+=d;
+if(cart[idx].q<1)cart.splice(idx,1);
+localStorage.setItem('t_cart',JSON.stringify(cart));
+renderCart();updBadge();
+}
+
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+
+function checkout(){
+const t=cart.map(i=>`• ${i.n} x${i.q} = ${(i.p*i.q).toLocaleString()} ₽`).join('\n');const tot=cart.reduce((a,i)=>a+i.p*i.q,0);
+const msg=`🛍 ЗАКАЗ TRIFFERI\n\n${t}\n💰 Итого: ${tot.toLocaleString()} ₽\n\n Свяжитесь для оформления!`;
+// ✅ Твой ник уже вставлен: @nurikadambol
+window.open(`https://t.me/nurikadambol?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+render(P.slice(0,3),'homeGrid');
+render(P,'catGrid');
+updBadge();
+</script>
+</body>
+</html>
