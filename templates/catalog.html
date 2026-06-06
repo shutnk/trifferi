@@ -1,67 +1,97 @@
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>TRIFFERI — Каталог</title><script src="https://telegram.org/js/telegram-web-app.js"></script><style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--accent:#6c5ce7;--text:#1a1a2e;--muted:#8E8E93;--glass:rgba(255,255,255,0.65)}
-body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#e8f4f8,#f0e6f6,#fce4ec);min-height:100vh;color:var(--text);overflow-x:hidden;padding-bottom:100px}
-.phone{max-width:390px;margin:0 auto;position:relative}
-.bubbles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
-.bubble{position:absolute;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.8),rgba(168,190,255,0.3),transparent 70%);animation:drift 10s infinite}
-@keyframes drift{0%,100%{transform:translateY(0)}33%{transform:translateY(-15px)}66%{transform:translateY(8px)}}
-.bubble:nth-child(1){width:90px;height:90px;top:100px;left:-30px}
-.bubble:nth-child(2){width:110px;height:110px;top:60px;right:-35px;animation-delay:-2s}
-.bubble:nth-child(3){width:65px;height:65px;top:280px;right:-15px;animation-delay:-4s}
-.content{position:relative;z-index:1;padding:16px 18px}
-.page-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:16px}
-.search{width:100%;padding:14px 16px;border:1px solid rgba(255,255,255,0.5);border-radius:18px;background:rgba(255,255,255,0.45);backdrop-filter:blur(12px);font-size:15px;outline:none;margin-bottom:20px}
-.filters{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;margin-bottom:24px;scrollbar-width:none}
-.filters::-webkit-scrollbar{display:none}
-.chip{padding:9px 18px;border-radius:22px;background:rgba(255,255,255,0.35);font-size:13px;font-weight:500;color:var(--muted);white-space:nowrap;cursor:pointer;border:none}.chip.active{background:var(--accent);color:white}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.card{background:rgba(255,255,255,0.45);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.5);border-radius:22px;padding:14px;cursor:pointer;animation:fadeUp 0.6s both}
-.card:nth-child(1){animation-delay:0.1s}.card:nth-child(2){animation-delay:0.2s}.card:nth-child(3){animation-delay:0.3s}.card:nth-child(4){animation-delay:0.4s}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(108,92,231,0.12)}
-.card-img{width:100%;height:130px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.card-img img{max-width:90%;max-height:100%;object-fit:contain}
-.card-name{font-size:14px;font-weight:600;margin-bottom:4px}
-.card-sub{font-size:11px;color:var(--muted);margin-bottom:8px}
-.card-price{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--accent)}
-.nav{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:100;width:calc(100% - 40px);max-width:350px;height:68px;background:var(--glass);backdrop-filter:blur(24px);border-radius:34px;border:1px solid rgba(255,255,255,0.4);box-shadow:0 8px 32px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:space-around;padding:0 8px}
-.nav-btn{width:52px;height:52px;border:none;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s}
-.nav-btn svg{width:24px;height:24px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.nav-btn.active{background:linear-gradient(135deg,var(--accent),#a855f7);box-shadow:0 4px 16px rgba(108,92,231,0.4)}
-.nav-btn.active svg{stroke:white}
-.toast{position:fixed;top:60px;left:50%;transform:translateX(-50%) translateY(-16px);background:rgba(26,26,46,0.88);backdrop-filter:blur(10px);color:white;padding:12px 22px;border-radius:14px;font-size:13px;z-index:300;opacity:0;transition:all 0.4s;pointer-events:none}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-</style></head><body><div class="phone"><div class="bubbles"><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div></div><div class="content">
-<h1 class="page-title">Каталог</h1>
-<input class="search" type="text" placeholder="Найти товар...">
-<div class="filters">
-<button class="chip active" onclick="setFilter(this)">Все</button>
-<button class="chip" onclick="setFilter(this)">Сумки</button>
-<button class="chip" onclick="setFilter(this)">Кроссовки</button>
-<button class="chip" onclick="setFilter(this)">Очки</button>
-</div>
-<div class="grid">
-<div class="card" onclick="toast('LUNA — 12 990 ₽')"><div class="card-img"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300" onerror="this.outerHTML='👜'"></div><div class="card-name">LUNA</div><div class="card-sub">Сумка</div><div class="card-price">12 990 ₽</div></div>
-<div class="card" onclick="toast('AURORA — 7 450 ₽')"><div class="card-img"><img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300" onerror="this.outerHTML='👟'"></div><div class="card-name">AURORA</div><div class="card-sub">Кроссовки</div><div class="card-price">7 450 ₽</div></div>
-<div class="card" onclick="toast('SKY — 4 100 ₽')"><div class="card-img"><img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300" onerror="this.outerHTML='🕶️'"></div><div class="card-name">SKY</div><div class="card-sub">Очки</div><div class="card-price">4 100 ₽</div></div>
-<div class="card" onclick="toast('SILK — 3 200 ₽')"><div class="card-img"><img src="https://images.unsplash.com/photo-1584030373081-f37b7bb4fa33?w=300" onerror="this.outerHTML='🧣'"></div><div class="card-name">SILK</div><div class="card-sub">Шарф</div><div class="card-price">3 200 ₽</div></div>
-</div></div>
-<nav class="nav">
-<button class="nav-btn" onclick="goToHome()"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></button>
-<button class="nav-btn active" onclick="goToCatalog()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></button>
-<button class="nav-btn" onclick="goToWishlist()"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
-<button class="nav-btn" onclick="setActive(this)"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button>
-<button class="nav-btn" onclick="setActive(this)"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
-</nav></div><div class="toast" id="toast"></div>
-<script>
-function goToHome(){window.location.href=window.location.origin+'/';}
-function goToCatalog(){window.location.href=window.location.origin+'/catalog';}
-function goToCart(){window.location.href=window.location.origin+"/cart";}
-function goToWishlist(){window.location.href=window.location.origin+'/wishlist';}
-function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');if(window.Telegram?.WebApp?.HapticFeedback){window.Telegram.WebApp.HapticFeedback.impactOccurred('light')}setTimeout(()=>t.classList.remove('show'),1800);}
-function setFilter(el){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');toast('Фильтр: '+el.textContent);}
-function setActive(el){document.querySelectorAll('.nav-btn').forEach(n=>n.classList.remove('active'));el.classList.add('active');}
-document.addEventListener('DOMContentLoaded',()=>{if(window.Telegram?.WebApp){const tg=window.Telegram.WebApp;tg.ready();tg.expand();tg.setHeaderColor('#f0e6f6');tg.setBackgroundColor('#f0e6f6');}});
-</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог - TRIFFERI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f8f0ff; padding-bottom: 80px; }
+        .header { 
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        .header h1 { font-size: 32px; }
+        .products { padding: 20px; }
+        .product-grid { display: flex; flex-direction: column; gap: 20px; }
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;            gap: 15px;
+        }
+        .product-card img { 
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 15px;
+            background: #f0f0f0;
+        }
+        .product-info h3 { color: #2d1b4e; margin-bottom: 5px; }
+        .product-info p { color: #666; margin-bottom: 10px; }
+        .product-info .price { font-size: 24px; font-weight: bold; color: #7c3aed; }
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        .nav-bar a {
+            text-decoration: none;
+            font-size: 24px;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+        .nav-bar a.active { opacity: 1; color: #7c3aed; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧭 Каталог</h1>
+    </div>
+    
+    <div class="products">
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="/static/luna.jpg" alt="LUNA">
+                <div class="product-info">
+                    <h3>LUNA</h3>
+                    <p>Сумка</p>
+                    <div class="price">12 990 ₽</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="/static/aurora.jpg" alt="AURORA">
+                <div class="product-info">                    <h3>AURORA</h3>
+                    <p>Кроссовки</p>
+                    <div class="price">7 450 ₽</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="/static/sky.jpg" alt="SKY">
+                <div class="product-info">
+                    <h3>SKY</h3>
+                    <p>Очки</p>
+                    <div class="price">4 100 ₽</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <nav class="nav-bar">
+        <a href="/">🏠</a>
+        <a href="/catalog" class="active">🧭</a>
+        <a href="/wishlist">❤️</a>
+        <a href="/cart"></a>
+        <a href="/profile">👤</a>
+    </nav>
+</body>
+</html>
