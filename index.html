@@ -57,3 +57,40 @@ function rW(){if(!wish.length){document.getElementById('wC').innerHTML='<div cla
 function t(m){const e=document.getElementById('tt');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2000);}
 rP();ub();us();
 </script></body></html>
+<script>
+// ФОРСИРОВАННАЯ ЗАГРУЗКА ПРОФИЛЯ
+try {
+  const tg = window.Telegram?.WebApp;
+  if (tg) {
+    tg.ready();
+    const user = tg.initDataUnsafe?.user;
+    if (user) {
+       console.log("TELEGRAM USER FOUND:", user);
+       // Принудительно обновляем профиль в памяти
+       const profData = {
+         name: user.first_name + (user.last_name ? ' ' + user.last_name : ''),
+         username: user.username ? '@' + user.username : '',
+         photo: user.photo_url || ''
+       };
+       localStorage.setItem('tp', JSON.stringify(profData));
+       
+       // Обновляем интерфейс НЕМЕДЛЕННО
+       document.getElementById('nNm').textContent = profData.name;
+       document.getElementById('nHdl').textContent = profData.username;
+       
+       // Аватарка
+       const av = document.getElementById('nAv');
+       if (profData.photo) {
+         av.innerHTML = '<img src="' + profData.photo + '">';
+       } else {
+         av.textContent = profData.name.charAt(0);
+       }
+    } else {
+       console.warn("Telegram opened, but no user data.");
+       // ТЕСТ: Если данных нет, ставим фейковые, чтобы ты увидел что скрипт работает
+       localStorage.setItem('tp', JSON.stringify({name:"TestUser", photo:""}));
+       document.getElementById('nNm').textContent = "TEST MODE";
+    }
+  }
+} catch(e) { console.error(e); }
+</script>
