@@ -20,7 +20,7 @@ body{font-family:Inter,sans-serif;background:var(--bg);color:#f8f8ff;padding-top
 <div class="pg" id="pg2"><div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Избранное</h1></div><div id="wC"></div></div>
 <div class="pg" id="pg3"><div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Корзина</h1></div><div id="cC"></div></div>
 <script>
-document.getElementById('ver').textContent='v.'+Math.floor(Math.random()*900+100);
+document.getElementById('ver').textContent='v.1';
 try{const tg=window.Telegram?.WebApp;const n=document.getElementById('nNm');const a=document.getElementById('nAv');if(tg){tg.ready();const u=tg.initDataUnsafe?.user;if(u){const nm=u.first_name+(u.last_name?' '+u.last_name:'');n.textContent=nm;a.textContent=nm[0];if(u.photo_url)a.innerHTML='<img src="'+u.photo_url+'">';localStorage.setItem('tp',JSON.stringify({name:nm,photo:u.photo_url||''}));}else{n.textContent='Нет данных';}}else{n.textContent='Не WebApp';}}catch(e){}
 const P=[{n:'LUNA',c:'Сумка',p:12990,e:'👜'},{n:'AURORA',c:'Кроссовки',p:7450,e:'👟'},{n:'SKY',c:'Очки',p:4100,e:'🕶'},{n:'VELVET',c:'Платье',p:18900,e:'👗'},{n:'NOIR',c:'Часы',p:24500,e:'⌚'},{n:'BLAZE',c:'Куртка',p:15600,e:'🧥'}];
 let cart=JSON.parse(localStorage.getItem('tc'))||[];
