@@ -31,3 +31,35 @@ function rC(){document.getElementById('cG').innerHTML=P.map(i=>'<div class="cac"
 function rCart(){if(!cart.length){document.getElementById('cC').innerHTML='<div class="ce"><div style="font-size:40px">🛒</div><h3>Пусто</h3></div>';return;}let h='<div class="cil">',t=0;cart.forEach((i,x)=>{t+=i.p*i.q;h+='<div class="cii"><div class="cimg">'+i.e+'</div><div class="cinf"><div class="cnm">'+i.n+'</div></div></div>';});h+='</div><div class="cs"><div class="sr"><span>Итого</span><span class="vl">'+t.toLocaleString()+' ₽</span></div></div>';document.getElementById('cC').innerHTML=h;}
 rP();rC();
 </script></body></html>
+const s=document.createElement('script');
+s.textContent=`
+<script>
+function initProfile(){
+try{
+const tg=window.Telegram&&window.Telegram.WebApp;
+const n=document.getElementById('nNm');
+const a=document.getElementById('nAv');
+console.log('Telegram object:',window.Telegram);
+console.log('WebApp:',tg);
+if(tg){
+tg.ready();
+tg.expand();
+const u=tg.initDataUnsafe&&tg.initDataUnsafe.user;
+console.log('User:',u);
+if(u&&u.first_name){
+const nm=u.first_name+(u.last_name?' '+u.last_name:'');
+n.textContent=nm;
+a.textContent=nm[0];
+if(u.photo_url)a.innerHTML='<img src="'+u.photo_url+'">';
+localStorage.setItem('tp',JSON.stringify({name:nm,photo:u.photo_url||''}));
+}else{
+n.textContent='User:'+JSON.stringify(u);
+}
+}else{
+n.textContent='No TG';
+}
+}catch(e){n.textContent='Err:'+e.message;console.error(e);}
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initProfile);}else{setTimeout(initProfile,500);}
+</script>`;
+document.body.appendChild(s);
