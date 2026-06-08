@@ -83,10 +83,76 @@ function rCart(){const c=document.getElementById('cC');if(!cart.length){c.innerH
 // Init
 rP();rC();
 </script></body></html>
+<style>
+.product-modal{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:1000;display:none;overflow-y:auto;animation:fadeIn .3s}
+.product-modal.active{display:block}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-close{position:fixed;top:20px;right:20px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:24px;cursor:pointer;z-index:1001}
+.modal-content{padding:80px 20px 40px;max-width:600px;margin:0 auto}
+.modal-img{height:300px;display:flex;align-items:center;justify-content:center;font-size:120px;background:linear-gradient(135deg,rgba(26,86,219,.1),rgba(200,182,255,.1));border-radius:24px;margin-bottom:24px}
+.modal-name{font-size:28px;font-weight:800;margin-bottom:8px}
+.modal-cat{font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
+.modal-price{font-size:32px;font-weight:800;color:var(--b2);margin-bottom:20px}
+.modal-section{margin-bottom:24px;padding:20px;background:rgba(255,255,255,.03);border-radius:16px;border:1px solid rgba(255,255,255,.06)}
+.modal-section-title{font-size:14px;font-weight:700;margin-bottom:12px;color:var(--b2)}
+.modal-desc{font-size:14px;line-height:1.6;color:rgba(255,255,255,.7)}
+.size-options{display:flex;gap:8px;flex-wrap:wrap}
+.size-opt{padding:10px 20px;border:1px solid rgba(255,255,255,.2);border-radius:8px;background:transparent;color:#fff;cursor:pointer;transition:all .2s}
+.size-opt:hover,.size-opt.active{border-color:var(--b2);background:rgba(26,86,219,.2)}
+.modal-actions{display:flex;gap:12px;margin-top:24px}
+.modal-cart{flex:1;padding:16px;border-radius:12px;background:linear-gradient(135deg,var(--b),var(--b2));border:none;color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+.modal-cart:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,86,219,.4)}
+.modal-fav{width:56px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
+.modal-fav.active{background:rgba(255,100,100,.2);border-color:rgba(255,100,100,.5);color:#ff6464}
+</style>
+
+<div class="product-modal" id="productModal">
+  <button class="modal-close" onclick="closeModal()">×</button>
+  <div class="modal-content">
+    <div class="modal-img" id="mImg"></div>
+    <div class="modal-cat" id="mCat"></div>
+    <div class="modal-name" id="mName"></div>
+    <div class="modal-price" id="mPrice"></div>
+    <div class="modal-section"><div class="modal-section-title">Описание</div><div class="modal-desc" id="mDesc">Премиальное качество. Изготовлено из лучших материалов. Идеально подходит для повседневного использования и особых случаев.</div></div>
+    <div class="modal-section"><div class="modal-section-title">Размеры</div><div class="size-options"><button class="size-opt">S</button><button class="size-opt">M</button><button class="size-opt">L</button><button class="size-opt">XL</button></div></div>
+    <div class="modal-section"><div class="modal-section-title">Характеристики</div><div class="modal-desc">• Материал: премиум качество<br>• Страна производства: Италия<br>• Уход: бережная стирка<br>• Артикул: <span id="mArt"></span></div></div>
+    <div class="modal-actions"><button class="modal-fav" id="mFavBtn" onclick="toggleModalFav()"><svg viewBox="0 0 24 24" style="width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button><button class="modal-cart" onclick="addToCartFromModal()">Добавить в корзину</button></div>
+  </div>
+</div>
+
+<script>
+let currentProduct=null;
+function openModal(p){currentProduct=p;document.getElementById('mImg').textContent=p.e;document.getElementById('mCat').textContent=p.c;document.getElementById('mName').textContent=p.n;document.getElementById('mPrice').textContent=p.p.toLocaleString()+' ₽';document.getElementById('mArt').textContent='TRF-'+Math.floor(Math.random()*9000+1000);document.getElementById('productModal').classList.add('active');document.body.style.overflow='hidden';const isFav=wish.some(w=>w.name===p.n);document.getElementById('mFavBtn').classList.toggle('active',isFav);}
+function closeModal(){document.getElementById('productModal').classList.remove('active');document.body.style.overflow='auto';}
+function toggleModalFav(){if(!currentProduct)return;toggleWish(currentProduct.n,currentProduct.e,currentProduct.p,document.getElementById('mFavBtn'),null);}
+function addToCartFromModal(){if(!currentProduct)return;addToCart(currentProduct.n,currentProduct.c,currentProduct.p,currentProduct.e,null);closeModal();}
+</script>
+<script>
+function toggleWish(name,emoji,price,btn,ev){if(ev)ev.stopPropagation();const idx=wish.findIndex(w=>w.name===name);if(idx>-1){wish.splice(idx,1);if(btn){btn.classList.remove('active');btn.style.transform='scale(0)';setTimeout(()=>btn.style.transform='scale(1)',200);}toast('Удалено из избранного');}else{wish.push({name,emoji,price});if(btn){btn.classList.add('active');btn.style.animation='heartBeat .3s';setTimeout(()=>btn.style.animation='',300);}toast('Добавлено в избранное ❤');}localStorage.setItem('wish',JSON.stringify(wish));updCounters();if(document.getElementById('pg2').classList.contains('active'))renderWish();}
+function removeFromWish(idx){wish.splice(idx,1);localStorage.setItem('wish',JSON.stringify(wish));renderWish();updCounters();toast('Удалено');}
+function removeFromCart(idx){cart.splice(idx,1);localStorage.setItem('cart',JSON.stringify(cart));rCart();updCounters();toast('Удалено из корзины');}
+</script>
+<style>@keyframes heartBeat{0%,100%{transform:scale(1)}25%{transform:scale(1.3)}50%{transform:scale(1)}75%{transform:scale(1.3)}}</style>
+<style>
+.cart-count,.wish-count{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;border-radius:8px;background:#ff6464;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;animation:pop .3s}@keyframes pop{0%{transform:scale(0)}80%{transform:scale(1.2)}100%{transform:scale(1)}}
+</style>
+<script>
+function updCounters(){
+  const cartCount=cart.reduce((a,i)=>a+i.q,0);
+  const wishCount=wish.length;
+  let bc=document.getElementById('cartCount');
+  let wc=document.getElementById('wishCount');
+  if(!bc){bc=document.createElement('div');bc.id='cartCount';bc.className='cart-count';document.querySelector('.nic').appendChild(bc);}
+  if(!wc){wc=document.createElement('div');wc.id='wishCount';wc.className='wish-count';document.getElementById('lk2').appendChild(wc);}
+  bc.textContent=cartCount;bc.style.display=cartCount?'flex':'none';
+  wc.textContent=wishCount;wc.style.display=wishCount?'flex':'none';
+}
+updCounters();
+</script>
 <!-- Заменяем старые карточки в главной странице -->
 <script>
 document.getElementById('pS').innerHTML=P.map((i,idx)=>`
-<div class="pc" onclick="addToCart('${i.n}','${i.c}',${i.p},'${i.e}')">
+<div class="pc" onclick="openModal(P.find(p=>p.n=='('${i.n}','${i.c}',${i.p},'${i.e}')">
   <div class="pc-img">${i.e}
     <div class="pc-tag ${idx%2?'tag-hit':'tag-new'}">${idx%2?'ХИТ':'NEW'}</div>
     <div class="pc-fav ${wish.some(w=>w.name===i.n)?'active':''}" onclick="toggleWish('${i.n}','${i.e}','${i.p.toLocaleString()} ₽',event)">
