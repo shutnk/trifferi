@@ -84,6 +84,168 @@ function rCart(){const c=document.getElementById('cC');if(!cart.length){c.innerH
 rP();rC();
 </script></body></html>
 <style>
+@keyframes heartBeat{0%{transform:scale(1)}25%{transform:scale(1.3)}50%{transform:scale(1)}75%{transform:scale(1.3)}100%{transform:scale(1)}}
+.heart-animate{animation:heartBeat 0.4s ease-in-out}
+.cart-count,.wish-count{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;border-radius:8px;background:#ff6464;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;animation:popIn .3s ease}
+@keyframes popIn{0%{transform:scale(0)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
+</style>
+<script>
+function updCounters(){
+  const cartCount=cart.reduce((a,i)=>a+i.q,0);
+  const wishCount=wish.length;
+  let bc=document.getElementById('cartCount');
+  let wc=document.getElementById('wishCount');
+  if(!bc){bc=document.createElement('div');bc.id='cartCount';bc.className='cart-count';document.querySelector('.nic').appendChild(bc);}
+  if(!wc){wc=document.createElement('div');wc.id='wishCount';wc.className='wish-count';document.getElementById('lk2').appendChild(wc);}
+  bc.textContent=cartCount;bc.style.display=cartCount?'flex':'none';
+  wc.textContent=wishCount;wc.style.display=wishCount?'flex':'none';
+}
+function toggleWish(name,emoji,price,btn,ev){
+  if(ev)ev.stopPropagation();
+  const idx=wish.findIndex(w=>w.name===name);
+  if(idx>-1){
+    wish.splice(idx,1);
+    if(btn){
+      btn.classList.remove('active');
+      btn.classList.add('heart-animate');
+      setTimeout(()=>btn.classList.remove('heart-animate'),400);
+    }
+    toast('Удалено из избранного');
+  }else{
+    wish.push({name,emoji,price});
+    if(btn){
+      btn.classList.add('active');
+      btn.classList.add('heart-animate');
+      setTimeout(()=>btn.classList.remove('heart-animate'),400);
+    }
+    toast('Добавлено в избранное ❤');
+  }
+  localStorage.setItem('wish',JSON.stringify(wish));
+  updCounters();
+  if(document.getElementById('pg2').classList.contains('active'))renderWish();
+  if(document.getElementById('ppFavBtn')){
+    const isFav=wish.some(w=>w.name===name);
+    document.getElementById('ppFavBtn').classList.toggle('active',isFav);
+  }
+}
+// Вызываем при загрузке
+updCounters();
+</script>
+<!-- Страница товара -->
+<div class="pg" id="pg5">
+  <div class="ph">
+    <div class="pbk" onclick="goBackFromProduct()">←</div>
+    <h1 class="pt2" id="prodPageTitle">Товар</h1>
+  </div>
+  <div style="padding:20px">
+    <div class="modal-img" id="ppImg" style="height:300px;margin-bottom:20px"></div>
+    <div class="modal-title" id="ppTitle" style="margin-bottom:8px"></div>
+    <div class="modal-price" id="ppPrice" style="margin-bottom:20px"></div>
+    <div class="modal-section">
+      <div class="modal-section-title">Описание</div>
+      <div class="modal-desc">Эксклюзивная модель из коллекции TRIFFERI 2026. Высокое качество материалов, продуманный дизайн и максимальный комфорт. Идеальный выбор для тех, кто ценит стиль и качество.</div>
+    </div>
+    <div class="modal-section" id="ppSizesSection">
+      <div class="modal-section-title">Выберите размер</div>
+      <div class="modal-sizes">
+        <button class="size-btn" onclick="selectSize(this)">S</button>
+        <button class="size-btn" onclick="selectSize(this)">M</button>
+        <button class="size-btn" onclick="selectSize(this)">L</button>
+        <button class="size-btn" onclick="selectSize(this)">XL</button>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Характеристики</div>
+      <div class="modal-desc">
+        • Материал: премиум качество<br>
+        • Страна: Италия<br>
+        • Артикул: <span id="ppArt"></span><br>
+        • Гарантия: 30 дней
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:24px">
+      <button class="pc-fav" id="ppFavBtn" style="width:56px;height:56px;border-radius:12px" onclick="toggleProductPageFav()">
+        <svg viewBox="0 0 24 24" style="width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <button class="modal-add-btn" id="ppAddBtn" style="flex:1">Добавить в корзину</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let lastPage=0;
+function openProduct(p){
+  lastPage=document.querySelector('.pg.active')?.id.replace('pg','')||0;
+  document.getElementById('ppImg').textContent=p.e;
+  document.getElementById('ppTitle').textContent=p.n;
+  document.getElementById('ppPrice').textContent=p.p.toLocaleString()+' ₽';
+  document.getElementById('ppArt').textContent='TRF-'+Math.floor(Math.random()*9000+1000);
+  document.getElementById('ppAddBtn').onclick=()=>{addToCart(p.n,p.c,p.p,p.e);go(lastPage);};
+  
+  // Показываем размеры
+  const sizesSection=document.getElementById('ppSizesSection');
+  if(p.c==='Одежда'||p.c==='Кроссовки'||p.c==='Туфли'){sizesSection.style.display='block';}else{sizesSection.style.display='none';}
+  
+  // Проверяем избранное
+  const isFav=wish.some(w=>w.name===p.n);
+  document.getElementById('ppFavBtn').classList.toggle('active',isFav);
+  if(isFav){document.getElementById('ppFavBtn').style.background='rgba(255,100,100,.2)';document.getElementById('ppFavBtn').style.color='#ff6464';}
+  
+  go(5);
+}
+function goBackFromProduct(){go(lastPage||0);}
+function toggleProductPageFav(){
+  if(!document.getElementById('ppTitle'))return;
+  const name=document.getElementById('ppTitle').textContent;
+  const product=P.find(p=>p.n===name);
+  if(product){
+    toggleWish(product.name,product.e,product.p,document.getElementById('ppFavBtn'),null);
+  }
+}
+</script>
+<script>
+// Улучшаем каталог - делаем карточки как на главной
+function rC(){
+  const c=document.getElementById('cG');
+  if(!c)return;
+  c.innerHTML=P.map((i,idx)=>`
+    <div class="pc" style="min-width:100%;margin-bottom:12px">
+      <div class="pc-img" style="height:200px">
+        ${i.e}
+        <div class="pc-tag ${idx%2?'tag-hit':'tag-new'}">${idx%2?'ХИТ':'NEW'}</div>
+        <div class="pc-fav ${wish.some(w=>w.name===i.n)?'active':''}" onclick="toggleWish('${i.n}','${i.e}','${i.p.toLocaleString()} ₽',this,event)">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:currentColor;fill-opacity:${wish.some(w=>w.name===i.n)?'.3':'0'};stroke-width:2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="pc-info">
+        <div class="pc-name">${i.n}</div>
+        <div class="pc-cat">${i.c}</div>
+        <div class="pc-rating"><span class="pc-stars">★★★★★</span><span class="pc-reviews">(${Math.floor(Math.random()*50+10)})</span></div>
+        <div class="pc-price-row"><span class="pc-price">${i.p.toLocaleString()} ₽</span><span class="pc-old">${Math.floor(i.p*1.3).toLocaleString()} ₽</span></div>
+        <div class="pc-actions">
+          <button class="pc-cart" onclick="addToCart('${i.n}','${i.c}',${i.p},'${i.e}',event)">+ Корзина</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  
+  // Добавляем клик на карточки для открытия
+  setTimeout(()=>{
+    document.querySelectorAll('#cG .pc').forEach(card=>{
+      const name=card.querySelector('.pc-name')?.textContent;
+      const product=P.find(p=>p.n===name);
+      if(product){
+        card.onclick=(e)=>{
+          if(!e.target.closest('.pc-cart')&&!e.target.closest('.pc-fav')){
+            openProduct(product);
+          }
+        };
+      }
+    });
+  },100);
+}
+</script>
+<style>
 /* Стили Модального окна */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:500;display:none;align-items:flex-end;justify-content:center;animation:fadeIn .3s}
 .modal-overlay.active{display:flex}
