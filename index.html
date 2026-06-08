@@ -83,6 +83,89 @@ function rCart(){const c=document.getElementById('cC');if(!cart.length){c.innerH
 // Init
 rP();rC();
 </script></body></html>
+<style>
+/* Стили Модального окна */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:500;display:none;align-items:flex-end;justify-content:center;animation:fadeIn .3s}
+.modal-overlay.active{display:flex}
+.modal-content{background:#0a0f18;width:100%;max-height:90vh;border-radius:24px 24px 0 0;overflow-y:auto;padding:20px;animation:slideUp .4s ease-out;position:relative}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.close-modal{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:20px;cursor:pointer;z-index:10}
+.modal-img{width:100%;height:250px;background:linear-gradient(135deg,rgba(26,86,219,.1),rgba(200,182,255,.1));border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:100px;margin-bottom:20px}
+.modal-title{font-size:24px;font-weight:800;margin-bottom:4px}
+.modal-price{font-size:22px;font-weight:800;color:var(--b2);margin-bottom:16px}
+.modal-desc{font-size:14px;line-height:1.6;color:rgba(255,255,255,.7);margin-bottom:20px}
+.modal-sizes{display:flex;gap:10px;margin-bottom:24px}
+.size-btn{padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;cursor:pointer;transition:.2s}
+.size-btn.active{background:var(--b);border-color:var(--b)}
+.modal-add-btn{width:100%;padding:16px;border-radius:16px;background:linear-gradient(135deg,var(--b),var(--b2));border:none;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+</style>
+
+<!-- Разметка Модального окна -->
+<div class="modal-overlay" id="productModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal()">×</button>
+    <div class="modal-img" id="mImg">👜</div>
+    <div class="modal-title" id="mTitle">LUNA</div>
+    <div class="modal-price" id="mPrice">12 990 ₽</div>
+    <div class="modal-desc" id="mDesc">Премиальное качество. Идеально подходит для любого случая.</div>
+    
+    <div style="font-size:12px;font-weight:700;margin-bottom:10px;color:var(--b2)">ВЫБЕРИТЕ РАЗМЕР</div>
+    <div class="modal-sizes" id="mSizes">
+      <button class="size-btn" onclick="selectSize(this)">S</button>
+      <button class="size-btn" onclick="selectSize(this)">M</button>
+      <button class="size-btn" onclick="selectSize(this)">L</button>
+      <button class="size-btn" onclick="selectSize(this)">XL</button>
+    </div>
+    
+    <button class="modal-add-btn" id="mAddBtn">Добавить в корзину</button>
+  </div>
+</div>
+
+<script>
+// Логика Модального окна
+let currentProduct=null;
+function openProduct(p){
+  currentProduct=p;
+  document.getElementById('mImg').textContent=p.e;
+  document.getElementById('mTitle').textContent=p.n;
+  document.getElementById('mPrice').textContent=p.p.toLocaleString()+' ₽';
+  document.getElementById('mDesc').textContent='Эксклюзивная модель из коллекции TRIFFERI. Высокое качество материалов, стильный дизайн и комфорт в использовании. Идеальный выбор для ценителей стиля.';
+  document.getElementById('mAddBtn').onclick=()=>{addToCart(p.n,p.c,p.p,p.e);closeModal();};
+  
+  // Показываем размеры только для одежды/обуви
+  const sizesDiv=document.getElementById('mSizes');
+  if(p.c==='Одежда'||p.c==='Кроссовки'||p.c==='Туфли'){sizesDiv.style.display='flex';}else{sizesDiv.style.display='none';}
+  
+  document.getElementById('productModal').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('productModal').classList.remove('active');
+  document.body.style.overflow='auto';
+}
+function selectSize(btn){
+  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Добавляем клик на карточки
+setTimeout(()=>{
+  document.querySelectorAll('.pc').forEach(card=>{
+    // Находим название товара внутри карточки
+    const name=card.querySelector('.pc-name')?.textContent;
+    const product=P.find(p=>p.n===name);
+    if(product){
+      card.onclick=(e)=>{
+        // Если кликнули не по кнопке корзины или сердечка
+        if(!e.target.closest('.pc-cart')&&!e.target.closest('.pc-fav')){
+           openProduct(product);
+        }
+      };
+    }
+  });
+},1000);
+</script>
 <script>
 function renderWish(){
   const c=document.getElementById('wishList');
@@ -194,7 +277,7 @@ function toggleWish(name,emoji,price,btn,ev){if(ev)ev.stopPropagation();const id
 function removeFromWish(idx){wish.splice(idx,1);localStorage.setItem('wish',JSON.stringify(wish));renderWish();updCounters();toast('Удалено');}
 function removeFromCart(idx){cart.splice(idx,1);localStorage.setItem('cart',JSON.stringify(cart));rCart();updCounters();toast('Удалено из корзины');}
 </script>
-<style>@keyframes heartBeat{0%,100%{transform:scale(1)}25%{transform:scale(1.3)}50%{transform:scale(1)}75%{transform:scale(1.3)}}</style>
+<style>@keyframes heartBeat{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}</style>
 <style>
 .cart-count,.wish-count{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;border-radius:8px;background:#ff6464;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;animation:pop .3s}@keyframes pop{0%{transform:scale(0)}80%{transform:scale(1.2)}100%{transform:scale(1)}}
 </style>
@@ -234,7 +317,7 @@ document.getElementById('pS').innerHTML=P.map((i,idx)=>`
 document.body.insertAdjacentHTML('beforeend',`
 <div class="pg" id="pg4"><div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Профиль</h1></div>
 <div class="profile-card"><div class="profile-big-av" id="profAv">${document.getElementById('nNm').textContent[0]}</div><div class="profile-name" id="profName">${document.getElementById('nNm').textContent}</div><div class="profile-username" id="profUser">${document.getElementById('nHdl').textContent}</div>
-<div class="profile-stats"><div class="profile-stat"><div class="profile-stat-val" id="profOrders">12</div><div class="profile-stat-label">Заказов</div></div><div class="profile-stat"><div class="profile-stat-val" id="profSpent">85K</div><div class="profile-stat-label">Потрачено</div></div><div class="profile-stat"><div class="profile-stat-val" id="profBonus">420</div><div class="profile-stat-label">Бонусы</div></div></div></div>
+<div class="profile-stats"><div class="profile-stat"><div class="profile-stat-val" id="profOrders">0</div><div class="profile-stat-label">Заказов</div></div><div class="profile-stat"><div class="profile-stat-val" id="profSpent">0</div><div class="profile-stat-label">Потрачено</div></div><div class="profile-stat"><div class="profile-stat-val" id="profBonus">0</div><div class="profile-stat-label">Бонусы</div></div></div></div>
 <div class="profile-menu"><div class="profile-item"><div class="profile-icon">📦</div><div class="profile-text">Мои заказы</div><div class="profile-arrow">→</div></div><div class="profile-item"><div class="profile-icon"></div><div class="profile-text">Адреса доставки</div><div class="profile-arrow">→</div></div><div class="profile-item"><div class="profile-icon">⚙️</div><div class="profile-text">Настройки</div><div class="profile-arrow">→</div></div><div class="profile-item"><div class="profile-icon">💬</div><div class="profile-text">Поддержка</div><div class="profile-arrow">→</div></div></div></div>
 `);
 </script>
