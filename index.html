@@ -1,24 +1,14 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>TRIFFERI</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>TRIFFERI</title><script src="https://telegram.org/js/telegram-web-app.js"></script><style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#030308;--b:#1a56db;--b2:#4d8bf5}
+*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#030308;--b:#1a56db;--b2:#4d8bf5}
 body{font-family:Inter,sans-serif;background:var(--bg);color:#f8f8ff;overflow-x:hidden;padding-top:66px}
 #p{position:fixed;inset:0;z-index:0;pointer-events:none}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;background:rgba(3,3,8,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
 .nl{display:flex;align-items:center;gap:8px;cursor:pointer}.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--b),var(--b2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;overflow:hidden}.av img{width:100%;height:100%;object-fit:cover}.nn{font-size:12px;font-weight:700}.nh{font-size:9px;color:rgba(255,255,255,.4)}
 .nc{display:flex;gap:2px;background:rgba(255,255,255,.04);border-radius:10px;padding:2px;border:1px solid rgba(255,255,255,.06);position:relative}.nlk{width:32px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}.nlk.active{background:rgba(26,86,219,.15)}.nlk svg{width:16px;height:16px;stroke:rgba(255,255,255,.45);fill:none;stroke-width:1.5}.nlk.active svg{stroke:var(--b2)}
 .nr{display:flex;gap:4px;position:relative}.nic{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}.nic svg{width:16px;height:16px;stroke:rgba(255,255,255,.6);fill:none;stroke-width:1.5}
-.badge{position:absolute;top:-3px;right:-3px;min-width:16px;height:16px;border-radius:8px;background:#ff4444;font-size:9px;font-weight:700;display:none;align-items:center;justify-content:center;padding:0 4px;color:#fff;animation:popIn .3s;z-index:10}
-@keyframes popIn{0%{transform:scale(0)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
-.pg{display:none;min-height:calc(100vh - 66px);animation:fadeIn .3s}.pg.active{display:block}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.badge{position:absolute;top:-3px;right:-3px;min-width:16px;height:16px;border-radius:8px;background:#ff4444;font-size:9px;font-weight:700;display:none;align-items:center;justify-content:center;padding:0 4px;color:#fff;animation:popIn .3s;z-index:10}@keyframes popIn{0%{transform:scale(0)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
+.pg{display:none;min-height:calc(100vh - 66px);animation:fadeIn .3s}.pg.active{display:block}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .hero{padding:50px 16px 30px;text-align:center}.ver{color:var(--b2);margin-bottom:8px;font-weight:700}.ht{font-size:clamp(32px,9vw,64px);font-weight:900;line-height:.95;margin-bottom:12px}.ht span{color:var(--b2)}.hs{font-size:14px;color:rgba(255,255,255,.4);margin:0 auto 24px}
 .btn{padding:12px 26px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .3s}.b1{background:linear-gradient(135deg,var(--b),var(--b2));color:#fff;box-shadow:0 4px 15px rgba(26,86,219,.3)}.b1:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(26,86,219,.5)}
 .marquee{margin:20px 0;overflow:hidden;border-radius:16px;background:rgba(26,86,219,.1)}.track{display:flex;white-space:nowrap;animation:run 12s linear infinite}.track span{padding:12px 40px;font-size:13px;font-weight:600;color:var(--b2)}@keyframes run{to{transform:translateX(-50%)}}
@@ -27,8 +17,7 @@ body{font-family:Inter,sans-serif;background:var(--bg);color:#f8f8ff;overflow-x:
 .pc{min-width:200px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden;transition:transform .3s;cursor:pointer}.pc:hover{transform:translateY(-4px)}
 .pc-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:60px;background:linear-gradient(135deg,rgba(26,86,219,.05),rgba(200,182,255,.05));position:relative}
 .pc-tag{position:absolute;top:10px;left:10px;padding:4px 8px;border-radius:6px;font-size:9px;font-weight:700;text-transform:uppercase}.tag-new{background:rgba(77,139,245,.2);color:#4d8bf5}.tag-hit{background:rgba(255,100,100,.2);color:#ff6464}
-.pc-fav{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.6);transition:all .3s}.pc-fav.active{color:#ff6464;background:rgba(255,100,100,.1)}.pc-fav.heart-anim{animation:heartBeat .4s}
-@keyframes heartBeat{0%,100%{transform:scale(1)}25%{transform:scale(1.3)}50%{transform:scale(1)}75%{transform:scale(1.3)}}
+.pc-fav{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.6);transition:all .3s}.pc-fav.active{color:#ff6464;background:rgba(255,100,100,.1)}.pc-fav.heart-anim{animation:heartBeat .4s}@keyframes heartBeat{0%,100%{transform:scale(1)}25%{transform:scale(1.3)}50%{transform:scale(1)}75%{transform:scale(1.3)}}
 .pc-info{padding:12px}.pc-name{font-size:15px;font-weight:700;margin-bottom:4px}.pc-cat{font-size:10px;color:rgba(255,255,255,.4);margin-bottom:8px;text-transform:uppercase}
 .pc-rating{display:flex;align-items:center;gap:4px;margin-bottom:10px}.pc-stars{color:#ffd700;font-size:11px}.pc-reviews{font-size:10px;color:rgba(255,255,255,.4)}
 .pc-price-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}.pc-price{font-size:16px;font-weight:800;color:var(--b2)}.pc-old{font-size:12px;color:rgba(255,255,255,.3);text-decoration:line-through}
@@ -37,11 +26,10 @@ body{font-family:Inter,sans-serif;background:var(--bg);color:#f8f8ff;overflow-x:
 .cac{border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden;transition:transform .3s;cursor:pointer}.cac:hover{transform:translateY(-4px)}
 .cai{height:140px;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(135deg,rgba(26,86,219,.05),rgba(200,182,255,.05));position:relative}
 .can{font-size:13px;font-weight:700;padding:10px 12px 0}.cap{font-size:14px;font-weight:800;color:var(--b2);padding:0 12px 10px}
-.ph{padding:14px 16px;display:flex;align-items:center;gap:10px}.pbk{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:all .2s}.pbk:hover{background:rgba(255,255,255,.15);transform:scale(1.1)}.pt2{font-size:20px;font-weight:800}
+.ph{padding:14px 16px;display:flex;align-items:center;gap:10px}.pbk{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px}.pt2{font-size:20px;font-weight:800}
 .cart-item{display:flex;gap:12px;padding:12px;margin-bottom:8px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);align-items:center}
 .cart-qty{display:flex;align-items:center;gap:8px;margin-top:4px}.qty-btn{width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,.1);border:none;color:#fff;cursor:pointer;font-size:14px}.qty-btn:hover{background:rgba(255,255,255,.2)}
 .cart-remove{width:28px;height:28px;border-radius:50%;background:rgba(255,100,100,.2);border:none;color:#ff6464;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-left:auto}
-.cart-remove:hover{background:rgba(255,100,100,.3);transform:scale(1.1)}
 .cart-sum{margin:16px;padding:16px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
 .checkout-btn{width:100%;padding:16px;margin-top:12px;border-radius:12px;background:linear-gradient(135deg,var(--b),var(--b2));border:none;color:#fff;font-size:15px;font-weight:700;cursor:pointer}
 .prod-page{padding:20px}.prod-img{width:100%;height:280px;background:linear-gradient(135deg,rgba(26,86,219,.1),rgba(200,182,255,.1));border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:100px;margin-bottom:20px}
@@ -51,8 +39,9 @@ body{font-family:Inter,sans-serif;background:var(--bg);color:#f8f8ff;overflow-x:
 .prod-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,.7)}
 .size-opts{display:flex;gap:8px}.size-opt{padding:8px 16px;border:1px solid rgba(255,255,255,.2);border-radius:8px;background:transparent;color:#fff;cursor:pointer;transition:all .2s;font-size:13px;font-weight:600}
 .size-opt:hover,.size-opt.active{border-color:var(--b2);background:rgba(26,86,219,.2)}
-.prod-actions{display:flex;gap:10px;margin-top:20px}.prod-fav{width:50px;height:50px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;color:rgba(255,255,255,.6)}.prod-fav.active{background:rgba(255,100,100,.2);border-color:rgba(255,100,100,.5);color:#ff6464}
-.prod-add{flex:1;padding:14px;border-radius:12px;background:linear-gradient(135deg,var(--b),var(--b2));border:none;color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}.prod-add:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,86,219,.4)}
+.prod-actions{display:flex;align-items:center;gap:12px;margin-top:20px;padding:14px;background:rgba(255,255,255,.03);border-radius:14px;border:1px solid rgba(255,255,255,.06)}
+.prod-fav{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;color:rgba(255,255,255,.6)}.prod-fav.active{background:rgba(255,100,100,.2);border-color:rgba(255,100,100,.5);color:#ff6464}
+.prod-qty-wrap{display:flex;align-items:center;gap:12px;margin-left:auto}
 .recommendations{margin-top:30px}.rec-title{font-size:16px;font-weight:800;margin-bottom:12px;padding:0 20px}
 .rec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:0 14px}
 .rec-item{border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);overflow:hidden;cursor:pointer;transition:transform .2s}.rec-item:hover{transform:translateY(-3px)}
@@ -67,87 +56,33 @@ body{font-family:Inter,sans-serif;background:var(--bg);color:#f8f8ff;overflow-x:
 .cat-filter{display:flex;gap:6px;overflow-x:auto;padding:0 14px 12px;scrollbar-width:none}.cat-filter::-webkit-scrollbar{display:none}
 .filter-chip{padding:6px 14px;border-radius:100px;font-size:11px;font-weight:600;white-space:nowrap;cursor:pointer;transition:all .2s;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.6)}.filter-chip.active{background:rgba(26,86,219,.2);border-color:rgba(26,86,219,.4);color:#fff}
 .toast{position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(100px);padding:12px 24px;border-radius:100px;background:rgba(26,86,219,.95);color:#fff;font-size:13px;font-weight:600;z-index:1000;opacity:0;transition:all .3s;pointer-events:none;box-shadow:0 8px 24px rgba(26,86,219,.4)}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-</style>
-</head>
-<body>
-<canvas id="p"></canvas>
-<nav class="nav">
-  <div class="nl" onclick="go(4)"><div class="av" id="nAv">N</div><div><div class="nn" id="nNm">Загрузка...</div><div class="nh" id="nHdl">@user</div></div></div>
-  <div class="nc">
-    <div class="nlk active" id="lk0" onclick="go(0)"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-    <div class="nlk" id="lk1" onclick="go(1)"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
-    <div class="nlk" id="lk2" onclick="go(2)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><div class="badge" id="wishBadge">0</div></div>
-  </div>
-  <div class="nr">
-    <div class="nic" onclick="go(3)"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><div class="badge" id="cartBadge">0</div></div>
-  </div>
-</nav>
-
-<div class="pg active" id="pg0">
-  <section class="hero"><div class="ver">v.1</div><h1 class="ht">Весенний <span>Блеск</span></h1><p class="hs">Откройте мир стиля и элегантности.</p><button class="btn b1" onclick="go(1)">Каталог →</button></section>
-  <div class="marquee"><div class="track"><span>TRIFFERI • ВЕСЕННИЙ БЛЕСК • 2026 • </span><span>TRIFFERI • ВЕСЕННИЙ БЛЕСК • 2026 • </span></div></div>
-  <section class="sec"><div class="sh"><div><div class="sl">Коллекция</div><div class="st">Новинки</div></div></div><div class="ps" id="pS"></div></section>
-  <section class="sec"><div class="sl">Категории</div><div class="st" style="margin-bottom:12px">Навигация</div><div class="cag"><div class="cac" onclick="filterCat('bag')"><div class="cai">👜</div><div class="can">Сумки</div></div><div class="cac" onclick="filterCat('shoes')"><div class="cai">👟</div><div class="can">Обувь</div></div><div class="cac" onclick="filterCat('acc')"><div class="cai">🕶</div><div class="can">Аксессуары</div></div><div class="cac" onclick="filterCat('clothes')"><div class="cai">👗</div><div class="can">Одежда</div></div></div></section>
-</div>
-
-<div class="pg" id="pg1">
-  <div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Каталог</h1></div>
-  <div class="cat-filter"><div class="filter-chip active" onclick="filterCat('all',this)">Все</div><div class="filter-chip" onclick="filterCat('bag',this)">Сумки</div><div class="filter-chip" onclick="filterCat('shoes',this)">Обувь</div><div class="filter-chip" onclick="filterCat('acc',this)">Аксессуары</div><div class="filter-chip" onclick="filterCat('clothes',this)">Одежда</div></div>
-  <div class="cag" id="cG"></div>
-</div>
-
-<div class="pg" id="pg2">
-  <div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Избранное</h1></div>
-  <div id="wishList" style="padding:0 14px"></div>
-</div>
-
-<div class="pg" id="pg3">
-  <div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Корзина</h1></div>
-  <div id="cartContent" style="padding:0 14px"></div>
-</div>
-
-<div class="pg" id="pg4">
-  <div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Профиль</h1></div>
-  <div class="profile-card"><div class="profile-av" id="profAv">Н</div><div class="profile-name" id="profName">Нурбек Тургунбаев</div><div class="profile-user" id="profUser">@nurikadambol</div><div class="profile-stats"><div class="profile-stat"><div class="profile-stat-val">0</div><div class="profile-stat-label">Заказов</div></div><div class="profile-stat"><div class="profile-stat-val">0</div><div class="profile-stat-label">Потрачено</div></div><div class="profile-stat"><div class="profile-stat-val">0</div><div class="profile-stat-label">Бонусы</div></div></div></div>
-  <div class="profile-menu"><div class="profile-item"><div class="profile-icon">📦</div><div class="profile-text">Мои заказы</div><div class="profile-arrow">→</div></div><div class="profile-item"><div class="profile-icon">📍</div><div class="profile-text">Адреса доставки</div><div class="profile-arrow">→</div></div><div class="profile-item"><div class="profile-icon">⚙️</div><div class="profile-text">Настройки</div><div class="profile-arrow">→</div></div><div class="profile-item"><div class="profile-icon">💬</div><div class="profile-text">Поддержка</div><div class="profile-arrow">→</div></div></div>
-</div>
-
-<div class="pg" id="pg5">
-  <div class="ph"><div class="pbk" onclick="go(lastPage||0)">←</div><h1 class="pt2" id="prodTitle">Товар</h1></div>
-  <div class="prod-page">
-    <div class="prod-img" id="prodImg">👜</div>
-    <div class="prod-title" id="prodName">LUNA</div>
-    <div class="prod-price" id="prodPrice">12 990 ₽</div>
-    <div class="prod-section"><div class="prod-section-title">Описание</div><div class="prod-desc">Эксклюзивная модель из коллекции TRIFFERI 2026. Высокое качество материалов, стильный дизайн и максимальный комфорт.</div></div>
-    <div class="prod-section" id="prodSizes"><div class="prod-section-title">Выберите размер</div><div class="size-opts"><button class="size-opt" onclick="selectSize(this)">S</button><button class="size-opt" onclick="selectSize(this)">M</button><button class="size-opt" onclick="selectSize(this)">L</button><button class="size-opt" onclick="selectSize(this)">XL</button></div></div><div style="display:flex;align-items:center;gap:12px;margin-top:16px;padding:14px;background:rgba(255,255,255,.03);border-radius:14px;border:1px solid rgba(255,255,255,.06)"><button class="qty-btn" id="prodMinusBtn" onclick="changeProdQty(-1)" style="width:34px;height:34px;font-size:16px;opacity:0.3">−</button><span id="prodQty" style="font-size:18px;font-weight:800;min-width:24px;text-align:center">0</span><button class="qty-btn" onclick="changeProdQty(1)" style="width:34px;height:34px;font-size:16px">+</button><div style="flex:1"></div><button class="prod-fav" id="prodFavBtn" onclick="toggleProdFav()"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div><div class="prod-section-title">Выберите размер</div><div class="size-opts"><button class="size-opt" onclick="this.classList.toggle('active')">S</button><button class="size-opt" onclick="this.classList.toggle('active')">M</button><button class="size-opt" onclick="this.classList.toggle('active')">L</button><button class="size-opt" onclick="this.classList.toggle('active')">XL</button></div></div>
-    <div class="recommendations"><div class="rec-title">Рекомендуем</div><div class="rec-grid" id="recGrid"></div></div>
-  </div>
-</div>
-
+</style></head><body><canvas id="p"></canvas>
+<nav class="nav"><div class="nl" onclick="go(4)"><div class="av" id="nAv">N</div><div><div class="nn" id="nNm">Загрузка...</div><div class="nh" id="nHdl">@user</div></div></div>
+<div class="nc"><div class="nlk active" id="lk0" onclick="go(0)"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nlk" id="lk1" onclick="go(1)"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><div class="nlk" id="lk2" onclick="go(2)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><div class="badge" id="wishBadge">0</div></div></div>
+<div class="nr"><div class="nic" onclick="go(3)"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><div class="badge" id="cartBadge">0</div></div></div></nav>
+<div class="pg active" id="pg0"><section class="hero"><div class="ver">v.1</div><h1 class="ht">Весенний <span>Блеск</span></h1><p class="hs">Откройте мир стиля и элегантности.</p><button class="btn b1" onclick="go(1)">Каталог →</button></section><div class="marquee"><div class="track"><span>TRIFFERI • ВЕСЕННИЙ БЛЕСК • 2026 • </span><span>TRIFFERI • ВЕСЕННИЙ БЛЕСК • 2026 • </span></div></div><section class="sec"><div class="sh"><div><div class="sl">Коллекция</div><div class="st">Новинки</div></div></div><div class="ps" id="pS"></div></section><section class="sec"><div class="sl">Категории</div><div class="st" style="margin-bottom:12px">Навигация</div><div class="cag"><div class="cac" onclick="filterCat('bag')"><div class="cai">👜</div><div class="can">Сумки</div></div><div class="cac" onclick="filterCat('shoes')"><div class="cai">👟</div><div class="can">Обувь</div></div><div class="cac" onclick="filterCat('acc')"><div class="cai"></div><div class="can">Аксессуары</div></div><div class="cac" onclick="filterCat('clothes')"><div class="cai"></div><div class="can">Одежда</div></div></div></section></div>
+<div class="pg" id="pg1"><div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Каталог</h1></div><div class="cat-filter"><div class="filter-chip active" onclick="filterCat('all',this)">Все</div><div class="filter-chip" onclick="filterCat('bag',this)">Сумки</div><div class="filter-chip" onclick="filterCat('shoes',this)">Обувь</div><div class="filter-chip" onclick="filterCat('acc',this)">Аксессуары</div><div class="filter-chip" onclick="filterCat('clothes',this)">Одежда</div></div><div class="cag" id="cG"></div></div>
+<div class="pg" id="pg2"><div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Избранное</h1></div><div id="wishList" style="padding:0 14px"></div></div>
+<div class="pg" id="pg3"><div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Корзина</h1></div><div id="cartContent" style="padding:0 14px"></div></div>
+<div class="pg" id="pg4"><div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Профиль</h1></div><div class="profile-card"><div class="profile-av" id="profAv">Н</div><div class="profile-name" id="profName">Нурбек Тургунбаев</div><div class="profile-user" id="profUser">@nurikadambol</div><div class="profile-stats"><div class="profile-stat"><div class="profile-stat-val">0</div><div class="profile-stat-label">Заказов</div></div><div class="profile-stat"><div class="profile-stat-val">0</div><div class="profile-stat-label">Потрачено</div></div><div class="profile-stat"><div class="profile-stat-val">0</div><div class="profile-stat-label">Бонусы</div></div></div></div><div class="profile-menu"><div class="profile-item"><div class="profile-icon">📦</div><div class="profile-text">Мои заказы</div><div class="profile-arrow">→</div></div><div class="profile-item"><div class="profile-icon">📍</div><div class="profile-text">Адреса доставки</div><div class="profile-arrow">→</div></div><div class="profile-item"><div class="profile-icon">⚙️</div><div class="profile-text">Настройки</div><div class="profile-arrow">→</div></div><div class="profile-item"><div class="profile-icon">💬</div><div class="profile-text">Поддержка</div><div class="profile-arrow">→</div></div></div></div>
+<div class="pg" id="pg5"><div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2" id="prodTitle">Товар</h1></div><div class="prod-page"><div class="prod-img" id="prodImg">👜</div><div class="prod-title" id="prodName">LUNA</div><div class="prod-price" id="prodPrice">12 990 ₽</div><div class="prod-section"><div class="prod-section-title">Описание</div><div class="prod-desc">Эксклюзивная модель из коллекции TRIFFERI 2026. Высокое качество материалов.</div></div><div class="prod-section" id="prodSizes" style="display:none"><div class="prod-section-title">Выберите размер</div><div class="size-opts"><button class="size-opt" onclick="selectSize(this,'S')">S</button><button class="size-opt" onclick="selectSize(this,'M')">M</button><button class="size-opt" onclick="selectSize(this,'L')">L</button><button class="size-opt" onclick="selectSize(this,'XL')">XL</button></div></div><div class="prod-actions"><button class="prod-fav" id="prodFavBtn" onclick="toggleProdFav()"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button><div class="prod-qty-wrap"><button class="qty-btn" id="prodMinusBtn" onclick="changeProdQty(-1)" style="opacity:0.3">−</button><span id="prodQty" style="font-size:18px;font-weight:800;min-width:24px;text-align:center">0</span><button class="qty-btn" onclick="changeProdQty(1)">+</button></div></div><div class="recommendations"><div class="rec-title">Рекомендуем</div><div class="rec-grid" id="recGrid"></div></div></div></div>
 <div class="toast" id="toast"></div>
-
-</body>
 <script>
 // PARTICLES
-const cv=document.getElementById('p'),cx=cv.getContext('2d');let W,H;
-function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();onresize=rs;
+const cv=document.getElementById('p'),cx=cv.getContext('2d');let W,H;function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();onresize=rs;
 const pts=[];for(let i=0;i<40;i++)pts.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()+.5,dx:(Math.random()-.5)*.3,dy:(Math.random()-.5)*.3,o:Math.random()*.3+.1});
 function dr(){cx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.dx;p.y+=p.dy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fillStyle=`rgba(77,139,245,${p.o})`;cx.fill()});requestAnimationFrame(dr)}dr();
 
-// DATA & STATE
-const P=[{n:'LUNA',c:'Сумка',cat:'bag',p:12990,e:'👜'},{n:'AURORA',c:'Кроссовки',cat:'shoes',p:7450,e:'👟'},{n:'SKY',c:'Очки',cat:'acc',p:4100,e:'🕶'},{n:'VELVET',c:'Платье',cat:'clothes',p:18900,e:'👗'},{n:'NOIR',c:'Часы',cat:'acc',p:24500,e:'⌚'},{n:'BLAZE',c:'Куртка',cat:'clothes',p:15600,e:'🧥'}];
+// DATA
+const P=[{n:'LUNA',c:'Сумка',cat:'bag',p:12990,e:''},{n:'AURORA',c:'Кроссовки',cat:'shoes',p:7450,e:'👟'},{n:'SKY',c:'Очки',cat:'acc',p:4100,e:'🕶'},{n:'VELVET',c:'Платье',cat:'clothes',p:18900,e:'👗'},{n:'NOIR',c:'Часы',cat:'acc',p:24500,e:'⌚'},{n:'BLAZE',c:'Куртка',cat:'clothes',p:15600,e:'🧥'}];
 let cart=JSON.parse(localStorage.getItem('cart'))||[];
 let wish=JSON.parse(localStorage.getItem('wish'))||[];
-let lastPage=0;
-let currentProd=null;
-let currentFilter='all';
-let selectedSize=null;
+let lastPage=0,currentProd=null,currentFilter='all',selectedSize=null;
 
 // TELEGRAM
-function initTG(){try{const tg=window.Telegram?.WebApp;const n=document.getElementById('nNm');const a=document.getElementById('nAv');const h=document.getElementById('nHdl');if(tg){tg.ready();tg.expand();const u=tg.initDataUnsafe?.user;if(u&&u.first_name){const nm=u.first_name+(u.last_name?' '+u.last_name:'');n.textContent=nm;a.textContent=nm[0];if(u.photo_url)a.innerHTML='<img src="'+u.photo_url+'">';if(u.username)h.textContent='@'+u.username;localStorage.setItem('tp',JSON.stringify({name:nm,username:u.username||'',photo:u.photo_url||''}));}else{n.textContent='Гость';}}else{n.textContent='Гость';}updateProfile();}catch(e){console.error(e);}}
-initTG();
+function initTG(){try{const tg=window.Telegram?.WebApp;const n=document.getElementById('nNm');const a=document.getElementById('nAv');const h=document.getElementById('nHdl');if(tg){tg.ready();tg.expand();const u=tg.initDataUnsafe?.user;if(u&&u.first_name){const nm=u.first_name+(u.last_name?' '+u.last_name:'');n.textContent=nm;a.textContent=nm[0];if(u.photo_url)a.innerHTML='<img src="'+u.photo_url+'">';if(u.username)h.textContent='@'+u.username;localStorage.setItem('tp',JSON.stringify({name:nm,username:u.username||'',photo:u.photo_url||''}));}else{n.textContent='Гость';}}else{n.textContent='Гость';}updateProfile();}catch(e){}}initTG();
 
-// NAVIGATION & FILTER
+// NAVIGATION
 function go(id){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));document.getElementById('pg'+id).classList.add('active');for(let i=0;i<3;i++)document.getElementById('lk'+i).classList.toggle('active',i===id);if(id===1){currentFilter='all';document.querySelectorAll('.filter-chip').forEach((c,i)=>c.classList.toggle('active',i===0));renderCatalog();}if(id===2)renderWish();if(id===3)renderCart();lastPage=id;window.scrollTo({top:0});}
 function filterCat(cat,btn){currentFilter=cat;if(btn){document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');}go(1);setTimeout(renderCatalog,50);}
 
@@ -163,29 +98,26 @@ function renderCart(){const c=document.getElementById('cartContent');if(!c)retur
 function renderRecs(){const g=document.getElementById('recGrid');if(!g||!currentProd)return;const recs=P.filter(p=>p.n!==currentProd.n).slice(0,4);g.innerHTML=recs.map(p=>`<div class="rec-item" onclick="openProd(${P.indexOf(p)})"><div class="rec-img">${p.e}</div><div class="rec-info"><div class="rec-name">${p.n}</div><div class="rec-price">${p.p.toLocaleString()} ₽</div></div></div>`).join('');}
 
 // ACTIONS
-function addToCart(n,c,p,e,ev){if(ev)ev.stopPropagation();const existing=cart.find(item=>item.n===n);if(existing){existing.q++;}else{cart.push({n,c,p,e,q:1,size:null});}localStorage.setItem('cart',JSON.stringify(cart));updBadges();toast('Добавлено в корзину ✓');if(document.getElementById('pg3').classList.contains('active'))renderCart();}
+function addToCart(n,c,p,e,ev){if(ev)ev.stopPropagation();const existing=cart.find(item=>item.n===n&&!item.size);if(existing){existing.q++;}else{cart.push({n,c,p,e,q:1,size:null});}localStorage.setItem('cart',JSON.stringify(cart));updBadges();toast('Добавлено в корзину ✓');if(document.getElementById('pg3').classList.contains('active'))renderCart();}
 function changeCartQty(idx,delta){cart[idx].q+=delta;if(cart[idx].q<1){cart.splice(idx,1);}localStorage.setItem('cart',JSON.stringify(cart));updBadges();renderCart();}
 function removeFromCart(idx){cart.splice(idx,1);localStorage.setItem('cart',JSON.stringify(cart));updBadges();renderCart();toast('Удалено из корзины');}
-
 function toggleWish(n,e,p,btn,ev){if(ev)ev.stopPropagation();const idx=wish.findIndex(w=>w.name===n);if(idx>-1){wish.splice(idx,1);if(btn){btn.classList.remove('active');btn.classList.add('heart-anim');setTimeout(()=>btn.classList.remove('heart-anim'),400);}toast('Удалено из избранного');}else{wish.push({name:n,emoji:e,price:p});if(btn){btn.classList.add('active');btn.classList.add('heart-anim');setTimeout(()=>btn.classList.remove('heart-anim'),400);}toast('Добавлено в избранное ❤');}localStorage.setItem('wish',JSON.stringify(wish));updBadges();syncHeartIcons();if(document.getElementById('pg2').classList.contains('active'))renderWish();}
 function removeFromWish(idx){wish.splice(idx,1);localStorage.setItem('wish',JSON.stringify(wish));updBadges();renderWish();syncHeartIcons();toast('Удалено');}
 function syncHeartIcons(){document.querySelectorAll('.pc-fav').forEach(btn=>{const name=btn.closest('.pc').querySelector('.pc-name').textContent;const isInWish=wish.some(w=>w.name===name);btn.classList.toggle('active',isInWish);});}
 
-// PRODUCT PAGE & SIZES
-function selectSize(btn){document.querySelectorAll('.size-opt').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedSize=btn.textContent;}
+// PRODUCT PAGE
+function selectSize(btn,size){document.querySelectorAll('.size-opt').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedSize=size;updateProdQty();}
 function openProd(idx){currentProd=P[idx];lastPage=0;selectedSize=null;document.querySelectorAll('.size-opt').forEach(b=>b.classList.remove('active'));document.getElementById('prodImg').textContent=currentProd.e;document.getElementById('prodName').textContent=currentProd.n;document.getElementById('prodPrice').textContent=currentProd.p.toLocaleString()+' ₽';updateProdQty();const isFav=wish.some(w=>w.name===currentProd.n);document.getElementById('prodFavBtn').classList.toggle('active',isFav);document.getElementById('prodSizes').style.display=(currentProd.cat==='clothes'||currentProd.cat==='shoes')?'block':'none';renderRecs();go(5);}
 function updateProdQty(){const inCart=cart.find(c=>c.n===currentProd.n&&c.size===selectedSize);const qty=inCart?inCart.q:0;document.getElementById('prodQty').textContent=qty;document.getElementById('prodMinusBtn').style.opacity=qty>0?'1':'0.3';}
 function changeProdQty(d){if(!currentProd)return;const size=selectedSize||null;let inCart=cart.find(c=>c.n===currentProd.n&&c.size===size);let qty=inCart?inCart.q:0;qty=Math.max(0,qty+d);if(qty===0){cart=cart.filter(c=>!(c.n===currentProd.n&&c.size===size));}else{if(inCart){inCart.q=qty;}else{cart.push({n:currentProd.n,c:currentProd.c,p:currentProd.p,e:currentProd.e,q:qty,size:size});}}localStorage.setItem('cart',JSON.stringify(cart));updateProdQty();updBadges();}
 function addProdToCart(){if(currentProd){changeProdQty(1);toast('Добавлено в корзину ✓');}}
 function toggleProdFav(){if(currentProd){toggleWish(currentProd.n,currentProd.e,currentProd.p,document.getElementById('prodFavBtn'),null);}}
 
-// PROFILE & UTILS
+// UTILS
 function updateProfile(){const tp=JSON.parse(localStorage.getItem('tp'));if(tp){document.getElementById('profName').textContent=tp.name;document.getElementById('profUser').textContent=tp.username||'@user';const av=document.getElementById('profAv');if(tp.photo){av.innerHTML='<img src="'+tp.photo+'">';}else{av.textContent=tp.name[0];}}}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
 function updBadges(){const cc=cart.reduce((a,i)=>a+i.q,0);const wc=wish.length;document.getElementById('cartBadge').textContent=cc;document.getElementById('cartBadge').style.display=cc?'flex':'none';document.getElementById('wishBadge').textContent=wc;document.getElementById('wishBadge').style.display=wc?'flex':'none';}
 function checkout(){if(!cart.length)return;const items=cart.map(i=>`${i.n}${i.size?' (Размер: '+i.size+')':''} x${i.q} - ${(i.p*i.q).toLocaleString()} ₽`).join('\n');const total=cart.reduce((a,i)=>a+i.p*i.q,0);const msg=`🛍 ЗАКАЗ TRIFFERI\n\n${items}\n\n💰 Итого: ${total.toLocaleString()} ₽`;window.open(`https://t.me/nurikadambol?text=${encodeURIComponent(msg)}`,'_blank');}
 
-// INIT
 renderHome();updBadges();
-</script>
-</html>
+</script></body></html>
