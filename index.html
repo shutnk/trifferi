@@ -239,4 +239,47 @@ function checkout(){if(!cart.length)return;const items=cart.map(i=>`${i.n} x${i.
 renderHome();updBadges();
 </script>
 </body>
+// Добавь этот скрипт перед </body>
+<script>
+// Исправляем renderCatalog
+function renderCatalog(){
+  const c=document.getElementById('cG');
+  if(!c)return;
+  c.innerHTML=P.map((i,idx)=>`
+    <div class="pc" style="min-width:100%;margin-bottom:12px" onclick="openProd(${P.indexOf(i)})">
+      <div class="pc-img">${i.e}
+        <div class="pc-tag ${idx%2?'tag-hit':'tag-new'}">${idx%2?'ХИТ':'NEW'}</div>
+        <div class="pc-fav ${wish.some(w=>w.name===i.n)?'active':''}" onclick="toggleWish('${i.n}','${i.e}',${i.p},this,event)">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:currentColor;fill-opacity:${wish.some(w=>w.name===i.n)?'.3':'0'};stroke-width:2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="pc-info">
+        <div class="pc-name">${i.n}</div>
+        <div class="pc-cat">${i.c}</div>
+        <div class="pc-rating"><span class="pc-stars">★★★★★</span><span class="pc-reviews">(${Math.floor(Math.random()*50+10)})</span></div>
+        <div class="pc-price-row"><span class="pc-price">${i.p.toLocaleString()} ₽</span><span class="pc-old">${Math.floor(i.p*1.3).toLocaleString()} ₽</span></div>
+        <button class="pc-cart" onclick="addToCart('${i.n}','${i.c}',${i.p},'${i.e}',event)">+ Корзина</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Исправляем renderWish  
+function renderWish(){
+  const c=document.getElementById('wishList');
+  if(!c)return;
+  console.log('Wishlist:',wish);
+  if(!wish.length){
+    c.innerHTML='<div style="text-align:center;padding:60px 20px;color:rgba(255,255,255,.4)"><div style="font-size:48px;margin-bottom:16px">♡</div><div>Пока пусто</div><p style="margin-top:12px;font-size:14px">Добавьте товары в избранное</p></div>';
+    return;
+  }
+  c.innerHTML='<div class="cag">'+wish.map((i,idx)=>`
+    <div class="cac" onclick="openProd(${P.findIndex(p=>p.name===i.name||p.n===i.name)})">
+      <div class="cai">${i.emoji}</div>
+      <div class="can">${i.name}</div>
+      <div class="cap">${typeof i.price==='number'?i.price.toLocaleString()+' ₽':i.price}</div>
+    </div>
+  `).join('')+'</div>';
+}
+</script>
 </html>
