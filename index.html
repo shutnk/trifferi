@@ -120,7 +120,7 @@ body{font-family:Inter,sans-serif;background:var(--bg);color:#f8f8ff;overflow-x:
     <div class="prod-price" id="prodPrice">12 990 ₽</div>
     <div class="prod-section"><div class="prod-section-title">Описание</div><div class="prod-desc">Эксклюзивная модель из коллекции TRIFFERI 2026. Высокое качество материалов, стильный дизайн и максимальный комфорт.</div></div>
     <div class="prod-section" id="prodSizes"><div class="prod-section-title">Выберите размер</div><div class="size-opts"><button class="size-opt" onclick="this.classList.toggle('active')">S</button><button class="size-opt" onclick="this.classList.toggle('active')">M</button><button class="size-opt" onclick="this.classList.toggle('active')">L</button><button class="size-opt" onclick="this.classList.toggle('active')">XL</button></div></div>
-    <div class="prod-actions"><button class="prod-fav" id="prodFavBtn" onclick="toggleProdFav()"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button><button class="prod-add" id="prodAddBtn" onclick="addProdToCart()">Добавить в корзину</button></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:20px;padding:16px;background:rgba(255,255,255,.03);border-radius:16px;border:1px solid rgba(255,255,255,.06)"><button class="qty-btn" id="prodMinusBtn" onclick="changeProdQty(-1)" style="width:36px;height:36px;font-size:18px;opacity:0.3">−</button><span id="prodQty" style="font-size:20px;font-weight:800;min-width:30px;text-align:center">0</span><button class="qty-btn" onclick="changeProdQty(1)" style="width:36px;height:36px;font-size:18px">+</button><div style="flex:1"></div><button class="prod-fav" id="prodFavBtn" onclick="toggleProdFav()"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
     <div class="recommendations"><div class="rec-title">Рекомендуем</div><div class="rec-grid" id="recGrid"></div></div>
   </div>
 </div>
@@ -183,4 +183,58 @@ function checkout(){if(!cart.length)return;const items=cart.map(i=>`${i.n} x${i.
 renderHome();updBadges();
 </script>
 </body>
+<script>
+// --- ФИКС 1: Кнопка удаления в избранном ---
+function renderWish(){
+  const c=document.getElementById('wishList'); if(!c)return;
+  if(!wish.length){
+    c.innerHTML='<div style="text-align:center;padding:60px 20px;color:rgba(255,255,255,.4)"><div style="font-size:48px;margin-bottom:16px">♡</div><div>Пока пусто</div><p style="margin-top:12px;font-size:14px">Добавьте товары в избранное</p></div>';
+    return;
+  }
+  c.innerHTML='<div class="cag">'+wish.map((i,idx)=>`
+    <div class="cac" style="position:relative">
+      <div style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,80,80,.2);border:none;color:#ff5555;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5" onclick="removeFromWish(${idx})">×</div>
+      <div class="cai">${i.emoji}</div>
+      <div class="can">${i.name}</div>
+      <div class="cap">${typeof i.price==='number'?i.price.toLocaleString()+' ₽':i.price}</div>
+    </div>
+  `).join('')+'</div>';
+}
+function removeFromWish(idx){
+  wish.splice(idx,1); localStorage.setItem('wish',JSON.stringify(wish));
+  renderWish(); updBadges(); syncHeartIcons(); toast('Удалено из избранного');
+}
+
+// --- ФИКС 2: Счётчик количества в карточке товара ---
+function openProd(idx){
+  currentProd=P[idx];
+  lastPage=document.querySelector('.pg.active').id.replace('pg','');
+  document.getElementById('prodImg').textContent=currentProd.e;
+  document.getElementById('prodName').textContent=currentProd.n;
+  document.getElementById('prodPrice').textContent=currentProd.p.toLocaleString()+' ₽';
+  
+  const inCart=cart.find(c=>c.n===currentProd.n);
+  const qty=inCart?inCart.q:0;
+  document.getElementById('prodQty').textContent=qty;
+  document.getElementById('prodMinusBtn').style.opacity=qty>0?'1':'0.3';
+  
+  const isFav=wish.some(w=>w.name===currentProd.n);
+  document.getElementById('prodFavBtn').classList.toggle('active',isFav);
+  document.getElementById('prodSizes').style.display=(currentProd.cat==='clothes'||currentProd.cat==='shoes')?'block':'none';
+  renderRecs(); go(5);
+}
+function changeProdQty(d){
+  if(!currentProd)return;
+  let inCart=cart.find(c=>c.n===currentProd.n);
+  let qty=inCart?inCart.q:0;
+  qty=Math.max(0, qty+d);
+  if(qty===0){cart=cart.filter(c=>c.n!==currentProd.n);}
+  else{if(inCart){inCart.q=qty;}else{cart.push({n:currentProd.n,c:currentProd.c,p:currentProd.p,e:currentProd.e,q:qty});}}
+  localStorage.setItem('cart',JSON.stringify(cart));
+  document.getElementById('prodQty').textContent=qty;
+  document.getElementById('prodMinusBtn').style.opacity=qty>0?'1':'0.3';
+  updBadges();
+}
+function addProdToCart(){ if(currentProd){ changeProdQty(1); toast('Добавлено в корзину ✓'); } }
+</script>
 </html>
