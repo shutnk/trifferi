@@ -119,14 +119,14 @@ body{font-family:Inter,sans-serif;background:var(--bg);color:#f8f8ff;overflow-x:
     <div class="prod-title" id="prodName">LUNA</div>
     <div class="prod-price" id="prodPrice">12 990 ₽</div>
     <div class="prod-section"><div class="prod-section-title">Описание</div><div class="prod-desc">Эксклюзивная модель из коллекции TRIFFERI 2026. Высокое качество материалов, стильный дизайн и максимальный комфорт.</div></div>
-    <div class="prod-section" id="prodSizes"><div class="prod-section-title">Выберите размер</div><div class="size-opts"><button class="size-opt" onclick="this.classList.toggle('active')">S</button><button class="size-opt" onclick="this.classList.toggle('active')">M</button><button class="size-opt" onclick="this.classList.toggle('active')">L</button><button class="size-opt" onclick="this.classList.toggle('active')">XL</button></div></div>
-    <div style="display:flex;align-items:center;gap:12px;margin-top:20px;padding:16px;background:rgba(255,255,255,.03);border-radius:16px;border:1px solid rgba(255,255,255,.06)"><button class="qty-btn" id="prodMinusBtn" onclick="changeProdQty(-1)" style="width:36px;height:36px;font-size:18px;opacity:0.3">−</button><span id="prodQty" style="font-size:20px;font-weight:800;min-width:30px;text-align:center">0</span><button class="qty-btn" onclick="changeProdQty(1)" style="width:36px;height:36px;font-size:18px">+</button><div style="flex:1"></div><button class="prod-fav" id="prodFavBtn" onclick="toggleProdFav()"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
+    <div class="prod-section" id="prodSizes"><div class="prod-section-title">Выберите размер</div><div class="size-opts"><button class="size-opt" onclick="selectSize(this)">S</button><button class="size-opt" onclick="selectSize(this)">M</button><button class="size-opt" onclick="selectSize(this)">L</button><button class="size-opt" onclick="selectSize(this)">XL</button></div></div><div style="display:flex;align-items:center;gap:12px;margin-top:16px;padding:14px;background:rgba(255,255,255,.03);border-radius:14px;border:1px solid rgba(255,255,255,.06)"><button class="qty-btn" id="prodMinusBtn" onclick="changeProdQty(-1)" style="width:34px;height:34px;font-size:16px;opacity:0.3">−</button><span id="prodQty" style="font-size:18px;font-weight:800;min-width:24px;text-align:center">0</span><button class="qty-btn" onclick="changeProdQty(1)" style="width:34px;height:34px;font-size:16px">+</button><div style="flex:1"></div><button class="prod-fav" id="prodFavBtn" onclick="toggleProdFav()"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div><div class="prod-section-title">Выберите размер</div><div class="size-opts"><button class="size-opt" onclick="this.classList.toggle('active')">S</button><button class="size-opt" onclick="this.classList.toggle('active')">M</button><button class="size-opt" onclick="this.classList.toggle('active')">L</button><button class="size-opt" onclick="this.classList.toggle('active')">XL</button></div></div>
     <div class="recommendations"><div class="rec-title">Рекомендуем</div><div class="rec-grid" id="recGrid"></div></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
+</body>
 <script>
 // PARTICLES
 const cv=document.getElementById('p'),cx=cv.getContext('2d');let W,H;
@@ -134,107 +134,58 @@ function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();onresize=rs;
 const pts=[];for(let i=0;i<40;i++)pts.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()+.5,dx:(Math.random()-.5)*.3,dy:(Math.random()-.5)*.3,o:Math.random()*.3+.1});
 function dr(){cx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.dx;p.y+=p.dy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fillStyle=`rgba(77,139,245,${p.o})`;cx.fill()});requestAnimationFrame(dr)}dr();
 
-// DATA
-const P=[{n:'LUNA',c:'Сумка',cat:'bag',p:12990,e:'👜'},{n:'AURORA',c:'Кроссовки',cat:'shoes',p:7450,e:''},{n:'SKY',c:'Очки',cat:'acc',p:4100,e:'🕶'},{n:'VELVET',c:'Платье',cat:'clothes',p:18900,e:''},{n:'NOIR',c:'Часы',cat:'acc',p:24500,e:'⌚'},{n:'BLAZE',c:'Куртка',cat:'clothes',p:15600,e:'🧥'}];
+// DATA & STATE
+const P=[{n:'LUNA',c:'Сумка',cat:'bag',p:12990,e:'👜'},{n:'AURORA',c:'Кроссовки',cat:'shoes',p:7450,e:'👟'},{n:'SKY',c:'Очки',cat:'acc',p:4100,e:'🕶'},{n:'VELVET',c:'Платье',cat:'clothes',p:18900,e:'👗'},{n:'NOIR',c:'Часы',cat:'acc',p:24500,e:'⌚'},{n:'BLAZE',c:'Куртка',cat:'clothes',p:15600,e:'🧥'}];
 let cart=JSON.parse(localStorage.getItem('cart'))||[];
 let wish=JSON.parse(localStorage.getItem('wish'))||[];
 let lastPage=0;
 let currentProd=null;
 let currentFilter='all';
+let selectedSize=null;
 
 // TELEGRAM
 function initTG(){try{const tg=window.Telegram?.WebApp;const n=document.getElementById('nNm');const a=document.getElementById('nAv');const h=document.getElementById('nHdl');if(tg){tg.ready();tg.expand();const u=tg.initDataUnsafe?.user;if(u&&u.first_name){const nm=u.first_name+(u.last_name?' '+u.last_name:'');n.textContent=nm;a.textContent=nm[0];if(u.photo_url)a.innerHTML='<img src="'+u.photo_url+'">';if(u.username)h.textContent='@'+u.username;localStorage.setItem('tp',JSON.stringify({name:nm,username:u.username||'',photo:u.photo_url||''}));}else{n.textContent='Гость';}}else{n.textContent='Гость';}updateProfile();}catch(e){console.error(e);}}
 initTG();
 
 // NAVIGATION & FILTER
-function go(id){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));document.getElementById('pg'+id).classList.add('active');for(let i=0;i<3;i++)document.getElementById('lk'+i).classList.toggle('active',i===id);if(id===1){currentFilter='all';renderCatalog();}if(id===2)renderWish();if(id===3)renderCart();lastPage=id;window.scrollTo({top:0});}
-function filterCat(cat,btn){currentFilter=cat;if(btn){document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');}go(1);setTimeout(()=>renderCatalog(),50);}
+function go(id){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));document.getElementById('pg'+id).classList.add('active');for(let i=0;i<3;i++)document.getElementById('lk'+i).classList.toggle('active',i===id);if(id===1){currentFilter='all';document.querySelectorAll('.filter-chip').forEach((c,i)=>c.classList.toggle('active',i===0));renderCatalog();}if(id===2)renderWish();if(id===3)renderCart();lastPage=id;window.scrollTo({top:0});}
+function filterCat(cat,btn){currentFilter=cat;if(btn){document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');}go(1);setTimeout(renderCatalog,50);}
 
-// RENDER FUNCTIONS
+// RENDER
 function renderHome(){document.getElementById('pS').innerHTML=P.map((i,idx)=>`<div class="pc" onclick="openProd(${P.indexOf(i)})"><div class="pc-img">${i.e}<div class="pc-tag ${idx%2?'tag-hit':'tag-new'}">${idx%2?'ХИТ':'NEW'}</div><div class="pc-fav ${wish.some(w=>w.name===i.n)?'active':''}" onclick="toggleWish('${i.n}','${i.e}',${i.p},this,event)"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:currentColor;fill-opacity:${wish.some(w=>w.name===i.n)?'.3':'0'};stroke-width:2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div></div><div class="pc-info"><div class="pc-name">${i.n}</div><div class="pc-cat">${i.c}</div><div class="pc-rating"><span class="pc-stars">★★★★★</span><span class="pc-reviews">(${Math.floor(Math.random()*50+10)})</span></div><div class="pc-price-row"><span class="pc-price">${i.p.toLocaleString()} ₽</span><span class="pc-old">${Math.floor(i.p*1.3).toLocaleString()} ₽</span></div><button class="pc-cart" onclick="addToCart('${i.n}','${i.c}',${i.p},'${i.e}',event)">+ Корзина</button></div></div>`).join('');}
 
 function renderCatalog(){const c=document.getElementById('cG');if(!c)return;const filtered=currentFilter==='all'?P:P.filter(p=>p.cat===currentFilter);c.innerHTML=filtered.map((i,idx)=>`<div class="pc" style="min-width:100%;margin-bottom:12px" onclick="openProd(${P.indexOf(i)})"><div class="pc-img">${i.e}<div class="pc-tag ${idx%2?'tag-hit':'tag-new'}">${idx%2?'ХИТ':'NEW'}</div><div class="pc-fav ${wish.some(w=>w.name===i.n)?'active':''}" onclick="toggleWish('${i.n}','${i.e}',${i.p},this,event)"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:currentColor;fill-opacity:${wish.some(w=>w.name===i.n)?'.3':'0'};stroke-width:2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div></div><div class="pc-info"><div class="pc-name">${i.n}</div><div class="pc-cat">${i.c}</div><div class="pc-rating"><span class="pc-stars">★★★★★</span><span class="pc-reviews">(${Math.floor(Math.random()*50+10)})</span></div><div class="pc-price-row"><span class="pc-price">${i.p.toLocaleString()} ₽</span><span class="pc-old">${Math.floor(i.p*1.3).toLocaleString()} ₽</span></div><button class="pc-cart" onclick="addToCart('${i.n}','${i.c}',${i.p},'${i.e}',event)">+ Корзина</button></div></div>`).join('');}
 
-function renderWish(){const c=document.getElementById('wishList');if(!c)return;if(!wish.length){c.innerHTML='<div style="text-align:center;padding:60px 20px;color:rgba(255,255,255,.4)"><div style="font-size:48px;margin-bottom:16px">♡</div><div>Пока пусто</div><p style="margin-top:12px;font-size:14px">Добавьте товары в избранное</p></div>';return;}c.innerHTML='<div class="cag">'+wish.map((i,idx)=>`<div class="cac" onclick="openProd(${P.findIndex(p=>p.n===i.name)})"><div class="cai">${i.emoji}</div><div class="can">${i.name}</div><div class="cap">${typeof i.price==='number'?i.price.toLocaleString()+' ₽':i.price}</div></div>`).join('')+'</div>';}
+function renderWish(){const c=document.getElementById('wishList');if(!c)return;if(!wish.length){c.innerHTML='<div style="text-align:center;padding:60px 20px;color:rgba(255,255,255,.4)"><div style="font-size:48px;margin-bottom:16px">♡</div><div>Пока пусто</div></div>';return;}c.innerHTML='<div class="cag">'+wish.map((i,idx)=>`<div class="cac" style="position:relative"><div style="position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;background:rgba(255,80,80,.2);border:none;color:#ff5555;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5" onclick="removeFromWish(${idx})">×</div><div class="cai">${i.emoji}</div><div class="can">${i.name}</div><div class="cap">${typeof i.price==='number'?i.price.toLocaleString()+' ₽':i.price}</div></div>`).join('')+'</div>';}
 
-function renderCart(){const c=document.getElementById('cartContent');if(!c)return;if(!cart.length){c.innerHTML='<div style="text-align:center;padding:60px 20px;color:rgba(255,255,255,.4)"><div style="font-size:48px;margin-bottom:16px">🛒</div><div>Корзина пуста</div></div>';return;}let total=0;let html=cart.map((item,idx)=>{total+=item.p*item.q;return `<div class="cart-item"><div style="font-size:32px">${item.e}</div><div style="flex:1"><div style="font-weight:700">${item.n}</div><div style="font-size:12px;color:rgba(255,255,255,.4)">${item.c}</div><div class="cart-qty"><button class="qty-btn" onclick="changeQty(${idx},-1)">−</button><span style="font-weight:700">${item.q}</span><button class="qty-btn" onclick="changeQty(${idx},1)">+</button></div></div><div style="text-align:right"><div style="color:var(--b2);font-weight:800;margin-bottom:4px">${(item.p*item.q).toLocaleString()} ₽</div><button class="cart-remove" onclick="removeFromCart(${idx})">×</button></div></div>`}).join('');html+=`<div class="cart-sum"><div style="display:flex;justify-content:space-between;margin-bottom:12px"><span style="font-size:16px">Итого</span><span style="font-size:20px;font-weight:800;color:var(--b2)">${total.toLocaleString()} ₽</span></div><button class="checkout-btn" onclick="checkout()">Оформить заказ</button></div>`;c.innerHTML=html;}
+function renderCart(){const c=document.getElementById('cartContent');if(!c)return;if(!cart.length){c.innerHTML='<div style="text-align:center;padding:60px 20px;color:rgba(255,255,255,.4)"><div style="font-size:48px;margin-bottom:16px">🛒</div><div>Корзина пуста</div></div>';return;}let total=0;let html=cart.map((item,idx)=>{total+=item.p*item.q;const sizeLabel=item.size?`<span style="font-size:10px;background:rgba(255,255,255,.1);padding:2px 6px;border-radius:4px;margin-left:6px">Размер: ${item.size}</span>`:'';return `<div class="cart-item"><div style="font-size:30px">${item.e}</div><div style="flex:1"><div style="font-weight:700">${item.n} ${sizeLabel}</div><div style="font-size:11px;color:rgba(255,255,255,.4)">${item.c}</div><div class="cart-qty"><button class="qty-btn" onclick="changeCartQty(${idx},-1)">−</button><span style="font-weight:700;font-size:14px">${item.q}</span><button class="qty-btn" onclick="changeCartQty(${idx},1)">+</button></div></div><div style="text-align:right"><div style="color:var(--b2);font-weight:800;font-size:14px">${(item.p*item.q).toLocaleString()} ₽</div><button class="cart-remove" onclick="removeFromCart(${idx})" style="margin-top:6px">×</button></div></div>`}).join('');html+=`<div class="cart-sum"><div style="display:flex;justify-content:space-between;margin-bottom:12px"><span style="font-size:15px">Итого</span><span style="font-size:18px;font-weight:800;color:var(--b2)">${total.toLocaleString()} ₽</span></div><button class="checkout-btn" onclick="checkout()">Оформить заказ</button></div>`;c.innerHTML=html;}
 
 function renderRecs(){const g=document.getElementById('recGrid');if(!g||!currentProd)return;const recs=P.filter(p=>p.n!==currentProd.n).slice(0,4);g.innerHTML=recs.map(p=>`<div class="rec-item" onclick="openProd(${P.indexOf(p)})"><div class="rec-img">${p.e}</div><div class="rec-info"><div class="rec-name">${p.n}</div><div class="rec-price">${p.p.toLocaleString()} ₽</div></div></div>`).join('');}
 
 // ACTIONS
-function addToCart(n,c,p,e,ev){if(ev)ev.stopPropagation();const existing=cart.find(item=>item.n===n);if(existing){existing.q++;}else{cart.push({n,c,p,e,q:1});}localStorage.setItem('cart',JSON.stringify(cart));updBadges();toast('Добавлено в корзину ✓');if(document.getElementById('pg3').classList.contains('active'))renderCart();}
-function changeQty(idx,delta){cart[idx].q+=delta;if(cart[idx].q<1){cart.splice(idx,1);}localStorage.setItem('cart',JSON.stringify(cart));updBadges();renderCart();}
+function addToCart(n,c,p,e,ev){if(ev)ev.stopPropagation();const existing=cart.find(item=>item.n===n);if(existing){existing.q++;}else{cart.push({n,c,p,e,q:1,size:null});}localStorage.setItem('cart',JSON.stringify(cart));updBadges();toast('Добавлено в корзину ✓');if(document.getElementById('pg3').classList.contains('active'))renderCart();}
+function changeCartQty(idx,delta){cart[idx].q+=delta;if(cart[idx].q<1){cart.splice(idx,1);}localStorage.setItem('cart',JSON.stringify(cart));updBadges();renderCart();}
 function removeFromCart(idx){cart.splice(idx,1);localStorage.setItem('cart',JSON.stringify(cart));updBadges();renderCart();toast('Удалено из корзины');}
+
 function toggleWish(n,e,p,btn,ev){if(ev)ev.stopPropagation();const idx=wish.findIndex(w=>w.name===n);if(idx>-1){wish.splice(idx,1);if(btn){btn.classList.remove('active');btn.classList.add('heart-anim');setTimeout(()=>btn.classList.remove('heart-anim'),400);}toast('Удалено из избранного');}else{wish.push({name:n,emoji:e,price:p});if(btn){btn.classList.add('active');btn.classList.add('heart-anim');setTimeout(()=>btn.classList.remove('heart-anim'),400);}toast('Добавлено в избранное ❤');}localStorage.setItem('wish',JSON.stringify(wish));updBadges();syncHeartIcons();if(document.getElementById('pg2').classList.contains('active'))renderWish();}
+function removeFromWish(idx){wish.splice(idx,1);localStorage.setItem('wish',JSON.stringify(wish));updBadges();renderWish();syncHeartIcons();toast('Удалено');}
 function syncHeartIcons(){document.querySelectorAll('.pc-fav').forEach(btn=>{const name=btn.closest('.pc').querySelector('.pc-name').textContent;const isInWish=wish.some(w=>w.name===name);btn.classList.toggle('active',isInWish);});}
 
-// PRODUCT PAGE
-function openProd(idx){currentProd=P[idx];lastPage=document.querySelector('.pg.active').id.replace('pg','');document.getElementById('prodImg').textContent=currentProd.e;document.getElementById('prodName').textContent=currentProd.n;document.getElementById('prodPrice').textContent=currentProd.p.toLocaleString()+' ₽';const isFav=wish.some(w=>w.name===currentProd.n);document.getElementById('prodFavBtn').classList.toggle('active',isFav);const sizes=document.getElementById('prodSizes');sizes.style.display=(currentProd.cat==='clothes'||currentProd.cat==='shoes')?'block':'none';renderRecs();go(5);}
-function addProdToCart(){if(currentProd){addToCart(currentProd.n,currentProd.c,currentProd.p,currentProd.e);go(lastPage||0);}}
+// PRODUCT PAGE & SIZES
+function selectSize(btn){document.querySelectorAll('.size-opt').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedSize=btn.textContent;}
+function openProd(idx){currentProd=P[idx];lastPage=0;selectedSize=null;document.querySelectorAll('.size-opt').forEach(b=>b.classList.remove('active'));document.getElementById('prodImg').textContent=currentProd.e;document.getElementById('prodName').textContent=currentProd.n;document.getElementById('prodPrice').textContent=currentProd.p.toLocaleString()+' ₽';updateProdQty();const isFav=wish.some(w=>w.name===currentProd.n);document.getElementById('prodFavBtn').classList.toggle('active',isFav);document.getElementById('prodSizes').style.display=(currentProd.cat==='clothes'||currentProd.cat==='shoes')?'block':'none';renderRecs();go(5);}
+function updateProdQty(){const inCart=cart.find(c=>c.n===currentProd.n&&c.size===selectedSize);const qty=inCart?inCart.q:0;document.getElementById('prodQty').textContent=qty;document.getElementById('prodMinusBtn').style.opacity=qty>0?'1':'0.3';}
+function changeProdQty(d){if(!currentProd)return;const size=selectedSize||null;let inCart=cart.find(c=>c.n===currentProd.n&&c.size===size);let qty=inCart?inCart.q:0;qty=Math.max(0,qty+d);if(qty===0){cart=cart.filter(c=>!(c.n===currentProd.n&&c.size===size));}else{if(inCart){inCart.q=qty;}else{cart.push({n:currentProd.n,c:currentProd.c,p:currentProd.p,e:currentProd.e,q:qty,size:size});}}localStorage.setItem('cart',JSON.stringify(cart));updateProdQty();updBadges();}
+function addProdToCart(){if(currentProd){changeProdQty(1);toast('Добавлено в корзину ✓');}}
 function toggleProdFav(){if(currentProd){toggleWish(currentProd.n,currentProd.e,currentProd.p,document.getElementById('prodFavBtn'),null);}}
 
 // PROFILE & UTILS
 function updateProfile(){const tp=JSON.parse(localStorage.getItem('tp'));if(tp){document.getElementById('profName').textContent=tp.name;document.getElementById('profUser').textContent=tp.username||'@user';const av=document.getElementById('profAv');if(tp.photo){av.innerHTML='<img src="'+tp.photo+'">';}else{av.textContent=tp.name[0];}}}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
 function updBadges(){const cc=cart.reduce((a,i)=>a+i.q,0);const wc=wish.length;document.getElementById('cartBadge').textContent=cc;document.getElementById('cartBadge').style.display=cc?'flex':'none';document.getElementById('wishBadge').textContent=wc;document.getElementById('wishBadge').style.display=wc?'flex':'none';}
-function checkout(){if(!cart.length)return;const items=cart.map(i=>`${i.n} x${i.q} - ${(i.p*i.q).toLocaleString()} ₽`).join('\n');const total=cart.reduce((a,i)=>a+i.p*i.q,0);const msg=` ЗАКАЗ TRIFFERI\n\n${items}\n\n💰 Итого: ${total.toLocaleString()} ₽`;window.open(`https://t.me/nurikadambol?text=${encodeURIComponent(msg)}`,'_blank');}
+function checkout(){if(!cart.length)return;const items=cart.map(i=>`${i.n}${i.size?' (Размер: '+i.size+')':''} x${i.q} - ${(i.p*i.q).toLocaleString()} ₽`).join('\n');const total=cart.reduce((a,i)=>a+i.p*i.q,0);const msg=`🛍 ЗАКАЗ TRIFFERI\n\n${items}\n\n💰 Итого: ${total.toLocaleString()} ₽`;window.open(`https://t.me/nurikadambol?text=${encodeURIComponent(msg)}`,'_blank');}
 
 // INIT
 renderHome();updBadges();
-</script>
-</body>
-<script>
-// --- ФИКС 1: Кнопка удаления в избранном ---
-function renderWish(){
-  const c=document.getElementById('wishList'); if(!c)return;
-  if(!wish.length){
-    c.innerHTML='<div style="text-align:center;padding:60px 20px;color:rgba(255,255,255,.4)"><div style="font-size:48px;margin-bottom:16px">♡</div><div>Пока пусто</div><p style="margin-top:12px;font-size:14px">Добавьте товары в избранное</p></div>';
-    return;
-  }
-  c.innerHTML='<div class="cag">'+wish.map((i,idx)=>`
-    <div class="cac" style="position:relative">
-      <div style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,80,80,.2);border:none;color:#ff5555;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5" onclick="removeFromWish(${idx})">×</div>
-      <div class="cai">${i.emoji}</div>
-      <div class="can">${i.name}</div>
-      <div class="cap">${typeof i.price==='number'?i.price.toLocaleString()+' ₽':i.price}</div>
-    </div>
-  `).join('')+'</div>';
-}
-function removeFromWish(idx){
-  wish.splice(idx,1); localStorage.setItem('wish',JSON.stringify(wish));
-  renderWish(); updBadges(); syncHeartIcons(); toast('Удалено из избранного');
-}
-
-// --- ФИКС 2: Счётчик количества в карточке товара ---
-function openProd(idx){
-  currentProd=P[idx];
-  lastPage=document.querySelector('.pg.active').id.replace('pg','');
-  document.getElementById('prodImg').textContent=currentProd.e;
-  document.getElementById('prodName').textContent=currentProd.n;
-  document.getElementById('prodPrice').textContent=currentProd.p.toLocaleString()+' ₽';
-  
-  const inCart=cart.find(c=>c.n===currentProd.n);
-  const qty=inCart?inCart.q:0;
-  document.getElementById('prodQty').textContent=qty;
-  document.getElementById('prodMinusBtn').style.opacity=qty>0?'1':'0.3';
-  
-  const isFav=wish.some(w=>w.name===currentProd.n);
-  document.getElementById('prodFavBtn').classList.toggle('active',isFav);
-  document.getElementById('prodSizes').style.display=(currentProd.cat==='clothes'||currentProd.cat==='shoes')?'block':'none';
-  renderRecs(); go(5);
-}
-function changeProdQty(d){
-  if(!currentProd)return;
-  let inCart=cart.find(c=>c.n===currentProd.n);
-  let qty=inCart?inCart.q:0;
-  qty=Math.max(0, qty+d);
-  if(qty===0){cart=cart.filter(c=>c.n!==currentProd.n);}
-  else{if(inCart){inCart.q=qty;}else{cart.push({n:currentProd.n,c:currentProd.c,p:currentProd.p,e:currentProd.e,q:qty});}}
-  localStorage.setItem('cart',JSON.stringify(cart));
-  document.getElementById('prodQty').textContent=qty;
-  document.getElementById('prodMinusBtn').style.opacity=qty>0?'1':'0.3';
-  updBadges();
-}
-function addProdToCart(){ if(currentProd){ changeProdQty(1); toast('Добавлено в корзину ✓'); } }
 </script>
 </html>
