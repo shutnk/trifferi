@@ -44,8 +44,9 @@ def home():
     return "Bot is alive!"
 
 def run_server():
+    app.run(host='0.0.0.0', port=10000)
 
-# Маршрут для магазина (WebApp)
+# ===== МАРШРУТЫ ДЛЯ WEBAPP =====
 @app.route('/shop')
 @app.route('/store')
 def shop():
