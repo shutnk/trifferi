@@ -47,7 +47,7 @@ def home():
     except FileNotFoundError:
         return "<h1>Shop not found</h1>", 404
     except Exception as e:
-        return f"<h1>Error:</h1> {str(e)}", 500)
+        return f"<h1>Error:</h1> {str(e)}", 500
 
 # ===== МАРШРУТЫ ДЛЯ WEBAPP =====
 @app.route('/shop')
