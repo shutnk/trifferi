@@ -2,7 +2,7 @@ import asyncio, json, os, logging
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 from aiogram.types import InlineKeyboardMarkup, WebAppInfo, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton
-from flask import Flask
+from flask import Flask, send_from_directory, render_template_string
 import threading
 
 # --- НАСТРОЙКИ ---
@@ -44,7 +44,23 @@ def home():
     return "Bot is alive!"
 
 def run_server():
-    app.run(host='0.0.0.0', port=10000)
+
+# Маршрут для магазина (WebApp)
+@app.route('/shop')
+@app.route('/store')
+def shop():
+    try:
+        with open('templates/index.html', 'r', encoding='utf-8') as f:
+            html = f.read()
+        return render_template_string(html)
+    except Exception as e:
+        return f"Error loading shop: {e}", 500
+
+# Маршрут для статики (CSS, JS, images)
+@app.route('/static/<path:path>')
+def send_static(path):
+    return send_from_directory('static', path)
+
 
 # ==========================================# 🤖 1. ОСНОВНОЙ БОТ (@trifferi)
 # ==========================================
