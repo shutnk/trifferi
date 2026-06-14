@@ -53,7 +53,8 @@ def home():
     
     try:
         with open(template_path, 'r', encoding='utf-8') as f:
-            return f.read()
+            html = f.read()
+        return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
     except FileNotFoundError:
         logging.error(f"File not found: {template_path}")
         return "<h1>Shop not found (404)</h1><p>Check Render logs</p>", 404
