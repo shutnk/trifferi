@@ -171,8 +171,14 @@ async def accept_order_stock(cb: types.CallbackQuery):
     await cb.answer()
 
 # ==========================================
+# ==========================================
 # 🚀 ЗАПУСК
 # ==========================================
+
+def run_server():
+    """Запускает Flask сервер"""
+    app.run(host='0.0.0.0', port=10000)
+
 async def main():
     logging.basicConfig(level=logging.INFO)
     print("🤖 Запуск 3 ботов...")
@@ -180,13 +186,9 @@ async def main():
     threading.Thread(target=run_server, daemon=True).start()
     await asyncio.gather(
         dp_main.start_polling(bot_main),
-        dp_pay.start_polling(bot_pay),        dp_stock.start_polling(bot_stock)
+        dp_pay.start_polling(bot_pay),
+        dp_stock.start_polling(bot_stock)
     )
 
 if __name__ == "__main__":
-    
-def run_server():
-    """Запускает Flask сервер"""
-    app.run(host='0.0.0.0', port=10000)
-
-asyncio.run(main())
+    asyncio.run(main())
