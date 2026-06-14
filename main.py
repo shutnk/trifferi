@@ -38,6 +38,8 @@ bot_stock = Bot(token=TOKEN_STOCK)
 dp_stock = Dispatcher()
 
 # --- FLASK ДЛЯ RENDER ---
+app = Flask(__name__)
+
 @app.route('/')
 def home():
     """Отдаёт магазин (WebApp)"""
