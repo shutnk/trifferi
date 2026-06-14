@@ -43,12 +43,22 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     """Отдаёт магазин (WebApp)"""
+    import os
+    # Логируем для отладки
+    cwd = os.getcwd()
+    template_path = os.path.join(cwd, 'templates', 'index.html')
+    logging.info(f"Current directory: {cwd}")
+    logging.info(f"Looking for: {template_path}")
+    logging.info(f"File exists: {os.path.exists(template_path)}")
+    
     try:
-        with open('templates/index.html', 'r', encoding='utf-8') as f:
+        with open(template_path, 'r', encoding='utf-8') as f:
             return f.read()
     except FileNotFoundError:
-        return "<h1>Shop not found</h1>", 404
+        logging.error(f"File not found: {template_path}")
+        return "<h1>Shop not found (404)</h1><p>Check Render logs</p>", 404
     except Exception as e:
+        logging.error(f"Error: {str(e)}")
         return f"<h1>Error:</h1> {str(e)}", 500
 
 # ===== МАРШРУТЫ ДЛЯ WEBAPP =====
