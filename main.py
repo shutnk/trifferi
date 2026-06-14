@@ -38,13 +38,16 @@ bot_stock = Bot(token=TOKEN_STOCK)
 dp_stock = Dispatcher()
 
 # --- FLASK ДЛЯ RENDER ---
-app = Flask(__name__)
 @app.route('/')
 def home():
-    return "Bot is alive!"
-
-def run_server():
-    app.run(host='0.0.0.0', port=10000)
+    """Отдаёт магазин (WebApp)"""
+    try:
+        with open('templates/index.html', 'r', encoding='utf-8') as f:
+            return f.read()
+    except FileNotFoundError:
+        return "<h1>Shop not found</h1>", 404
+    except Exception as e:
+        return f"<h1>Error:</h1> {str(e)}", 500)
 
 # ===== МАРШРУТЫ ДЛЯ WEBAPP =====
 @app.route('/shop')
@@ -56,7 +59,6 @@ def shop():
         return render_template_string(html)
     except Exception as e:
         return f"Error loading shop: {e}", 500
-
 # Маршрут для статики (CSS, JS, images)
 @app.route('/static/<path:path>')
 def send_static(path):
