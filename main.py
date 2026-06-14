@@ -48,6 +48,21 @@ def run_server():
 
 # ==========================================# 🤖 1. ОСНОВНОЙ БОТ (@trifferi)
 # ==========================================
+
+# Команда /start для основного бота с кнопкой магазина
+@dp_main.message(Command("start"))
+async def cmd_start_main(msg: types.Message):
+    kb = ReplyKeyboardMarkup(
+        keyboard=[
+            [KeyboardButton(text="🛍 Открыть магазин", web_app=WebAppInfo(url="https://trifferi.onrender.com"))]
+        ],
+        resize_keyboard=True
+    )
+    await msg.answer(
+        "✨ Добро пожаловать в TRIFFERI!\n\nНажмите на кнопку ниже, чтобы открыть магазин:",
+        reply_markup=kb
+    )
+
 @dp_main.message(F.web_app_data)
 async def handle_webapp(msg: types.Message):
     try:
