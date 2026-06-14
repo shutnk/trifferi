@@ -184,4 +184,9 @@ async def main():
     )
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    
+def run_server():
+    """Запускает Flask сервер"""
+    app.run(host='0.0.0.0', port=10000)
+
+asyncio.run(main())
