@@ -128,6 +128,7 @@ body{font-family:Inter,sans-serif;background:var(--void);color:var(--white);over
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="ambient-orb orb1"></div>
 <div class="ambient-orb orb2"></div>
+<div class="preloader" id="preloader"><div class="preloader-logo">TRIFFERI</div></div>
 <div class="toast" id="toast">Добавлено ✓</div>
 <div class="content">
 <nav class="nav" id="mainNav">
@@ -265,8 +266,6 @@ body{font-family:Inter,sans-serif;background:var(--void);color:var(--white);over
 </div>
 
 <script>
-console.log("🚀 Shop loaded!");
-console.log("🚀 Shop loaded!");
 
 // ТОВАРЫ
 const P = [
@@ -311,7 +310,7 @@ function openProduct(idx) {
 
 // Preloader
 window.onload = () => { renderCatalog(); setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 1200);
-window.onload = () => { renderCatalog(); };
+
 // Cursor
 const glow = document.getElementById('cursorGlow');
 const dot = document.getElementById('cursorDot');
