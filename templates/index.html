@@ -14,7 +14,7 @@ body{font-family:Inter,sans-serif;background:var(--void);color:var(--white);over
 .orb1{width:400px;height:400px;background:radial-gradient(circle,rgba(26,86,219,0.6),transparent 70%);top:-100px;left:-100px}
 .orb2{width:300px;height:300px;background:radial-gradient(circle,rgba(200,182,255,0.4),transparent 70%);top:30%;right:-80px;animation-delay:-7s}
 @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-60px)}}
-.preloader{position:fixed;inset:0;background:var(--void);z-index:10000;display:flex;align-items:center;justify-content:center;transition:opacity .8s}
+.preloader{display:none !important; position:fixed;inset:0;background:var(--void);z-index:10000;display:flex;align-items:center;justify-content:center;transition:opacity .8s}
 .preloader.hidden{opacity:0;visibility:hidden}
 .preloader-logo{font-size:48px;font-weight:900;letter-spacing:16px;background:linear-gradient(135deg,var(--white),var(--blue-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;transition:all .5s}
