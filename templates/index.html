@@ -266,8 +266,50 @@ body{font-family:Inter,sans-serif;background:var(--void);color:var(--white);over
 </div>
 
 <script>
+
+// ТОВАРЫ
+const P = [
+    {n: "Кроссовки Nike Air", c: "Обувь", p: 12990, e: "👟"},
+    {n: "Сумка Louis Vuitton", c: "Аксессуары", p: 45900, e: "👜"},
+    {n: "Часы Rolex", c: "Аксессуары", p: 125000, e: "⌚"},
+    {n: "Куртка Zara", c: "Одежда", p: 8990, e: "🧥"},
+    {n: "Очки Ray-Ban", c: "Аксессуары", p: 15900, e: "🕶️"},
+    {n: "Кепка Adidas", c: "Аксессуары", p: 2990, e: "🧢"},
+];
+
+// Рендер товаров
+function renderCatalog() {
+    const container = document.getElementById('catalogContent');
+    if (!container) return;
+    
+    let html = '<div class="catalog-grid">';
+    P.forEach((prod, idx) => {
+        html += `
+            <div class="catalog-card" onclick="openProduct(${idx})">
+                <div class="catalog-image">${prod.e}</div>
+                <div class="catalog-info">
+                    <div class="catalog-name">${prod.n}</div>
+                    <div class="catalog-type">${prod.c}</div>
+                    <div class="catalog-bottom">
+                        <div class="catalog-price">${prod.p.toLocaleString()} ₽</div>
+                        <button class="catalog-btn" onclick="event.stopPropagation(); addToCart('${prod.n}', '${prod.c}', ${prod.p}, '${prod.e}')">+</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function openProduct(idx) {
+    currentProd = P[idx];
+    // Покажем toast
+    showToast(`${currentProd.e} ${currentProd.n}`);
+}
+
 // Preloader
-window.onload = () => setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 1200);
+window.onload = () => { renderCatalog(); setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 1200);
 
 // Cursor
 const glow = document.getElementById('cursorGlow');
