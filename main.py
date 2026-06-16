@@ -1,205 +1,150 @@
-import asyncio, json, os, logging
+import os
+import json
+import asyncio
+import logging
+from flask import Flask, request, jsonify, send_from_directory
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
-from aiogram.types import InlineKeyboardMarkup, WebAppInfo, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton
-from flask import Flask, send_from_directory, render_template_string
-import threading
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-# --- НАСТРОЙКИ ---
-TOKEN_MAIN = os.getenv("TOKEN_MAIN")
-TOKEN_PAY = os.getenv("TOKEN_PAY")
-TOKEN_STOCK = os.getenv("TOKEN_STOCK")
-ADMIN_ID = int(os.getenv("ADMIN_CHAT_ID"))
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# --- ХРАНИЛИЩЕ ---
-ORDERS_FILE = "orders.json"
-orders = {}
+app = Flask(__name__, static_folder='templates', static_url_path='')
 
-def load_orders():
-    global orders
-    if os.path.exists(ORDERS_FILE):
-        with open(ORDERS_FILE, 'r', encoding='utf-8') as f:
-            orders = json.load(f)
+# ================= НАСТРОЙКИ =================
+SHOP_TOKEN = "8934522015:AAHJuYuqOu9-CYyhTZavQ-MDlCn1Sw4T4vw"
+PAY_TOKEN = "8441860983:AAFMuNBnImWdFc17Fg8fYPzcVPl5YkwuQp4"
+STOCK_TOKEN = "8666600867:AAHSTjcwfKJQv5KVb3x0QBgJXdmXDHTQGEc"
+ADMIN_ID = 5468112563
+WEBAPP_URL = "https://trifferi.onrender.com"
 
-def save_orders():
-    with open(ORDERS_FILE, 'w', encoding='utf-8') as f:
-        json.dump(orders, f, ensure_ascii=False, indent=2)
+# ================= ИНИЦИАЛИЗАЦИЯ БОТОВ =================
+shop_bot = Bot(token=SHOP_TOKEN)
+pay_bot = Bot(token=PAY_TOKEN)
+stock_bot = Bot(token=STOCK_TOKEN)
 
-load_orders()
-
-# --- БОТЫ ---
-bot_main = Bot(token=TOKEN_MAIN)
-dp_main = Dispatcher()
-
-bot_pay = Bot(token=TOKEN_PAY)
+dp_shop = Dispatcher()
 dp_pay = Dispatcher()
-
-bot_stock = Bot(token=TOKEN_STOCK)
 dp_stock = Dispatcher()
 
-# --- FLASK ДЛЯ RENDER ---
-app = Flask(__name__)
-
+# ================= ФЛАКСК РОУТЫ =================
 @app.route('/')
-def home():
-    """Отдаёт магазин (WebApp)"""
-    import os
-    # Логируем для отладки
-    cwd = os.getcwd()
-    template_path = os.path.join(cwd, 'templates', 'index.html')
-    logging.info(f"Current directory: {cwd}")
-    logging.info(f"Looking for: {template_path}")
-    logging.info(f"File exists: {os.path.exists(template_path)}")
-    
+def index():
+    """Отдаем index.html"""
+    return send_from_directory('templates', 'index.html')
+
+@app.route('/api/order', methods=['POST'])
+async def api_order():
+    """API для приема заказов"""
     try:
-        with open(template_path, 'r', encoding='utf-8') as f:
-            html = f.read()
-        return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
-    except FileNotFoundError:
-        logging.error(f"File not found: {template_path}")
-        return "<h1>Shop not found (404)</h1><p>Check Render logs</p>", 404
-    except Exception as e:
-        logging.error(f"Error: {str(e)}")
-        return f"<h1>Error:</h1> {str(e)}", 500
-
-# ===== МАРШРУТЫ ДЛЯ WEBAPP =====
-@app.route('/shop')
-@app.route('/store')
-def shop():
-    try:
-        with open('templates/index.html', 'r', encoding='utf-8') as f:
-            html = f.read()
-        return render_template_string(html)
-    except Exception as e:
-        return f"Error loading shop: {e}", 500
-# Маршрут для статики (CSS, JS, images)
-@app.route('/static/<path:path>')
-def send_static(path):
-    return send_from_directory('static', path)
-
-
-# ==========================================# 🤖 1. ОСНОВНОЙ БОТ (@trifferi)
-# ==========================================
-
-# Команда /start для основного бота с кнопкой магазина
-@dp_main.message(Command("start"))
-async def cmd_start_main(msg: types.Message):
-    kb = ReplyKeyboardMarkup(
-        keyboard=[
-            [KeyboardButton(text="🛍 Открыть магазин", web_app=WebAppInfo(url="https://trifferi.onrender.com"))]
-        ],
-        resize_keyboard=True
-    )
-    await msg.answer(
-        "✨ Добро пожаловать в TRIFFERI!\n\nНажмите на кнопку ниже, чтобы открыть магазин:",
-        reply_markup=kb
-    )
-
-@dp_main.message(F.web_app_data)
-async def handle_webapp(msg: types.Message):
-    try:
-        data = json.loads(msg.web_app_data.data)
-        order_id = f"TRF-{len(orders)+1:04d}"
+        data = await request.get_json()
+        logger.info(f"📥 Получен заказ: {data}")
         
-        orders[order_id] = {
-            "user_id": msg.from_user.id,
-            "username": msg.from_user.username or "unknown",
-            "client": data.get("client", {}),
-            "items": data.get("items", []),
-            "total": data.get("total", 0),
-            "status": "pending"
-        }
-        save_orders()
+        if not data:
+            return jsonify({"status": "error", "error": "No data"}), 400
+                customer = data.get('customer', {})
+        items = data.get('items', [])
+        total = data.get('total', 0)
+        user_id = data.get('userId')
         
-        kb = InlineKeyboardMarkup(inline_keyboard=[[
-            InlineKeyboardButton(text="🔗 Подтвердить заказ в @trifferipaybot", url=f"https://t.me/trifferipaybot?start={order_id}")
-        ]])
-        await msg.answer(f"✅ Заказ {order_id} создан!\nПерейдите в @trifferipaybot для подтверждения.", reply_markup=kb)
+        if not user_id:
+            return jsonify({"status": "error", "error": "No userId"}), 400
+        
+        import random
+        order_id = f"#{random.randint(1000, 9999)}"
+        
+        # 1. Сообщение клиенту через PAY бота
+        items_text = "\n".join([f"📦 {i['n']} - {i['p']} ₽" for i in items])
+        
+        client_msg = f"""
+✅ <b>Заказ {order_id} создан!</b>
+
+📋 <b>Состав:</b>
+{items_text}
+
+💰 <b>Сумма:</b> {total} ₽
+
+⏳ <b>Статус:</b> В обработке.
+        """
+        
+        try:
+            await pay_bot.send_message(user_id, client_msg, parse_mode='HTML')
+            logger.info(f"✅ Отправлено клиенту {user_id}")
+        except Exception as e:
+            logger.error(f"Ошибка отправки клиенту: {e}")
+        
+        # 2. Сообщение админу через STOCK бота
+        admin_msg = f"""
+🔥 <b>НОВЫЙ ЗАКАЗ {order_id}</b>
+
+👤 <b>Клиент ID:</b> {user_id}
+📝 <b>Имя:</b> {customer.get('name')}
+📱 <b>Телефон:</b> {customer.get('phone')}
+📍 <b>Адрес:</b> {customer.get('address')}
+
+📦 <b>Товары:</b>
+{items_text}
+
+💰 <b>Итого:</b> {total} ₽
+        """
+        
+        kb = InlineKeyboardBuilder()
+        kb.button(text="✅ ПРИНЯТЬ", callback_data=f"accept_{user_id}_{order_id}")
+        kb.button(text="❌ ОТКАЗАТЬ", callback_data=f"reject_{user_id}_{order_id}")
+                try:
+            await stock_bot.send_message(ADMIN_ID, admin_msg, reply_markup=kb.as_markup(), parse_mode='HTML')
+            logger.info(f"✅ Отправлено админу {ADMIN_ID}")
+        except Exception as e:
+            logger.error(f"Ошибка отправки админу: {e}")
+        
+        return jsonify({"status": "success", "order_id": order_id})
+        
     except Exception as e:
-        logging.error(f"Webapp error: {e}")
-        await msg.answer("⚠️ Ошибка оформления заказа.")
+        logger.error(f"❌ Ошибка в api/order: {e}")
+        return jsonify({"status": "error", "error": str(e)}), 500
 
-# ==========================================
-# 💳 2. ПЛАТЕЖНЫЙ БОТ (@trifferipaybot)
-# ==========================================
-@dp_pay.message(Command("start"))
-async def cmd_start_pay(msg: types.Message):
-    args = msg.text.split()
-    if len(args) > 1:
-        order_id = args[1]
-        if order_id in orders and orders[order_id]["status"] == "pending":
-            kb = InlineKeyboardMarkup(inline_keyboard=[
-                [InlineKeyboardButton(text="✅ Подтвердить", callback_data=f"confirm_{order_id}")],
-                [InlineKeyboardButton(text="❌ Отменить", callback_data=f"cancel_{order_id}")]
-            ])
-            items_text = "\n".join([f"• {i['n']} x{i['q']} = {i['p']*i['q']} ₽" for i in orders[order_id]["items"]])
-            await msg.answer(f"🛒 Заказ {order_id}\n\n{items_text}\n\n💰 Итого: {orders[order_id]['total']} ₽\n\nПодтвердите заказ:", reply_markup=kb)
-            return
-    await msg.answer("Добро пожаловать! Используйте кнопку подтверждения из основного бота.")
+# ================= SHOP BOT =================
+@dp_shop.message(Command('start'))
+async def cmd_start(message: types.Message):
+    kb = InlineKeyboardBuilder()
+    kb.button(text="🛍 ОТКРЫТЬ МАГАЗИН", web_app=WebAppInfo(url=WEBAPP_URL))
+    await message.answer("Добро пожаловать в TRIFFERI!", reply_markup=kb.as_markup())
 
-@dp_pay.callback_query(F.data.startswith("confirm_"))
-async def confirm_order(cb: types.CallbackQuery):
-    order_id = cb.data.split("_")[1]
-    if order_id not in orders: return
-    orders[order_id]["status"] = "processing"
-    save_orders()    
-    await cb.message.edit_text(f"✅ Заказ {order_id} подтвержден!\n⏳ Статус: В обработке...")
+# ================= STOCK BOT =================
+@dp_stock.callback_query(F.data.startswith('accept_') | F.data.startswith('reject_'))
+async def handle_admin_decision(callback_query: types.CallbackQuery):
+    action, user_id, order_id = callback_query.data.split('_', 2)
     
-    kb_stock = InlineKeyboardMarkup(inline_keyboard=[[
-        InlineKeyboardButton(text="📥 Принять в обработку", callback_data=f"accept_{order_id}")
-    ]])
-    client = orders[order_id]["client"]
-    txt = f"🔥 НОВЫЙ ЗАКАЗ {order_id}\n\n👤 {client.get('name','')} {client.get('surname','')}\n📞 {client.get('phone','')}\n✈️ @{client.get('tg','')}\n📍 {client.get('city','')}, {client.get('street','')} д.{client.get('house','')} кв.{client.get('flat','')}\n\n💰 Сумма: {orders[order_id]['total']} ₽"
-    await bot_stock.send_message(ADMIN_ID, txt, reply_markup=kb_stock)
-    await cb.answer()
+    if action == 'accept':
+        text = f"✅ Заказ {order_id} ПРИНЯТ! Ожидайте доставку."
+        await pay_bot.send_message(user_id, text, parse_mode='HTML')
+        await callback_query.answer("✅ Вы приняли заказ!")
+    elif action == 'reject':
+        text = f"❌ Заказ {order_id} отклонен."
+        await pay_bot.send_message(user_id, text, parse_mode='HTML')
+        await callback_query.answer("❌ Вы отказали.")
 
-@dp_pay.callback_query(F.data.startswith("cancel_"))
-async def cancel_order(cb: types.CallbackQuery):
-    order_id = cb.data.split("_")[1]
-    if order_id in orders:
-        orders[order_id]["status"] = "cancelled"
-        save_orders()
-        await cb.message.edit_text(f"❌ Заказ {order_id} отменен.")
-    await cb.answer()
+# ================= PAY BOT =================
+@dp_pay.message(Command('start'))
+async def pay_start(message: types.Message):
+    await message.answer("👋 Это бот для уведомлений о заказах.")
 
-# ==========================================
-# 📦 3. СКЛАДСКОЙ БОТ (@trifferistockbot)
-# ==========================================
-@dp_stock.callback_query(F.data.startswith("accept_"))
-async def accept_order_stock(cb: types.CallbackQuery):
-    order_id = cb.data.split("_")[1]
-    if order_id not in orders: return
-    
-    orders[order_id]["status"] = "accepted"
-    save_orders()
-    
-    await cb.message.edit_text(f"✅ Заказ {order_id} принят в обработку.\nОжидает отправки.")
-    
-    user_id = orders[order_id]["user_id"]
-    try:
-        await bot_pay.send_message(user_id, f"✅ Ваш заказ {order_id} принят в работу!\nМы свяжемся с вами для уточнения доставки.")
-    except: pass
-    await cb.answer()
-
-# ==========================================
-# ==========================================
-# 🚀 ЗАПУСК
-# ==========================================
-
-def run_server():
-    """Запускает Flask сервер"""
-    app.run(host='0.0.0.0', port=10000)
-
+# ================= ЗАПУСК =================
 async def main():
-    logging.basicConfig(level=logging.INFO)
-    print("🤖 Запуск 3 ботов...")
-    # Запускаем Flask сервер в фоне для Render
-    threading.Thread(target=run_server, daemon=True).start()
+    # Проверяем, запущены ли боты на Render
+    if os.getenv('RENDER'):
+        logger.info("🚀 Запущено на Render - боты не стартуют (только Flask)")
+        return
+    
+    logger.info("🤖 Запуск ботов...")
     await asyncio.gather(
-        dp_main.start_polling(bot_main),
-        dp_pay.start_polling(bot_pay),
-        dp_stock.start_polling(bot_stock)
-    )
+        dp_shop.start_polling(shop_bot),
+        dp_pay.start_polling(pay_bot),
+        dp_stock.start_polling(stock_bot)    )
 
-if __name__ == "__main__":
-    asyncio.run(main())
+if __name__ == '__main__':
+    # Запуск Flask
+    logger.info("🌐 Запуск Flask на порту 10000...")
+    app.run(host='0.0.0.0', port=10000, threaded=True)
