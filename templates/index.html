@@ -146,8 +146,8 @@ body{font-family:Inter,sans-serif;background:var(--void);color:var(--white);over
 <h1 class="hero-title">Весенний <span>Блеск</span></h1>
 <p class="hero-subtitle">Откройте мир стиля и элегантности. Каждый предмет — произведение искусства.</p>
 <div class="hero-actions">
-<a class="btn btn-primary" onclick="navigateTo('catalog')">Каталог →</a>
-<a class="btn btn-ghost" onclick="navigateTo('wishlist')">Избранное</a>
+<a href="#" class="btn btn-primary" onclick="navigateTo('catalog')">Каталог →</a>
+<a href="#" class="btn btn-ghost" onclick="navigateTo('wishlist')">Избранное</a>
 </div>
 </div>
 </section>
@@ -224,7 +224,7 @@ body{font-family:Inter,sans-serif;background:var(--void);color:var(--white);over
 <div class="cart-empty-icon">♡</div>
 <h3>Пока пусто</h3>
 <p>Добавьте товары в избранное</p>
-<a class="btn btn-primary" onclick="navigateTo('catalog')">Перейти в каталог</a>
+<a href="#" class="btn btn-primary" onclick="navigateTo('catalog')">Перейти в каталог</a>
 </div>
 </div>
 
@@ -234,7 +234,7 @@ body{font-family:Inter,sans-serif;background:var(--void);color:var(--white);over
 <div class="cart-empty-icon">🛒</div>
 <h3>Корзина пуста</h3>
 <p>Добавьте товары</p>
-<a class="btn btn-primary" onclick="navigateTo('catalog')">Перейти в каталог</a>
+<a href="#" class="btn btn-primary" onclick="navigateTo('catalog')">Перейти в каталог</a>
 </div>
 </div>
 </div>
@@ -323,7 +323,7 @@ if(window.innerWidth > 768) {
 
 // Navigation
 let currentPage = 'home';
-function navigateTo(id) {
+function navigateTo(id) { alert("Clicked! Going to: " + id);
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
     document.querySelectorAll('.bottom-nav-item').forEach(i => {
@@ -362,7 +362,7 @@ function updateQty(index, delta) {
 function renderCart() {
     const container = document.getElementById('cartContent');
     if(cart.length === 0) {
-        container.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon"></div><h3>Корзина пуста</h3><a class="btn btn-primary" onclick="navigateTo('catalog')">В каталог</a></div>`;
+        container.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon"></div><h3>Корзина пуста</h3><a href="#" class="btn btn-primary" onclick="navigateTo('catalog')">В каталог</a></div>`;
         return;
     }
     let html = '<div class="cart-items">';
