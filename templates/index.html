@@ -28,7 +28,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .nlk svg{width:18px;height:18px;stroke:rgba(255,255,255,.45);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .nlk.active svg{stroke:var(--blue2)}
 .nr{display:flex;gap:4px}
-.nic{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;cursor-pointer;position:relative;transition:.3s}
+.nic{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:.3s}
 .nic:hover{background:rgba(26,86,219,.15)}
 .nic svg{width:18px;height:18px;stroke:rgba(255,255,255,.6);fill:none;stroke-width:2}
 .badge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:9px;background:#ff4757;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px;animation:pop .3s cubic-bezier(.175,.885,.32,1.275)}
@@ -78,9 +78,9 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .pi{height:200px;display:flex;align-items:center;justify-content:center;font-size:60px;background:linear-gradient(135deg,rgba(26,86,219,.05),rgba(200,182,255,.03));position:relative}
 .pw{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;transition:.3s;border:1px solid rgba(255,255,255,.15)}
 .pw:active{transform:scale(0.85)}
-.pw.liked{background:rgba(255,71,87,.3);border-color:#ff4757}
-.pw.liked::after{content:'';width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff4757' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") center/contain no-repeat}
-.pw:not(.liked)::after{content:'';width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='rgba(255,255,255,0.6)' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") center/contain no-repeat}
+.pw.liked{border-color:#ff4757}
+.pw.liked::after{content:'';width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23ff4757' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
+.pw:not(.liked)::after{content:'';width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(255,255,255,0.6)' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
 .pb{padding:14px}
 .pt{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue2);margin-bottom:4px}
 .pn{font-size:18px;font-weight:700;margin-bottom:2px}
@@ -116,8 +116,9 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .cai{height:140px;display:flex;align-items:center;justify-content:center;font-size:50px;background:linear-gradient(135deg,rgba(26,86,219,.05),rgba(200,182,255,.03));position:relative}
 .cw{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;transition:.3s;border:1px solid rgba(255,255,255,.15)}
 .cw:active{transform:scale(0.85)}
-.cw.liked::after{content:'';width:12px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff4757' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") center/contain no-repeat}
-.cw:not(.liked)::after{content:'';width:12px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='rgba(255,255,255,0.6)' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") center/contain no-repeat}
+.cw.liked{border-color:#ff4757}
+.cw.liked::after{content:'';width:12px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23ff4757' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
+.cw:not(.liked)::after{content:'';width:12px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(255,255,255,0.6)' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
 .cainf{padding:12px}
 .can{font-size:14px;font-weight:700}
 .cat2{font-size:11px;color:rgba(255,255,255,.35);margin-bottom:8px}
@@ -125,6 +126,25 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .cap{font-size:15px;font-weight:800}
 .cbtn{width:30px;height:30px;border-radius:8px;background:rgba(26,86,219,.15);border:1px solid rgba(26,86,219,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--blue2);transition:.3s}
 .cbtn:hover{background:var(--blue);color:#fff}
+
+/* Modal */
+.modal{position:fixed;inset:0;z-index:1000;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);animation:mf .3s}
+.modal.active{display:flex}
+@keyframes mf{from{opacity:0}to{opacity:1}}
+.mc{width:100%;max-height:90vh;background:var(--bg);border-radius:24px 24px 0 0;overflow:hidden;animation:ms .3s;overflow-y:auto}
+@keyframes ms{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mh{height:280px;display:flex;align-items:center;justify-content:center;font-size:100px;background:linear-gradient(135deg,rgba(26,86,219,.1),rgba(200,182,255,.05));position:relative}
+.mcl{position:absolute;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:#fff;border:1px solid rgba(255,255,255,.15)}
+.mcl:active{transform:scale(0.9)}
+.mw{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(255,255,255,.15)}
+.mw.liked{border-color:#ff4757}
+.mw.liked::after{content:'';width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23ff4757' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
+.mw:not(.liked)::after{content:'';width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(255,255,255,0.6)' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
+.mb{padding:24px}
+.mt{font-size:26px;font-weight:800;margin-bottom:8px}
+.mc2{font-size:13px;color:rgba(255,255,255,.4);margin-bottom:16px}
+.mp{font-size:24px;font-weight:800;color:var(--blue2);margin-bottom:20px}.mad{width:100%;padding:16px;border-radius:14px;background:var(--blue);color:#fff;font-size:16px;font-weight:700;border:none;cursor:pointer;transition:.3s;box-shadow:0 4px 16px rgba(26,86,219,.4)}
+.mad:active{transform:scale(0.98)}
 
 .ce{text-align:center;padding:60px 16px;color:rgba(255,255,255,.4)}
 .cil{padding:0 14px}
@@ -143,7 +163,8 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .cr:active{transform:scale(0.9);background:rgba(255,71,87,.3)}
 
 .cs{margin:20px 14px;padding:20px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
-.sr{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px}.sr .lb{color:rgba(255,255,255,.4)}
+.sr{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px}
+.sr .lb{color:rgba(255,255,255,.4)}
 .sr.tot{padding-top:12px;border-top:1px solid rgba(255,255,255,.08);margin-bottom:16px}
 .sr.tot .lb{font-weight:700;color:#fff}
 .sr.tot .vl{font-size:20px;font-weight:800;color:var(--blue2)}
@@ -167,13 +188,11 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .ckl{display:block;font-size:12px;color:rgba(255,255,255,.5);margin-bottom:6px}
 .cki{width:100%;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;font-size:14px;transition:.3s}
 .cki:focus{outline:none;border-color:var(--blue2);background:rgba(26,86,219,.05)}
-.ckg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
 .toast{position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(20px);padding:10px 24px;border-radius:100px;background:rgba(26,86,219,.95);color:#fff;font-size:12px;font-weight:600;z-index:500;opacity:0;transition:.3s;pointer-events:none;backdrop-filter:blur(10px);box-shadow:0 4px 20px rgba(0,0,0,.3)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-</head>
+<script src="https://telegram.org/js/telegram-web-app.js"></script></head>
 <body>
 <canvas id="p"></canvas>
 <div class="orb o1"></div>
@@ -192,7 +211,8 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
   <div class="nr">
     <div class="nic" onclick="go(3)">
       <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-      <div class="badge" id="cartBadge" style="display:none">0</div>    </div>
+      <div class="badge" id="cartBadge" style="display:none">0</div>
+    </div>
   </div>
 </nav>
 
@@ -210,6 +230,20 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="mc">
+    <div class="mh" id="mImg">👜</div>
+    <div class="mb">
+      <div class="mt" id="mName">LUNA</div>
+      <div class="mc2" id="mCat">Сумка</div>
+      <div class="mp" id="mPrice">12 990 ₽</div>
+      <button class="mad" onclick="addFromModal()">Добавить в корзину</button>
+    </div>
+  </div>
+</div>
+
+<!-- ГЛАВНАЯ -->
 <div class="pg active" id="pg0">
   <section class="hero">
     <div class="hb">✨ Новая коллекция 2026</div>
@@ -220,10 +254,12 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
       <button class="btn b2" onclick="go(2)">Избранное</button>
     </div>
   </section>
+  
   <section class="sec">
     <div class="sh"><div><div class="sl">Коллекция</div><div class="st">Новинки</div></div><div class="sa" onclick="go(1)">Все →</div></div>
     <div class="ps" id="pS"></div>
   </section>
+
   <section class="sec">
     <div class="sl">Категории</div>
     <div class="st" style="margin-bottom:14px">Навигация</div>
@@ -234,6 +270,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
       <div class="cc" onclick="go(1)"><div class="ci">👗</div><div class="cn">Одежда</div><div class="cn2">42 товара</div></div>
     </div>
   </section>
+
   <section class="sec">
     <div class="sl">Преимущества</div>
     <div class="st" style="margin-bottom:14px">Почему мы</div>
@@ -243,6 +280,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
   </section>
 </div>
 
+<!-- КАТАЛОГ -->
 <div class="pg" id="pg1">
   <div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Каталог</h1></div>
   <div class="fr">
@@ -256,18 +294,21 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
   <div style="height:40px"></div>
 </div>
 
+<!-- ИЗБРАННОЕ -->
 <div class="pg" id="pg2">
   <div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Избранное</h1></div>
   <div class="wg" id="wC"></div>
   <div style="height:40px"></div>
 </div>
 
+<!-- КОРЗИНА -->
 <div class="pg" id="pg3">
   <div class="ph"><div class="pbk" onclick="go(0)">←</div><h1 class="pt2">Корзина</h1></div>
   <div id="cC"></div>
   <div style="height:40px"></div>
 </div>
 
+<!-- ОФОРМЛЕНИЕ ЗАКАЗА -->
 <div class="pg" id="pg4">
   <div class="ph"><div class="pbk" onclick="go(3)">←</div><h1 class="pt2">Оформление заказа</h1></div>
   <div class="ck">
@@ -291,7 +332,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
   </div>
   <div class="cs" id="ckSum"></div>
   <div style="padding:0 14px 20px">
-    <button class="btn b1" style="width:100%" onclick="submitOrder()">Подтвердить заказ</button>
+    <button class="btn b1" style="width:100%" onclick="submitOrder()">Оплатить через @trifferipaybot</button>
   </div>
   <div style="height:40px"></div>
 </div>
@@ -299,12 +340,12 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 <div class="toast" id="tt"></div>
 
 <script>
-// Canvas animation
+// --- Canvas Animation ---
 const cv=document.getElementById('p'),cx=cv.getContext('2d');
 let W,H;
 function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}
 rs();window.onresize=rs;
-const pts=Array.from({length:40},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()+.5,dx:(Math.random()-.5)*.2,dy:(Math.random()-.5)*.2,o:Math.random()*.2+.1}));
+const pts=Array.from({length:30},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()+.5,dx:(Math.random()-.5)*.15,dy:(Math.random()-.5)*.15,o:Math.random()*.2+.1}));
 !function dr(){
   cx.clearRect(0,0,W,H);
   pts.forEach(p=>{
@@ -316,25 +357,26 @@ const pts=Array.from({length:40},()=>({x:Math.random()*W,y:Math.random()*H,r:Mat
   requestAnimationFrame(dr);
 }();
 
-// Data
+// --- Data & State ---
 const P=[
-  {n:'LUNA',c:'Сумка',cat:'bag',p:12990,e:'👜'},
-  {n:'AURORA',c:'Кроссовки',cat:'shoes',p:7450,e:''},
-  {n:'SKY',c:'Очки',cat:'acc',p:4100,e:''},
-  {n:'VELVET',c:'Платье',cat:'clothes',p:18900,e:''},
-  {n:'NOIR',c:'Часы',cat:'acc',p:24500,e:'⌚'},
-  {n:'BLAZE',c:'Куртка',cat:'clothes',p:15600,e:'🧥'},
-  {n:'LUNA MINI',c:'Кошелёк',cat:'bag',p:5990,e:'👛'},
-  {n:'SPORT',c:'Футболка',cat:'clothes',p:2990,e:'👕'},
-  {n:'ELEGANCE',c:'Туфли',cat:'shoes',p:11200,e:'👠'},
-  {n:'LUX',c:'Сумка',cat:'bag',p:28900,e:'👜'}
+  {n:'LUNA',c:'Сумка',cat:'bag',p:12990,e:'👜',d:'Премиальная кожаная сумка с золотой фурнитурой.'},
+  {n:'AURORA',c:'Кроссовки',cat:'shoes',p:7450,e:'👟',d:'Легкие дышащие кроссовки для города.'},
+  {n:'SKY',c:'Очки',cat:'acc',p:4100,e:'',d:'Солнцезащитные очки с поляризацией.'},
+  {n:'VELVET',c:'Платье',cat:'clothes',p:18900,e:'',d:'Вечернее платье из бархата.'},
+  {n:'NOIR',c:'Часы',cat:'acc',p:24500,e:'⌚',d:'Классические часы с хронографом.'},
+  {n:'BLAZE',c:'Куртка',cat:'clothes',p:15600,e:'🧥',d:'Стильная демисезонная куртка.'},
+  {n:'LUNA MINI',c:'Кошелёк',cat:'bag',p:5990,e:'',d:'Компактный кошелёк из натуральной кожи.'},
+  {n:'SPORT',c:'Футболка',cat:'clothes',p:2990,e:'',d:'Базовая хлопковая футболка.'},
+  {n:'ELEGANCE',c:'Туфли',cat:'shoes',p:11200,e:'👠',d:'Туфли на каблуке для особых случаев.'},
+  {n:'LUX',c:'Сумка',cat:'bag',p:28900,e:'👜',d:'Люксовая сумка ограниченной серии.'}
 ];
 
 let cart=JSON.parse(localStorage.getItem('tc'))||[];
 let wish=JSON.parse(localStorage.getItem('tw'))||[];
 let prof=JSON.parse(localStorage.getItem('tp'))||{name:'Гость'};
+let currentModalIdx = -1;
 
-// Navigation
+// --- Navigation ---
 function go(id){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   document.getElementById('pg'+id).classList.add('active');
@@ -344,220 +386,190 @@ function go(id){
   if(id===3) rC();
   if(id===4) rCheckSummary();
   window.scrollTo(0,0);
-  cm();
-}
+  cm();}
 function tm(){document.getElementById('um').classList.toggle('open')}
 function cm(){document.getElementById('um').classList.remove('open')}
 document.addEventListener('click',e=>{if(!e.target.closest('.nl')&&!e.target.closest('.dd'))cm()});
 
-// Profile
+// --- Modal Logic ---
+function openModal(idx){
+  currentModalIdx=idx;
+  const p=P[idx];
+  document.getElementById('mImg').textContent=p.e||'';
+  document.getElementById('mName').textContent=p.n;
+  document.getElementById('mCat').textContent=p.c+' • '+p.d;
+  document.getElementById('mPrice').textContent=p.p.toLocaleString()+' ₽';
+  updateModalHeart();
+  document.getElementById('modal').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('active');
+  document.body.style.overflow='';
+}
+function updateModalHeart(){
+  const mw=document.querySelector('#modal .mw');
+  if(wish.find(i=>i.n===P[currentModalIdx].n)) mw.classList.add('liked');
+  else mw.classList.remove('liked');
+}
+function addFromModal(){
+  if(currentModalIdx>=0){
+    const p=P[currentModalIdx];
+    ad(p.n,p.c,p.p,p.e);
+    closeModal();
+  }
+}
+document.querySelector('.mcl').addEventListener('click', closeModal);
+document.getElementById('modal').addEventListener('click', e=>{if(e.target===document.getElementById('modal')) closeModal()});
+
+// --- Profile ---
 function lP(){
   const s=JSON.parse(localStorage.getItem('tp'))||{};
   let initials='N';
-  if(s.name){
-    initials=s.name[0].toUpperCase();
-    document.getElementById('nNm').textContent=s.name;
-    document.getElementById('mNm').textContent=s.name;
-  }
+  if(s.name){initials=s.name[0].toUpperCase();document.getElementById('nNm').textContent=s.name;document.getElementById('mNm').textContent=s.name;}
   document.getElementById('nAv').innerHTML='<span>'+initials+'</span>';
   document.getElementById('mAv').innerHTML='<span>'+initials+'</span>';
-  
   if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.initDataUnsafe&&Telegram.WebApp.initDataUnsafe.user){
     const u=Telegram.WebApp.initDataUnsafe.user;
     const nm=u.first_name+(u.last_name?' '+u.last_name:'');
     const hd=u.username?'@'+u.username:'';
-    document.getElementById('nNm').textContent=nm;
-    document.getElementById('mNm').textContent=nm;
-    document.getElementById('nHdl').textContent=hd||'';
-    document.getElementById('mHdl').textContent=hd||'';
-    if(u.photo_url){
-      document.getElementById('nAv').innerHTML='<img src="'+u.photo_url+'" alt="">';
-      document.getElementById('mAv').innerHTML='<img src="'+u.photo_url+'" alt="">';
-    }
-  }
+    document.getElementById('nNm').textContent=nm;document.getElementById('mNm').textContent=nm;
+    document.getElementById('nHdl').textContent=hd||'';document.getElementById('mHdl').textContent=hd||'';
+    if(u.photo_url){document.getElementById('nAv').innerHTML='<img src="'+u.photo_url+'" alt="">';document.getElementById('mAv').innerHTML='<img src="'+u.photo_url+'" alt="">';}  }
 }
-
 function ep(){const n=prompt('Ваше имя:',prof.name||'');if(n){prof.name=n;localStorage.setItem('tp',JSON.stringify(prof));lP();t('Готово ✓')}cm()}
 function cd(){if(confirm('Очистить все данные?')){localStorage.clear();cart=[];wish=[];location.reload()}}
 
-// Render New arrivals
+// --- Renders ---
 function rP(){
-  document.getElementById('pS').innerHTML=P.slice(0,6).map(i=>{
-    const isLiked=wish.some(w=>w.n===i.n)?'liked':'';
-    return `<div class="pc" onclick="ad('${i.n}','${i.c}',${i.p},'${i.e}')">
-      <div class="pi">${i.e||'🎁'}
-        <div class="pw ${isLiked}" onclick="event.stopPropagation();tw('${i.n}','${i.c}',${i.p},'${i.e}')"></div>
-      </div>
-      <div class="pb">
-        <div class="pt">${i.cat==='bag'?'Сумка':i.cat==='shoes'?'Обувь':i.cat==='acc'?'Аксессуар':'Одежда'}</div>
-        <div class="pn">${i.n}</div><div class="ppc">${i.c}</div>
-        <div class="pr"><div class="ppr">${i.p.toLocaleString()} ₽</div><div class="padd">+</div></div>
-      </div>
-    </div>`;
-  }).join('');}
-
-// Render Catalog
-function rCat(f){
-  const fl=f==='all'?P:P.filter(i=>i.cat===f);
-  document.getElementById('cG').innerHTML=fl.map(i=>{
-    const isLiked=wish.some(w=>w.n===i.n)?'liked':'';
-    return `<div class="cac" onclick="ad('${i.n}','${i.c}',${i.p},'${i.e}')">
-      <div class="cai">${i.e||'🎁'}
-        <div class="cw ${isLiked}" onclick="event.stopPropagation();tw('${i.n}','${i.c}',${i.p},'${i.e}')"></div>
-      </div>
-      <div class="cainf">
-        <div class="can">${i.n}</div><div class="cat2">${i.c}</div>
-        <div class="cab"><div class="cap">${i.p.toLocaleString()} ₽</div><div class="cbtn">+</div></div>
-      </div>
+  document.getElementById('pS').innerHTML=P.slice(0,6).map((p,i)=>{
+    const isLiked=wish.some(w=>w.n===p.n)?'liked':'';
+    return `<div class="pc" onclick="openModal(${i})">
+      <div class="pi">${p.e||'🎁'}<div class="pw ${isLiked}" onclick="event.stopPropagation();tw(${i})"></div></div>
+      <div class="pb"><div class="pt">${p.cat==='bag'?'Сумка':p.cat==='shoes'?'Обувь':p.cat==='acc'?'Аксессуар':'Одежда'}</div>
+      <div class="pn">${p.n}</div><div class="ppc">${p.c}</div>
+      <div class="pr"><div class="ppr">${p.p.toLocaleString()} ₽</div><div class="padd" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div>
     </div>`;
   }).join('');
 }
 
-function fl(f,e){
-  document.querySelectorAll('.fc').forEach(b=>b.classList.remove('active'));
-  e.classList.add('active');
-  rCat(f);
+function rCat(f){
+  const fl=f==='all'?P:P.filter(i=>i.cat===f);
+  document.getElementById('cG').innerHTML=fl.map(p=>{
+    const idx=P.indexOf(p);
+    const isLiked=wish.some(w=>w.n===p.n)?'liked':'';
+    return `<div class="cac" onclick="openModal(${idx})">
+      <div class="cai">${p.e||'🎁'}<div class="cw ${isLiked}" onclick="event.stopPropagation();tw(${idx})"></div></div>
+      <div class="cainf"><div class="can">${p.n}</div><div class="cat2">${p.c}</div>
+      <div class="cab"><div class="cap">${p.p.toLocaleString()} ₽</div><div class="cbtn" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div>
+    </div>`;
+  }).join('');
 }
 
-// Wishlist
-function tw(n,c,p,e){
-  const idx=wish.findIndex(i=>i.n===n);
-  if(idx>-1){
-    wish.splice(idx,1);
-    t('Удалено из избранного');
-  }else{
-    wish.push({n,c,p,e});
-    t('Добавлено в избранное ❤');
-  }
+function fl(f,e){document.querySelectorAll('.fc').forEach(b=>b.classList.remove('active'));e.classList.add('active');rCat(f);}
+
+function tw(idx){
+  const p=P[idx];
+  const i=wish.findIndex(w=>w.n===p.n);
+  if(i>-1){wish.splice(i,1);t('Удалено из избранного')}
+  else{wish.push(p);t('Добавлено в избранное ❤')}
   localStorage.setItem('tw',JSON.stringify(wish));
-  rP();
-  // Update current view if on catalog
-  const activeBtn = document.querySelector('.fc.active');
-  if(activeBtn && activeBtn.textContent !== 'Все') rCat(activeBtn.onclick.toString().match(/'([^']+)'/)[1]);
-  else if(activeBtn) rCat('all');
-  rW();
-  updateBadges();
+  rP();rCat(document.querySelector('.fc.active')?.textContent==='Все'?'all':'bag'); // Simplified filter reset
+  rW();updateBadges();updateModalHeart();
 }
 
 function rW(){
-  if(wish.length===0){
-    document.getElementById('wC').innerHTML='<div class="ce">Пока пусто<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>';
-    return;
-  }  document.getElementById('wC').innerHTML=wish.map(i=>`
-    <div class="wc">
-      <div class="wi" onclick="ad('${i.n}','${i.c}',${i.p},'${i.e}')">${i.e||'🎁'}</div>
-      <div class="winf">
-        <div class="wn">${i.n}</div><div class="wt">${i.c}</div>
-        <div class="wb">
-          <div class="wp">${i.p.toLocaleString()} ₽</div>
-          <div style="display:flex;gap:6px">
-            <div class="wac" onclick="ad('${i.n}','${i.c}',${i.p},'${i.e}')">В корзину</div>
-            <div class="wrm" onclick="event.stopPropagation();tw('${i.n}','${i.c}',${i.p},'${i.e}')">×</div>
-          </div>
-        </div>
+  if(wish.length===0){document.getElementById('wC').innerHTML='<div class="ce">Пока пусто<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>';return;}
+  document.getElementById('wC').innerHTML=wish.map(p=>`
+    <div class="wc" onclick="openModal(${P.indexOf(p)})">
+      <div class="wi">${p.e||'🎁'}</div>
+      <div class="winf"><div class="wn">${p.n}</div><div class="wt">${p.c}</div>
+        <div class="wb"><div class="wp">${p.p.toLocaleString()} ₽</div>        <div style="display:flex;gap:6px">
+          <div class="wac" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">В корзину</div>
+          <div class="wrm" onclick="event.stopPropagation();tw(${P.indexOf(p)})">×</div>
+        </div></div>
       </div>
     </div>`).join('');
 }
 
-// Cart & Checkout
 function rC(){
-  if(cart.length===0){
-    document.getElementById('cC').innerHTML='<div class="ce">Корзина пуста 🛒<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>';
-    updateBadges();
-    return;
-  }
+  if(cart.length===0){document.getElementById('cC').innerHTML='<div class="ce">Корзина пуста 🛒<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>';updateBadges();return;}
   const qty=cart.reduce((a,b)=>a+b.q,0);
   const sum=cart.reduce((a,b)=>a+b.p*b.q,0);
   let h='<div class="cil">';
-  cart.forEach((i,idx)=>{
-    h+=`<div class="cii">
-      <div class="cr" onclick="rm(${idx})">×</div>
-      <div class="cimg">${i.e||'🎁'}</div>
-      <div class="cinf"><div class="cnm">${i.n}</div><div class="cty">${i.c}</div>
-        <div class="cib"><div class="cip">${i.p.toLocaleString()} ₽</div>
-        <div class="qt"><button onclick="uq(${idx},-1)">−</button><span>${i.q}</span><button onclick="uq(${idx},1)">+</button></div></div>
-      </div>
-    </div>`;
+  cart.forEach((item,idx)=>{
+    h+=`<div class="cii"><div class="cr" onclick="rm(${idx})">×</div>
+    <div class="cimg">${item.e||'🎁'}</div>
+    <div class="cinf"><div class="cnm">${item.n}</div><div class="cty">${item.c}</div>
+    <div class="cib"><div class="cip">${item.p.toLocaleString()} ₽</div>
+    <div class="qt"><button onclick="uq(${idx},-1)">−</button><span>${item.q}</span><button onclick="uq(${idx},1)">+</button></div></div></div></div>`;
   });
   h+='</div>';
-  h+=`<div class="cs">
-    <div class="sr"><span class="lb">Товары</span><span class="vl">${qty} шт.</span></div>
-    <div class="sr"><span class="lb">Доставка</span><span class="vl">Бесплатно</span></div>
-    <div class="sr tot"><span class="lb">Итого</span><span class="vl">${sum.toLocaleString()} ₽</span></div>
-  </div>`;
-  
-  h+='<div style="padding:0 14px 20px;"><button class="btn b1" style="width:100%" onclick="go(4)">Перейти к оформлению</button></div>';
-  document.getElementById('cC').innerHTML=h;
-  updateBadges();
+  h+=`<div class="cs"><div class="sr"><span class="lb">Товары</span><span class="vl">${qty} шт.</span></div>
+  <div class="sr"><span class="lb">Доставка</span><span class="vl">Бесплатно</span></div>
+  <div class="sr tot"><span class="lb">Итого</span><span class="vl">${sum.toLocaleString()} ₽</span></div></div>`;
+  h+='<div style="padding:0 14px 20px;"><button class="btn b1" style="width:100%" onclick="go(4)">Оформить заказ</button></div>';
+  document.getElementById('cC').innerHTML=h;updateBadges();
 }
 
 function rCheckSummary(){
-  const qty=cart.reduce((a,b)=>a+b.q,0);  const sum=cart.reduce((a,b)=>a+b.p*b.q,0);
-  let html='<div class="ckh">Ваш заказ:<br>'+cart.map(i=>`${i.n} x${i.q} — ${(i.p*i.q).toLocaleString()} ₽`).join('<br>')+'</div>';
+  const sum=cart.reduce((a,b)=>a+b.p*b.q,0);
+  let html='<div class="ckh">Ваш заказ:</div><div style="margin-bottom:16px">'+cart.map(i=>`${i.n} x${i.q} — ${(i.p*i.q).toLocaleString()} ₽`).join('<br>')+'</div>';
   html+=`<div class="sr tot" style="margin-bottom:0"><span class="lb">Итого</span><span class="vl">${sum.toLocaleString()} ₽</span></div>`;
   document.getElementById('ckSum').innerHTML=html;
 }
 
-function uq(i,d){
-  cart[i].q=Math.max(1,cart[i].q+d);
-  localStorage.setItem('tc',JSON.stringify(cart));
-  rC();
-}
-
-function rm(i){
-  cart.splice(i,1);
-  localStorage.setItem('tc',JSON.stringify(cart));
-  t('Товар удалён');
-  rC();
-}
-
+// --- Cart Actions ---
+function uq(i,d){cart[i].q=Math.max(1,cart[i].q+d);localStorage.setItem('tc',JSON.stringify(cart));rC();}
+function rm(i){cart.splice(i,1);localStorage.setItem('tc',JSON.stringify(cart));t('Товар удалён');rC();}
 function ad(n,c,p,e){
   const ex=cart.find(i=>i.n===n);
   if(ex)ex.q++;else cart.push({n,c,p,e,q:1});
-  localStorage.setItem('tc',JSON.stringify(cart));
-  t('Добавлено в корзину ✓');
-  rC();
-  updateBadges();
+  localStorage.setItem('tc',JSON.stringify(cart));t('Добавлено в корзину ✓');rC();updateBadges();
 }
-
 function updateBadges(){
   const cq=cart.reduce((a,b)=>a+b.q,0);
   const wq=wish.length;
-  
   const cb=document.getElementById('cartBadge');
   if(cq>0){cb.textContent=cq;cb.style.display='flex'}else{cb.style.display='none'}
-  
   document.getElementById('s2').textContent=wq;
-  document.getElementById('s3').textContent=cq;
-}
+  document.getElementById('s3').textContent=cq;}
 
+// --- Checkout & Bot Integration ---
 function submitOrder(){
   const name=document.getElementById('ckName').value;
   const phone=document.getElementById('ckPhone').value;
   const addr=document.getElementById('ckAddr').value;
-  const comm=document.getElementById('ckComm').value;
-  
-  if(!name||!phone||!addr){t('Заполните поля!');return;}
+  if(!name||!phone||!addr){t('Заполните все поля!');return;}
   
   const total=cart.reduce((a,b)=>a+b.p*b.q,0);
-  const order={action:'order',items:cart,total,totalQty:cart.reduce((a,b)=>a+b.q,0),customer:{name,phone,address:addr,comment:comm}};
-    if(window.Telegram&&Telegram.WebApp) Telegram.WebApp.sendData(JSON.stringify(order));
+  const orderData = {
+    action: 'checkout',
+    items: cart,
+    total: total,
+    customer: {name, phone, address: addr, comment: document.getElementById('ckComm').value}
+  };
   
-  t('Заказ отправлен! Спасибо! 🎉');
-  setTimeout(()=>{
-    cart=[];localStorage.removeItem('tc');
-    document.getElementById('ckName').value='';
-    document.getElementById('ckPhone').value='';
-    document.getElementById('ckAddr').value='';
-    document.getElementById('ckComm').value='';
-    rC();go(0);updateBadges();
-  },1500);
+  // Сохраняем заказ локально
+  localStorage.setItem('pending_order', JSON.stringify(orderData));
+  
+  if(window.Telegram && Telegram.WebApp){
+    const orderId = 'ORD-' + Date.now().toString(36).toUpperCase();
+    const link = `https://t.me/trifferipaybot?start=pay_${orderId}`;
+    t('Переход к оплате...');
+    setTimeout(()=>{
+      Telegram.WebApp.openTelegramLink(link);
+      cart=[];localStorage.removeItem('tc');rC();updateBadges();go(0);
+    }, 800);
+  } else {
+    window.open('https://t.me/trifferipaybot', '_blank');
+  }
 }
 
-// Toast
+// --- Toast ---
 function t(m){const el=document.getElementById('tt');el.textContent=m;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
 
-// Init
+// --- Init ---
 window.onload=function(){
   if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}
   lP();rP();rC();
