@@ -40,11 +40,11 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .dds{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:10px}
 .ddst{text-align:center;padding:6px;background:rgba(255,255,255,.03);border-radius:6px}
 .ddsv{font-size:14px;font-weight:800;color:var(--blue2)}
-.ddsl{font-size:8px;color:rgba(255,255,255,.3);margin-top:1px}.ddm{padding:6px}
+.ddsl{font-size:8px;color:rgba(255,255,255,.3);margin-top:1px}
+.ddm{padding:6px}
 .ddi{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;cursor:pointer;font-size:12px;color:rgba(255,255,255,.7);transition:.3s}
 .ddi:hover{background:rgba(255,255,255,.06)}
-.pg{display:none;min-height:calc(100vh - 66px);animation:fi .3s}
-.pg.active{display:block}
+.pg{display:none;min-height:calc(100vh - 66px);animation:fi .3s}.pg.active{display:block}
 @keyframes fi{from{opacity:0}to{opacity:1}}
 .hero{padding:50px 16px 30px;text-align:center}
 .hb{display:inline-block;padding:4px 14px;border-radius:100px;background:rgba(26,86,219,.1);border:1px solid rgba(26,86,219,.15);font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--blue2);margin-bottom:20px}
@@ -89,11 +89,11 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .pbk{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:.3s}
 .pbk:hover{background:rgba(255,255,255,.1)}
 .pt2{font-size:20px;font-weight:800}
-.fr{display:flex;gap:6px;overflow-x:auto;padding:0 14px 10px;scrollbar-width:none}.fc{padding:6px 14px;border-radius:100px;font-size:11px;font-weight:600;white-space:nowrap;cursor:pointer;transition:.2s;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.5)}
+.fr{display:flex;gap:6px;overflow-x:auto;padding:0 14px 10px;scrollbar-width:none}
+.fc{padding:6px 14px;border-radius:100px;font-size:11px;font-weight:600;white-space:nowrap;cursor:pointer;transition:.2s;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.5)}
 .fc.active{background:rgba(26,86,219,.2);border-color:rgba(26,86,219,.4);color:#fff}
 .cag{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:0 14px}
-.cac{border-radius:14px;overflow:hidden;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:.3s}
-.cac:hover{border-color:rgba(26,86,219,.3);transform:translateY(-3px)}
+.cac{border-radius:14px;overflow:hidden;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:.3s}.cac:hover{border-color:rgba(26,86,219,.3);transform:translateY(-3px)}
 .cai{height:140px;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(135deg,rgba(26,86,219,.06),rgba(200,182,255,.04))}
 .cainf{padding:10px}
 .can{font-size:13px;font-weight:700}
@@ -135,15 +135,16 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .wrm{width:24px;height:24px;border-radius:6px;background:rgba(255,100,100,.1);border:1px solid rgba(255,100,100,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;transition:.3s}
 .wrm:hover{background:rgba(255,100,100,.2)}
 </style>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
 <canvas id="p"></canvas>
-<div class="orb o1"></div><div class="orb o2"></div>
+<div class="orb o1"></div>
+<div class="orb o2"></div>
 
-<nav class="nav">
-  <div class="nl" onclick="tm()">
+<nav class="nav">  <div class="nl" onclick="tm()">
     <div class="av" id="nAv">N</div>
-    <div><div class="nn" id="nNm">Гость</div><div class="nh">@nurikadambol</div></div>
+    <div><div class="nn" id="nNm">Гость</div><div class="nh" id="nHdl">@nurikadambol</div></div>
   </div>
   <div class="nc">
     <div class="nlk active" id="lk0" onclick="go(0)"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
@@ -159,7 +160,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 </nav>
 
 <div class="dd" id="um">
-  <div class="ddh"><div class="dda" id="mAv">N</div><div class="ddn" id="mNm">Гость</div><div class="dde">@nurikadambol</div></div>
+  <div class="ddh"><div class="dda" id="mAv">N</div><div class="ddn" id="mNm">Гость</div><div class="dde" id="mHdl">@nurikadambol</div></div>
   <div class="dds">
     <div class="ddst"><div class="ddsv" id="s1">0</div><div class="ddsl">Заказов</div></div>
     <div class="ddst"><div class="ddsv" id="s2">0</div><div class="ddsl">Избранное</div></div>
@@ -174,7 +175,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 
 <div class="pg active" id="pg0">
   <section class="hero">
-    <div class="hb"> Новая коллекция 2026</div>
+    <div class="hb">✨ Новая коллекция 2026</div>
     <h1 class="ht">Весенний <span>Блеск</span></h1>
     <p class="hs">Откройте мир стиля и элегантности. Каждый предмет — произведение искусства.</p>
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
@@ -187,7 +188,8 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
     <div class="ps" id="pS"></div>
   </section>
   <section class="sec">
-    <div class="sl">Категории</div>    <div class="st" style="margin-bottom:12px">Навигация</div>
+    <div class="sl">Категории</div>
+    <div class="st" style="margin-bottom:12px">Навигация</div>
     <div class="cg">
       <div class="cc" onclick="go(1)"><div class="ci">👜</div><div class="cn">Сумки</div><div class="cn2">24 товара</div></div>
       <div class="cc" onclick="go(1)"><div class="ci">👟</div><div class="cn">Обувь</div><div class="cn2">36 товаров</div></div>
@@ -198,7 +200,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
   <section class="sec">
     <div class="sl">Преимущества</div>
     <div class="st" style="margin-bottom:12px">Почему мы</div>
-    <div class="ft"><div class="fic"></div><div><div class="ftt">Быстрая доставка</div><div class="ftd">1-3 дня по всей России</div></div></div>
+    <div class="ft"><div class="fic">🚚</div><div><div class="ftt">Быстрая доставка</div><div class="ftd">1-3 дня по всей России</div></div></div>
     <div class="ft"><div class="fic">🛡</div><div><div class="ftt">Гарантия качества</div><div class="ftd">Оригинальные бренды</div></div></div>
     <div class="ft"><div class="fic">🔄</div><div><div class="ftt">Возврат 30 дней</div><div class="ftd">Без лишних вопросов</div></div></div>
   </section>
@@ -229,106 +231,47 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 <div class="toast" id="tt"></div>
 
 <script>
+// Анимация фона
 const cv=document.getElementById('p'),cx=cv.getContext('2d');let W,H;
 function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();onresize=rs;
 const pts=Array.from({length:35},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()+.5,dx:(Math.random()-.5)*.2,dy:(Math.random()-.5)*.2,o:Math.random()*.25+.1}));
 !function dr(){cx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.dx;p.y+=p.dy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fillStyle=`rgba(77,139,245,${p.o})`;cx.fill()});for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<80){cx.beginPath();cx.moveTo(pts[i].x,pts[i].y);cx.lineTo(pts[j].x,pts[j].y);cx.strokeStyle=`rgba(77,139,245,${.05*(1-d/80)})`;cx.lineWidth=.5;cx.stroke()}}requestAnimationFrame(dr)}()
 
-const P=[
-{n:'LUNA',c:'Сумка',cat:'bag',p:12990,e:'👜'},
-{n:'AURORA',c:'Кроссовки',cat:'shoes',p:7450,e:'👟'},{n:'SKY',c:'Очки',cat:'acc',p:4100,e:'🕶'},
-{n:'VELVET',c:'Платье',cat:'clothes',p:18900,e:'👗'},
-{n:'NOIR',c:'Часы',cat:'acc',p:24500,e:'⌚'},
-{n:'BLAZE',c:'Куртка',cat:'clothes',p:15600,e:'🧥'},
-{n:'LUNA MINI',c:'Кошелёк',cat:'bag',p:5990,e:''},
-{n:'SPORT',c:'Футболка',cat:'clothes',p:2990,e:''},
-{n:'ELEGANCE',c:'Туфли',cat:'shoes',p:11200,e:'👠'},
-{n:'LUX',c:'Сумка',cat:'bag',p:28900,e:'👜'}
-];
+// Товары
+const P=[{n:'LUNA',c:'Сумка',cat:'bag',p:12990,e:'👜'},{n:'AURORA',c:'Кроссовки',cat:'shoes',p:7450,e:''},{n:'SKY',c:'Очки',cat:'acc',p:4100,e:'🕶'},{n:'VELVET',c:'Платье',cat:'clothes',p:18900,e:''},{n:'NOIR',c:'Часы',cat:'acc',p:24500,e:'⌚'},{n:'BLAZE',c:'Куртка',cat:'clothes',p:15600,e:'🧥'},{n:'LUNA MINI',c:'Кошелёк',cat:'bag',p:5990,e:'👛'},{n:'SPORT',c:'Футболка',cat:'clothes',p:2990,e:'👕'},{n:'ELEGANCE',c:'Туфли',cat:'shoes',p:11200,e:'👠'},{n:'LUX',c:'Сумка',cat:'bag',p:28900,e:'👜'}];
 let cart=JSON.parse(localStorage.getItem('tc'))||[];
 let wish=JSON.parse(localStorage.getItem('tw'))||[];
 let prof=JSON.parse(localStorage.getItem('tp'))||{name:'Гость'};
-let cur=0;
 
-function go(id){
-document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
-document.getElementById('pg'+id).classList.add('active');
-for(let i=0;i<3;i++)document.getElementById('lk'+i).classList.toggle('active',i===id);
-if(id===3)rC();if(id===1)rCat('all');if(id===2)rW();
-scrollTo({top:0,behavior:'smooth'});cm();cur=id;
-}
-
+// Навигация
+function go(id){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));document.getElementById('pg'+id).classList.add('active');for(let i=0;i<3;i++)document.getElementById('lk'+i).classList.toggle('active',i===id);if(id===3)rC();if(id===1)rCat('all');if(id===2)rW();scrollTo({top:0,behavior:'smooth'});cm();}
 function tm(){document.getElementById('um').classList.toggle('open')}
 function cm(){document.getElementById('um').classList.remove('open')}
 document.addEventListener('click',e=>{if(!e.target.closest('.nl')&&!e.target.closest('.dd'))cm()});
 
-function lP(){
-const s=JSON.parse(localStorage.getItem('tp'))||{};
-if(s.name){const L=s.name[0].toUpperCase();document.getElementById('nAv').textContent=L;document.getElementById('mAv').textContent=L;document.getElementById('nNm').textContent=s.name;document.getElementById('mNm').textContent=s.name;}
-}
+// Профиль
+function lP(){const s=JSON.parse(localStorage.getItem('tp'))||{};if(s.name){const L=s.name[0].toUpperCase();document.getElementById('nAv').textContent=L;document.getElementById('mAv').textContent=L;document.getElementById('nNm').textContent=s.name;document.getElementById('mNm').textContent=s.name;}if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.initDataUnsafe&&Telegram.WebApp.initDataUnsafe.user){const u=Telegram.WebApp.initDataUnsafe.user;const nm=u.first_name+(u.last_name?' '+u.last_name:'');const hd=u.username?'@'+u.username:'';document.getElementById('nNm').textContent=nm;document.getElementById('mNm').textContent=nm;document.getElementById('nHdl').textContent=hd||' ';document.getElementById('mHdl').textContent=hd||' ';}}
 function ep(){const n=prompt('Ваше имя:',prof.name||'');if(n){prof.name=n;localStorage.setItem('tp',JSON.stringify(prof));lP();t('Имя обновлено ✓')}cm()}
 function cd(){if(confirm('Очистить всё?')){localStorage.clear();cart=[];wish=[];location.reload()}}
 
-function rP(){
-document.getElementById('pS').innerHTML=P.slice(0,6).map(i=>`<div class="pc" onclick="ad('${i.n}','${i.c}',${i.p},'${i.e}')"><div class="pi">${i.e}</div><div class="pb"><div class="pt">${i.cat==='bag'?'Сумка':i.cat==='shoes'?'Обувь':i.cat==='acc'?'Аксессуар':'Одежда'}</div><div class="pn">${i.n}</div><div class="ppc">${i.c}</div><div class="pr"><div class="ppr">${i.p.toLocaleString()} ₽</div><div class="padd">+</div></div></div></div>`).join('');
-}
-
-function rCat(f){
-const fl=f==='all'?P:P.filter(i=>i.cat===f);
-document.getElementById('cG').innerHTML=fl.map((i,idx)=>`<div class="cac" onclick="ad('${i.n}','${i.c}',${i.p},'${i.e}')"><div class="cai">${i.e||'🎁'}</div><div class="cainf"><div class="can">${i.n}</div><div class="cat2">${i.c}</div><div class="cab"><div class="cap">${i.p.toLocaleString()} ₽</div><div class="cbtn">+</div></div></div></div>`).join('');
-}
-
-function fl(f,e){
-document.querySelectorAll('.fc').forEach(b=>b.classList.remove('active'));
-e.classList.add('active');
-rCat(f);
-}
-
-function rW(){
-if(wish.length===0){document.getElementById('wC').innerHTML='<div class="ce">Пока пусто ❤️</div>';return;}
-document.getElementById('wC').innerHTML='<div class="wg">'+wish.map((i,idx)=>`<div class="wc"><div class="wi">${i.e||'🎁'}</div><div class="winf"><div class="wn">${i.n}</div><div class="wt">${i.c}</div><div class="wb"><div class="wp">${i.p.toLocaleString()} ₽</div><div class="wrm" onclick="rw(${idx})">×</div></div></div></div>`).join('')+'</div>';
-}
-
+// Рендер товаров
+function rP(){document.getElementById('pS').innerHTML=P.slice(0,6).map(i=>`<div class="pc" onclick="ad('${i.n}','${i.c}',${i.p},'${i.e}')"><div class="pi">${i.e}</div><div class="pb"><div class="pt">${i.cat==='bag'?'Сумка':i.cat==='shoes'?'Обувь':i.cat==='acc'?'Аксессуар':'Одежда'}</div><div class="pn">${i.n}</div><div class="ppc">${i.c}</div><div class="pr"><div class="ppr">${i.p.toLocaleString()} ₽</div><div class="padd">+</div></div></div></div>`).join('');}
+function rCat(f){const fl=f==='all'?P:P.filter(i=>i.cat===f);document.getElementById('cG').innerHTML=fl.map(i=>`<div class="cac" onclick="ad('${i.n}','${i.c}',${i.p},'${i.e}')"><div class="cai">${i.e||'🎁'}</div><div class="cainf"><div class="can">${i.n}</div><div class="cat2">${i.c}</div><div class="cab"><div class="cap">${i.p.toLocaleString()} ₽</div><div class="cbtn">+</div></div></div></div>`).join('');}
+function fl(f,e){document.querySelectorAll('.fc').forEach(b=>b.classList.remove('active'));e.classList.add('active');rCat(f);}
+function rW(){if(wish.length===0){document.getElementById('wC').innerHTML='<div class="ce">Пока пусто ❤️</div>';return;}document.getElementById('wC').innerHTML='<div class="wg">'+wish.map((i,idx)=>`<div class="wc"><div class="wi">${i.e||''}</div><div class="winf"><div class="wn">${i.n}</div><div class="wt">${i.c}</div><div class="wb"><div class="wp">${i.p.toLocaleString()} ₽</div><div class="wrm" onclick="rw(${idx})">×</div></div></div></div>`).join('')+'</div>';}
 function rw(i){wish.splice(i,1);localStorage.setItem('tw',JSON.stringify(wish));rW();t('Удалено из избранного')}
 
-function rC(){
-if(cart.length===0){document.getElementById('cC').innerHTML='<div class="ce">Корзина пуста 🛒</div><div style="text-align:center"><button class="btn b1" onclick="go(1)">В каталог</button></div>';return;}
-let sum=cart.reduce((a,b)=>a+b.p*b.q,0);
-document.getElementById('cC').innerHTML='<div class="cil">'+cart.map((i,idx)=>`<div class="cii"><div class="cimg">${i.e||'🎁'}</div><div class="cinf"><div class="cnm">${i.n}</div><div class="cty">${i.c}</div><div class="cib"><div class="cip">${i.p.toLocaleString()} ₽</div><div class="qt"><button onclick="uq(${idx},-1)">−</button><span>${i.q}</span><button onclick="uq(${idx},1)">+</button></div></div></div></div>`).join('')+'</div><div class="cs"><div class="sr"><span class="lb">Товары</span><span class="vl">${cart.reduce((a,b)=>a+b.q,0)} шт.</span></div><div class="sr"><span class="lb">Доставка</span><span class="vl">Бесплатно</span></div><div class="sr tot"><span class="lb">Итого</span><span class="vl">${sum.toLocaleString()} ₽</span></div><button class="btn b1" style="width:100%;margin-top:12px" onclick="chk()">Оформить заказ</button></div>';
-document.getElementById('bdg').style.display=cart.length?'block':'none';
-}
-
+// Корзина
+function rC(){if(cart.length===0){document.getElementById('cC').innerHTML='<div class="ce">Корзина пуста 🛒</div><div style="text-align:center;margin-top:20px"><button class="btn b1" onclick="go(1)">В каталог</button></div>';document.getElementById('bdg').style.display='none';return;}const qty=cart.reduce((a,b)=>a+b.q,0);const sum=cart.reduce((a,b)=>a+b.p*b.q,0);let html='<div class="cil">';cart.forEach((i,idx)=>{html+=`<div class="cii"><div class="cimg">${i.e||'🎁'}</div><div class="cinf"><div class="cnm">${i.n}</div><div class="cty">${i.c}</div><div class="cib"><div class="cip">${i.p.toLocaleString()} ₽</div><div class="qt"><button onclick="uq(${idx},-1)">−</button><span>${i.q}</span><button onclick="uq(${idx},1)">+</button></div></div></div></div>`;});html+='</div>';html+=`<div class="cs"><div class="sr"><span class="lb">Товары</span><span class="vl">${qty} шт.</span></div><div class="sr"><span class="lb">Доставка</span><span class="vl">Бесплатно</span></div><div class="sr tot"><span class="lb">Итого</span><span class="vl">${sum.toLocaleString()} ₽</span></div><button class="btn b1" style="width:100%;margin-top:12px" onclick="chk()">Оформить заказ</button></div>`;document.getElementById('cC').innerHTML=html;document.getElementById('bdg').style.display='block';document.getElementById('s3').textContent=qty;}
 function uq(i,d){cart[i].q=Math.max(1,cart[i].q+d);localStorage.setItem('tc',JSON.stringify(cart));rC();}
+function ad(n,c,p,e){const ex=cart.find(i=>i.n===n);if(ex){ex.q++;t('Добавлено в корзину ✓')}else{cart.push({n,c,p,e,q:1});t('Добавлено в корзину ✓')}localStorage.setItem('tc',JSON.stringify(cart));rC();document.getElementById('bdg').style.display='block';document.getElementById('s3').textContent=cart.reduce((a,b)=>a+b.q,0);}
+function chk(){if(cart.length===0){t('Корзина пуста!');return;}const sum=cart.reduce((a,b)=>a+b.p*b.q,0);const order={action:'order',cart:cart,total:sum,user:prof};if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.sendData(JSON.stringify(order));}t('Заказ отправлен! ✓');setTimeout(()=>{cart=[];localStorage.removeItem('tc');rC();go(0);},2000);}
 
-function ad(n,c,p,e){
-const ex=cart.find(i=>i.n===n);
-if(ex){ex.q++;t('Добавлено в корзину ✓')}
-else{cart.push({n,c,p,e,q:1});t('Добавлено в корзину ✓')}
-localStorage.setItem('tc',JSON.stringify(cart));
-rC();document.getElementById('bdg').style.display='block';
-}
+// Уведомления
+function t(m){const el=document.getElementById('tt');el.textContent=m;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
 
-function chk(){
-if(cart.length===0){t('Корзина пуста!');return;}
-Telegram.WebApp.sendData(JSON.stringify({action:'order',cart, total:cart.reduce((a,b)=>a+b.p*b.q,0)}));
-t('Заказ отправлен! ✓');
-}
-
-function t(m){
-const el=document.getElementById('tt');
-el.textContent=m;el.classList.add('show');
-setTimeout(()=>el.classList.remove('show'),2000);
-}
-
-// Telegram WebApp init
-if(window.Telegram?.WebApp){
-Telegram.WebApp.ready();
-Telegram.WebApp.expand();
-document.documentElement.style.setProperty('--bg', Telegram.WebApp.backgroundColor || '#030308');
-}
-
-// Init
-window.onload=()=>{lP();rP();};
+// Запуск
+window.onload=function(){if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}lP();rP();};
 </script>
 </body>
 </html>
