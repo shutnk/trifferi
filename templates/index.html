@@ -540,30 +540,53 @@ function submitOrder(){
   const name=document.getElementById('ckName').value;
   const phone=document.getElementById('ckPhone').value;
   const addr=document.getElementById('ckAddr').value;
+  const comm=document.getElementById('ckComm').value;
+  
   if(!name||!phone||!addr){t('Заполните все поля!');return;}
   
   const total=cart.reduce((a,b)=>a+b.p*b.q,0);
+  
+  // Получаем ID пользователя из Telegram WebApp
+  let userId = 0;
+  if(window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe && Telegram.WebApp.initDataUnsafe.user){
+      userId = Telegram.WebApp.initDataUnsafe.user.id;
+  }
+  
   const orderData = {
-    action: 'checkout',
+    userId: userId,
     items: cart,
     total: total,
-    customer: {name, phone, address: addr, comment: document.getElementById('ckComm').value}
+    customer: {name, phone, address: addr, comment: comm}
   };
   
-  // Сохраняем заказ локально
-  localStorage.setItem('pending_order', JSON.stringify(orderData));
+  t('Обработка заказа...');
   
-  if(window.Telegram && Telegram.WebApp){
-    const orderId = 'ORD-' + Date.now().toString(36).toUpperCase();
-    const link = `https://t.me/trifferipaybot?start=pay_${orderId}`;
-    t('Переход к оплате...');
-    setTimeout(()=>{
-      Telegram.WebApp.openTelegramLink(link);
-      cart=[];localStorage.removeItem('tc');rC();updateBadges();go(0);
-    }, 800);
-  } else {
-    window.open('https://t.me/trifferipaybot', '_blank');
-  }
+  // Отправляем данные на сервер (наш Python бэкенд)
+  fetch('/api/order', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(orderData)
+  }).then(res => res.json())
+  .then(data => {
+    if(data.status === 'success'){
+      t('Заказ успешно создан! ✅');
+      cart = [];
+      localStorage.removeItem('tc');
+      rC();
+      updateBadges();
+      go(0); // Возврат на главную
+      
+      // Переход в бота уведомлений через 1.5 секунды
+      setTimeout(()=>{
+         window.location.href = "https://t.me/trifferipaybot";
+      }, 1500);
+    } else {
+      t('Ошибка при создании заказа ❌');
+    }
+  }).catch(e => {
+    t('Ошибка сети');
+    console.error(e);
+  });
 }
 
 // --- Toast ---
