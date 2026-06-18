@@ -426,22 +426,31 @@ document.getElementById('modal').addEventListener('click', e=>{if(e.target===doc
 function lP(){
   const s=JSON.parse(localStorage.getItem('tp'))||{};
   let initials='N';
-  if(s.name){initials=s.name[0].toUpperCase();document.getElementById('nNm').textContent=s.name;document.getElementById('mNm').textContent=s.name;}
+  if(s.name){
+    initials=s.name[0].toUpperCase();
+    document.getElementById('nNm').textContent=s.name;
+    document.getElementById('mNm').textContent=s.name;
+  }
   document.getElementById('nAv').innerHTML='<span>'+initials+'</span>';
   document.getElementById('mAv').innerHTML='<span>'+initials+'</span>';
+  
   if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.initDataUnsafe&&Telegram.WebApp.initDataUnsafe.user){
     const u=Telegram.WebApp.initDataUnsafe.user;
     const nm=u.first_name+(u.last_name?' '+u.last_name:'');
     const hd=u.username?'@'+u.username:'';
-    document.getElementById('nNm').textContent=nm;document.getElementById('mNm').textContent=nm;
-    document.getElementById('nHdl').textContent=hd||'';document.getElementById('mHdl').textContent=hd||'';
-    if(u.photo_url){document.getElementById('nAv').innerHTML='<img src="'+u.photo_url+'" alt="">';document.getElementById('mAv').innerHTML='<img src="'+u.photo_url+'" alt="">';}  }
+    document.getElementById('nNm').textContent=nm;
+    document.getElementById('mNm').textContent=nm;
+    document.getElementById('nHdl').textContent=hd||'';
+    document.getElementById('mHdl').textContent=hd||'';
+    if(u.photo_url){
+      document.getElementById('nAv').innerHTML='<img src="'+u.photo_url+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
+      document.getElementById('mAv').innerHTML='<img src="'+u.photo_url+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';    }
+  }
 }
-function ep(){const n=prompt('Ваше имя:',prof.name||'');if(n){prof.name=n;localStorage.setItem('tp',JSON.stringify(prof));lP();t('Готово ✓')}cm()}
-function cd(){if(confirm('Очистить все данные?')){localStorage.clear();cart=[];wish=[];location.reload()}}
 
 // --- Renders ---
 function rP(){
+  console.log('Rendering new arrivals, P.length:', P.length);
   document.getElementById('pS').innerHTML=P.slice(0,6).map((p,i)=>{
     const isLiked=wish.some(w=>w.n===p.n)?'liked':'';
     return `<div class="pc" onclick="openModal(${i})">
@@ -451,6 +460,7 @@ function rP(){
       <div class="pr"><div class="ppr">${p.p.toLocaleString()} ₽</div><div class="padd" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div>
     </div>`;
   }).join('');
+  console.log('New arrivals rendered');
 }
 
 function rCat(f){
@@ -483,7 +493,29 @@ function rW(){
     document.getElementById('wC').innerHTML='<div class="ce">Пока пусто ❤️<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">Перейти в каталог</button></div>';
     updateBadges();
     return;
-  }
+  }  document.getElementById('wC').innerHTML=wish.map((p,idx)=>{
+    const productIdx = P.findIndex(item => item.n === p.n);
+    if(productIdx === -1) return '';
+    return `
+    <div class="wc" onclick="openModal(${productIdx})">
+      <div class="wi" style="position:relative">
+        ${p.e||'🎁'}
+        <div class="cw" onclick="event.stopPropagation();tw(${productIdx})" style="position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:rgba(255,71,87,0.2);border:1px solid rgba(255,71,87,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;z-index:2">
+          <span style="color:#ff4757;font-size:18px">×</span>
+        </div>
+      </div>
+      <div class="winf">
+        <div class="wn">${p.n}</div>
+        <div class="wt">${p.c}</div>
+        <div class="wb">
+          <div class="wp">${p.p.toLocaleString()} ₽</div>
+          <div class="wac" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')" style="padding:8px 12px;border-radius:8px;background:rgba(26,86,219,0.15);border:1px solid rgba(26,86,219,0.2);text-align:center;font-size:11px;font-weight:600;color:var(--blue2);cursor:pointer;transition:0.3s">В корзину</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  updateBadges();
+}
   document.getElementById('wC').innerHTML=wish.map((p,idx)=>{
     const productIdx = P.findIndex(item => item.n === p.n);
     return `
