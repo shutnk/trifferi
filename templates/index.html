@@ -479,21 +479,33 @@ function tw(idx){
 }
 
 function rW(){
-  if(wish.length===0){document.getElementById('wC').innerHTML='<div class="ce">Пока пусто<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>';return;}
-  document.getElementById('wC').innerHTML=wish.map(p=>`
-    <div class="wc" onclick="openModal(${P.indexOf(p)})">
-      <div class="wi">${p.e||'🎁'}</div>
-      <div class="winf"><div class="wn">${p.n}</div><div class="wt">${p.c}</div>
-        <div class="wb"><div class="wp">${p.p.toLocaleString()} ₽</div>        <div style="display:flex;gap:6px">
-          <div class="wac" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">В корзину</div>
-          <div class="wrm" onclick="event.stopPropagation();tw(${P.indexOf(p)})">×</div>
-        </div></div>
+  if(wish.length===0){
+    document.getElementById('wC').innerHTML='<div class="ce">Пока пусто ❤️<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">Перейти в каталог</button></div>';
+    updateBadges();
+    return;
+  }
+  document.getElementById('wC').innerHTML=wish.map((p,idx)=>{
+    const productIdx = P.findIndex(item => item.n === p.n);
+    return `
+    <div class="wc" onclick="openModal(${productIdx})">
+      <div class="wi" style="position:relative">
+        ${p.e||'🎁'}
+        <div class="cw" onclick="event.stopPropagation();tw(${productIdx})" style="position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:rgba(255,71,87,0.2);border:1px solid rgba(255,71,87,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;z-index:2">
+          <span style="color:#ff4757;font-size:18px">×</span>
+        </div>
       </div>
-    </div>`).join('');
+      <div class="winf">
+        <div class="wn">${p.n}</div>
+        <div class="wt">${p.c}</div>
+        <div class="wb">
+          <div class="wp">${p.p.toLocaleString()} ₽</div>
+          <div class="wac" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')" style="padding:8px 12px;border-radius:8px;background:rgba(26,86,219,0.15);border:1px solid rgba(26,86,219,0.2);text-align:center;font-size:11px;font-weight:600;color:var(--blue2);cursor:pointer;transition:0.3s">В корзину</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  updateBadges();
 }
-
-function rC(){
-  if(cart.length===0){document.getElementById('cC').innerHTML='<div class="ce">Корзина пуста 🛒<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>';updateBadges();return;}
   const qty=cart.reduce((a,b)=>a+b.q,0);
   const sum=cart.reduce((a,b)=>a+b.p*b.q,0);
   let h='<div class="cil">';
