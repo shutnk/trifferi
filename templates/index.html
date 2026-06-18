@@ -170,7 +170,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .sr.tot .vl{font-size:20px;font-weight:800;color:var(--blue2)}
 
 .wg{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 14px}
-.wc{border-radius:16px;overflow:hidden;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:.3s}
+.wc{border-radius:16px;overflow:hidden;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:.3s;position:relative}.wc:hover{border-color:rgba(26,86,219,.25);transform:translateY(-3px)}
 .wi{height:120px;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(135deg,rgba(200,182,255,.04),rgba(26,86,219,.04))}
 .winf{padding:12px}
 .wn{font-size:14px;font-weight:700}
@@ -206,7 +206,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
   <div class="nc">
     <div class="nlk active" id="lk0" onclick="go(0)"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
     <div class="nlk" id="lk1" onclick="go(1)"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
-    <div class="nlk" id="lk2" onclick="go(2)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+    <div class="nlk" id="lk2" onclick="go(2)" style="position:relative"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><div class="badge" id="wishBadge" style="display:none">0</div></div>
   </div>
   <div class="nr">
     <div class="nic" onclick="go(3)">
