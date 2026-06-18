@@ -450,17 +450,33 @@ function lP(){
 
 // --- Renders ---
 function rP(){
-  console.log('Rendering new arrivals, P.length:', P.length);
-  document.getElementById('pS').innerHTML=P.slice(0,6).map((p,i)=>{
-    const isLiked=wish.some(w=>w.n===p.n)?'liked':'';
-    return `<div class="pc" onclick="openModal(${i})">
-      <div class="pi">${p.e||'🎁'}<div class="pw ${isLiked}" onclick="event.stopPropagation();tw(${i})"></div></div>
-      <div class="pb"><div class="pt">${p.cat==='bag'?'Сумка':p.cat==='shoes'?'Обувь':p.cat==='acc'?'Аксессуар':'Одежда'}</div>
-      <div class="pn">${p.n}</div><div class="ppc">${p.c}</div>
-      <div class="pr"><div class="ppr">${p.p.toLocaleString()} ₽</div><div class="padd" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div>
-    </div>`;
-  }).join('');
-  console.log('New arrivals rendered');
+  try{
+    console.log('rP: P.length=', P.length);
+    if(!P || P.length===0){
+      console.error('rP: P is empty!');
+      document.getElementById('pS').innerHTML='<div style="padding:20px;color:#888">No products</div>';
+      return;
+    }
+    const html = P.slice(0,6).map((p,i)=>{
+      try{
+        const isLiked = wish.some(w=>w.n===p.n) ? 'liked' : '';
+        const catName = p.cat==='bag'?'Сумка':p.cat==='shoes'?'Обувь':p.cat==='acc'?'Аксессуар':'Одежда';
+        const emoji = p.e || '🎁';
+        return `<div class="pc" onclick="openModal(${i})">
+          <div class="pi">${emoji}<div class="pw ${isLiked}" onclick="event.stopPropagation();tw(${i})"></div></div>
+          <div class="pb"><div class="pt">${catName}</div>
+          <div class="pn">${p.n}</div><div class="ppc">${p.c}</div>
+          <div class="pr"><div class="ppr">${p.p.toLocaleString()} ₽</div><div class="padd" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div>
+        </div>`;
+      }catch(e){
+        console.error('rP: error rendering product', i, e);
+        return '';
+      }
+    }).join('');
+    document.getElementById('pS').innerHTML = html;
+    console.log('rP: rendered', html ? 'OK' : 'EMPTY');
+  }catch(e){
+    console.error('rP: fatal error', e);  }
 }
 
 function rCat(f){
