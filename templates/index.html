@@ -117,9 +117,9 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .sr.tot .vl{font-size:20px;font-weight:800;color:var(--blue2)}
 .toast{position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(20px);padding:10px 24px;border-radius:100px;background:rgba(26,86,219,.95);color:#fff;font-size:12px;font-weight:600;z-index:500;opacity:0;transition:.3s;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.dd{position:fixed;inset:0;z-index:1000;display:none;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);animation:fadeIn .2s}
+.dd{position:fixed;inset:0;z-index:300;display:none;background:var(--bg);animation:fadeIn .3s}
 .dd.open{display:block}
-.ddc{position:absolute;bottom:0;left:0;right:0;background:#0a0a12;border-radius:24px 24px 0 0;padding:20px;animation:slideUp .3s ease;max-height:80vh;overflow-y:auto}
+.ddc{padding:20px;padding-top:80px;max-height:100vh;overflow-y:auto}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .ddh{padding:18px;text-align:center;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:16px}
 .dda{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--accent));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#fff;margin:0 auto 10px;overflow:hidden;box-shadow:0 4px 15px rgba(26,86,219,.3)}
@@ -133,12 +133,12 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .ddm{padding:8px}
 .ddi{display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;cursor:pointer;font-size:13px;color:rgba(255,255,255,.7);transition:background .2s}
 .ddi:active{background:rgba(255,255,255,.06)}
-.dd-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:20px}
-.modal{position:fixed;inset:0;z-index:1000;display:none;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);animation:fadeIn .2s}
+.dd-close{position:fixed;top:16px;right:16px;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:20px;border:1px solid rgba(255,255,255,.1)}
+.modal{position:fixed;inset:0;z-index:300;display:none;background:var(--bg);animation:fadeIn .3s}
 .modal.open{display:block}
-.mc{position:absolute;bottom:0;left:0;right:0;background:#0a0a12;border-radius:24px 24px 0 0;max-height:85vh;overflow-y:auto;animation:slideUp .3s ease}
-.mh{height:320px;display:flex;align-items:center;justify-content:center;font-size:120px;background:linear-gradient(135deg,rgba(26,86,219,.08),rgba(200,182,255,.05));position:relative}
-.mh-close{position:absolute;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:24px;border:1px solid rgba(255,255,255,.1);transition:transform .2s}
+.mc{padding:20px;padding-top:80px;max-height:100vh;overflow-y:auto}
+.mh{height:350px;display:flex;align-items:center;justify-content:center;font-size:120px;background:linear-gradient(135deg,rgba(26,86,219,.08),rgba(200,182,255,.05));position:relative;border-radius:20px;margin-bottom:20px}
+.mh-close{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:24px;border:1px solid rgba(255,255,255,.1);transition:transform .2s;z-index:10}
 .mh-close:active{transform:scale(0.9)}
 .mh-fav{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(255,255,255,.15);transition:transform .2s}
 .mh-fav:active{transform:scale(0.9)}.mh-fav.liked{background:rgba(255,71,87,.2);border-color:#ff4757}
@@ -155,6 +155,9 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .maf:active{transform:scale(0.95)}
 .maf::after{content:'';width:24px;height:24px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(255,255,255,0.8)' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
 .maf.liked::after{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff4757' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
+
+.pg-full{position:fixed;inset:0;z-index:300;display:none;background:var(--bg);animation:fadeIn .3s;overflow-y:auto;padding-top:60px}.pg-full.active{display:block}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 </style>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
@@ -216,22 +219,20 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
   </div>
 </div>
 
-<!-- Product Modal (Отдельное окно) -->
-<div class="modal" id="productModal">
-  <div class="mc">
-    <div class="mh" id="mImg">
-      🎁
-      <div class="mh-close" onclick="closeProduct()"></div>
-      <div class="mh-fav" id="mFavBtn" onclick="toggleModalFav()"></div>
-    </div>
-    <div class="mb">
-      <div class="mt" id="mName">Product Name</div>
-      <div class="mc2" id="mCat">Category</div>
-      <div class="mp" id="mPrice">0 ₽</div>
-      <div class="mbtns">
-        <button class="mad" onclick="addFromModal()">В корзину</button>
-        <div class="maf" id="mFavBtnSmall" onclick="toggleModalFav()"></div>
-      </div>
+<!-- Product Page (Новое окно) -->
+<div class="pg-full" id="pgProduct">
+  <div class="mh" id="mImg" style="position:fixed;top:60px;left:0;right:0;z-index:40;margin:0;border-radius:0">
+    🎁
+    <div class="mh-close" onclick="closeProduct()">←</div>
+    <div class="mh-fav" id="mFavBtn" onclick="toggleModalFav()"></div>
+  </div>
+  <div style="padding:20px;padding-top:430px">
+    <div class="mt" id="mName" style="font-size:28px;margin-bottom:6px">Product Name</div>
+    <div class="mc2" id="mCat" style="margin-bottom:20px">Category</div>
+    <div class="mp" id="mPrice" style="margin-bottom:24px">0 ₽</div>
+    <div class="mbtns">
+      <button class="mad" onclick="addFromModal()" style="padding:18px;font-size:16px">В корзину</button>
+      <div class="maf" id="mFavBtnSmall" onclick="toggleModalFav()"></div>
     </div>
   </div>
 </div>
