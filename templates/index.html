@@ -109,6 +109,23 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .sr.tot .vl{font-size:20px;font-weight:800;color:var(--blue2)}
 .toast{position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(20px);padding:10px 24px;border-radius:100px;background:rgba(26,86,219,.95);color:#fff;font-size:12px;font-weight:600;z-index:500;opacity:0;transition:.3s;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.modal{position:fixed;inset:0;z-index:1000;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);animation:mf .3s}
+.modal.active{display:flex}
+@keyframes mf{from{opacity:0}to{opacity:1}}
+.mc{width:100%;max-height:90vh;background:var(--bg);border-radius:24px 24px 0 0;overflow:hidden;animation:ms .3s;overflow-y:auto}
+@keyframes ms{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mh{height:280px;display:flex;align-items:center;justify-content:center;font-size:100px;background:linear-gradient(135deg,rgba(26,86,219,.1),rgba(200,182,255,.05));position:relative}
+.mcl{position:absolute;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:#fff;border:1px solid rgba(255,255,255,.15)}
+.mw{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(255,255,255,.15)}
+.mw.liked::after{content:'';width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23ff4757' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
+.mw:not(.liked)::after{content:'';width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(255,255,255,0.6)' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
+.mb{padding:24px}
+.mt{font-size:26px;font-weight:800;margin-bottom:8px}
+.mc2{font-size:13px;color:rgba(255,255,255,.4);margin-bottom:16px}
+.mp{font-size:24px;font-weight:800;color:var(--blue2);margin-bottom:20px}
+.mad{width:100%;padding:16px;border-radius:14px;background:var(--blue);color:#fff;font-size:16px;font-weight:700;border:none;cursor:pointer;transition:.3s;box-shadow:0 4px 16px rgba(26,86,219,.4)}
+.mad:active{transform:scale(0.98)}
 </style>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
@@ -133,6 +150,19 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
     </div>
   </div>
 </nav>
+<div class="dd" id="um">
+  <div class="ddh"><div class="dda" id="mAv"><span>N</span></div><div class="ddn" id="mNm">Гость</div><div class="dde" id="mHdl">@user</div></div>
+  <div class="dds">
+    <div class="ddst"><div class="ddsv" id="s1">0</div><div class="ddsl">Заказов</div></div>
+    <div class="ddst"><div class="ddsv" id="s2">0</div><div class="ddsl">Избранное</div></div>
+    <div class="ddst"><div class="ddsv" id="s3">0</div><div class="ddsl">Корзина</div></div>
+  </div>
+  <div class="ddm">
+    <div class="ddi" onclick="ep()">✎ Изменить имя</div>
+    <div class="ddi" onclick="cd()">⚠ Очистить данные</div>
+  </div>
+</div>
+
 
 <!-- Главная -->
 <div class="pg active" id="pg0">
@@ -198,7 +228,7 @@ const pts=Array.from({length:30},()=>({x:Math.random()*W,y:Math.random()*H,r:Mat
 const P=[{n:'LUNA',c:'Сумка',cat:'bag',p:12990,e:'👜'},{n:'AURORA',c:'Кроссовки',cat:'shoes',p:7450,e:'👟'},{n:'SKY',c:'Очки',cat:'acc',p:4100,e:'🕶'},{n:'VELVET',c:'Платье',cat:'clothes',p:18900,e:'👗'},{n:'NOIR',c:'Часы',cat:'acc',p:24500,e:'⌚'},{n:'BLAZE',c:'Куртка',cat:'clothes',p:15600,e:'🧥'},{n:'LUNA MINI',c:'Кошелёк',cat:'bag',p:5990,e:'👛'},{n:'SPORT',c:'Футболка',cat:'clothes',p:2990,e:'👕'},{n:'ELEGANCE',c:'Туфли',cat:'shoes',p:11200,e:'👠'},{n:'LUX',c:'Сумка',cat:'bag',p:28900,e:'👜'}];
 let cart=JSON.parse(localStorage.getItem('tc'))||[];
 let wish=JSON.parse(localStorage.getItem('tw'))||[];
-let prof=JSON.parse(localStorage.getItem('tp'))||{name:'Гость'};
+let currentModalIdx=-1;let prof=JSON.parse(localStorage.getItem('tp'))||{name:'Гость'};
 
 // Navigation
 function go(id){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));document.getElementById('pg'+id).classList.add('active');for(let i=0;i<3;i++)document.getElementById('lk'+i).classList.toggle('active',i===id);if(id===1)rCat('all');if(id===2)rW();if(id===3)rC();window.scrollTo(0,0);}
@@ -212,7 +242,7 @@ function lP(){const s=JSON.parse(localStorage.getItem('tp'))||{};let initials='N
 function rP(){console.log('rP: P.length=',P.length);if(!P||P.length===0){document.getElementById('pS').innerHTML='<div style="padding:20px;color:#888">No products</div>';return;}const html=P.slice(0,6).map((p,i)=>{const isLiked=wish.some(w=>w.n===p.n)?'liked':'';const catName=p.cat==='bag'?'Сумка':p.cat==='shoes'?'Обувь':p.cat==='acc'?'Аксессуар':'Одежда';const emoji=p.e||'🎁';return`<div class="pc" onclick="openModal(${i})"><div class="pi">${emoji}<div class="pw ${isLiked}" onclick="event.stopPropagation();tw(${i})"></div></div><div class="pb"><div class="pt">${catName}</div><div class="pn">${p.n}</div><div class="ppc">${p.c}</div><div class="pr"><div class="ppr">${p.p.toLocaleString()} ₽</div><div class="padd" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div></div>`;}).join('');document.getElementById('pS').innerHTML=html;console.log('rP: rendered');}
 
 // Render Catalog
-function rCat(f){const fl=f==='all'?P:P.filter(i=>i.cat===f);document.getElementById('cG').innerHTML=fl.map((p,idx)=>{const isLiked=wish.some(w=>w.n===p.n)?'liked':'';return`<div class="cac" onclick="openModal(${P.indexOf(p)})"><div class="cai">${p.e||'🎁'}<div class="cw" onclick="event.stopPropagation();tw(${P.indexOf(p)})"><span>×</span></div></div><div class="cainf"><div class="can">${p.n}</div><div class="cat2">${p.c}</div><div class="cab"><div class="cap">${p.p.toLocaleString()} ₽</div><div class="cbtn" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div></div>`;}).join('');}
+function rCat(f){const fl=f==='all'?P:P.filter(i=>i.cat===f);document.getElementById('cG').innerHTML=fl.map((p,idx)=>{const isLiked=wish.some(w=>w.n===p.n)?'liked':'';return`<div class="cac" onclick="openModal(${P.indexOf(p)})"><div class="cai">${p.e||'🎁'}<div class="pw ${isLiked}" onclick="event.stopPropagation();tw(${P.indexOf(p)})"></div></div><div class="cainf"><div class="can">${p.n}</div><div class="cat2">${p.c}</div><div class="cab"><div class="cap">${p.p.toLocaleString()} ₽</div><div class="cbtn" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div></div>`}).join('');}';return`<div class="cac" onclick="openModal(${P.indexOf(p)})"><div class="cai">${p.e||'🎁'}<div class="pw ${isLiked}" onclick="event.stopPropagation();tw(${P.indexOf(p)})"></div></div><div class="cainf"><div class="can">${p.n}</div><div class="cat2">${p.c}</div><div class="cab"><div class="cap">${p.p.toLocaleString()} ₽</div><div class="cbtn" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div></div>`;}).join('');}
 function fl(f,e){document.querySelectorAll('.fc').forEach(b=>b.classList.remove('active'));e.classList.add('active');rCat(f);}
 
 // Wishlist
@@ -232,7 +262,8 @@ function updateBadges(){const cq=cart.reduce((a,b)=>a+b.q,0);const wq=wish.lengt
 function t(m){const el=document.getElementById('tt');el.textContent=m;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
 
 // Modal (simple)
-function openModal(idx){const p=P[idx];alert(p.n+'\\n'+p.c+'\\n'+p.p+' ₽');}
+function openModal(idx){const p=P[idx];const modal=document.createElement('div');modal.className='modal';modal.innerHTML='<div class="mc"><div class="mh" id="mImg">'+p.e+'</div><div class="mb"><div class="mt" id="mName">'+p.n+'</div><div class="mc2" id="mCat">'+p.c+'</div><div class="mp" id="mPrice">'+p.p.toLocaleString()+' ₽</div><button class="mad" onclick="addFromModal()">Добавить в корзину</button></div></div>';modal.onclick=function(e){if(e.target===modal){modal.remove()}};document.body.appendChild(modal);modal.classList.add('active');currentModalIdx=idx;}
+function addFromModal(){if(currentModalIdx>=0){const p=P[currentModalIdx];ad(p.n,p.c,p.p,p.e);document.querySelector('.modal')?.remove();}}
 
 // Init
 window.onload=function(){console.log('onload');if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}lP();rP();rC();console.log('onload done');};
