@@ -26,7 +26,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .nlk svg{width:18px;height:18px;stroke:rgba(255,255,255,.45);fill:none;stroke-width:2}
 .nlk.active svg{stroke:var(--blue2)}
 .nr{display:flex;gap:4px}
-.nic{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+.nic{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
 .badge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:9px;background:#ff4757;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px;animation:pop .3s}
 @keyframes pop{0%{transform:scale(0)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
 .pg{display:none;min-height:calc(100vh - 60px)}
@@ -48,7 +48,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .ps>*{scroll-snap-align:start;flex-shrink:0}
 .pc{width:240px;border-radius:20px;overflow:hidden;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);cursor:pointer}
 .pi{height:200px;display:flex;align-items:center;justify-content:center;font-size:60px;background:linear-gradient(135deg,rgba(26,86,219,.05),rgba(200,182,255,.03));position:relative}
-.pw{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(255,255,255,.15)}
+.pw{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(255,255,255,.15);z-index:5}
 .pw.liked::after{content:'';width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23ff4757' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
 .pw:not(.liked)::after{content:'';width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(255,255,255,0.6)' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
 .pb{padding:14px}
@@ -79,12 +79,12 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .cbtn{width:30px;height:30px;border-radius:8px;background:rgba(26,86,219,.15);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--blue2)}
 .wg{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 14px}
 .wc{border-radius:16px;overflow:hidden;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
-.wi{height:120px;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(135deg,rgba(200,182,255,.04),rgba(26,86,219,.04));position:relative}
+.wi{height:120px;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(135deg,rgba(200,182,255,.04),rgba(26,86,219,.04));position:relative;overflow:hidden}
 .winf{padding:12px}
 .wn{font-size:14px;font-weight:700}
 .wt{font-size:11px;color:rgba(255,255,255,.35);margin-bottom:10px}
 .wb{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.wp{font-size:15px;font-weight:800}
+.wp{font-size:15px;font-weight:800;white-space:nowrap}
 .wac{padding:8px 12px;border-radius:8px;background:rgba(26,86,219,.15);border:1px solid rgba(26,86,219,.2);text-align:center;font-size:11px;font-weight:600;color:var(--blue2);cursor:pointer}
 .ce{text-align:center;padding:60px 16px;color:rgba(255,255,255,.4)}
 .cil{padding:0 14px}
@@ -131,6 +131,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .mad{width:100%;padding:16px;border-radius:14px;background:var(--blue);color:#fff;font-size:16px;font-weight:700;border:none;cursor:pointer}
 .mad:active{transform:scale(0.98)}
 .mcl{position:absolute;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:#fff}
+.wr{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,71,87,0.2);border:1px solid rgba(255,71,87,0.4);color:#ff4757;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;font-weight:bold;z-index:10}
 </style>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
@@ -237,60 +238,60 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 </div>
 <div class="toast" id="tt"></div>
 <script>
-// Canvas Animation
+// Canvas
 const cv=document.getElementById('p'),cx=cv.getContext('2d');let W,H;
 function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();onresize=rs;
 const pts=Array.from({length:30},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()+.5,dx:(Math.random()-.5)*.15,dy:(Math.random()-.5)*.15,o:Math.random()*.2+.1}));
 !function dr(){cx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.dx;p.y+=p.dy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fillStyle=`rgba(77,139,245,${p.o})`;cx.fill()});requestAnimationFrame(dr)}();
 
-// Data
-const P=[{n:'LUNA',c:'Сумка',cat:'bag',p:12990,e:''},{n:'AURORA',c:'Кроссовки',cat:'shoes',p:7450,e:'👟'},{n:'SKY',c:'Очки',cat:'acc',p:4100,e:'🕶'},{n:'VELVET',c:'Платье',cat:'clothes',p:18900,e:'👗'},{n:'NOIR',c:'Часы',cat:'acc',p:24500,e:'⌚'},{n:'BLAZE',c:'Куртка',cat:'clothes',p:15600,e:'🧥'},{n:'LUNA MINI',c:'Кошелёк',cat:'bag',p:5990,e:'👛'},{n:'SPORT',c:'Футболка',cat:'clothes',p:2990,e:'👕'},{n:'ELEGANCE',c:'Туфли',cat:'shoes',p:11200,e:'👠'},{n:'LUX',c:'Сумка',cat:'bag',p:28900,e:'👜'}];
+// Data (FIXED: LUNA now has emoji)
+const P=[{n:'LUNA',c:'Сумка',cat:'bag',p:12990,e:'👜'},{n:'AURORA',c:'Кроссовки',cat:'shoes',p:7450,e:'👟'},{n:'SKY',c:'Очки',cat:'acc',p:4100,e:'🕶'},{n:'VELVET',c:'Платье',cat:'clothes',p:18900,e:'👗'},{n:'NOIR',c:'Часы',cat:'acc',p:24500,e:'⌚'},{n:'BLAZE',c:'Куртка',cat:'clothes',p:15600,e:'🧥'},{n:'LUNA MINI',c:'Кошелёк',cat:'bag',p:5990,e:'👛'},{n:'SPORT',c:'Футболка',cat:'clothes',p:2990,e:'👕'},{n:'ELEGANCE',c:'Туфли',cat:'shoes',p:11200,e:'👠'},{n:'LUX',c:'Сумка',cat:'bag',p:28900,e:'👜'}];
 let cart=JSON.parse(localStorage.getItem('tc'))||[];
 let wish=JSON.parse(localStorage.getItem('tw'))||[];
 let prof=JSON.parse(localStorage.getItem('tp'))||{name:'Гость'};
 let currentModalIdx=-1;
 
-// Navigation
 function go(id){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));document.getElementById('pg'+id).classList.add('active');for(let i=0;i<3;i++)document.getElementById('lk'+i).classList.toggle('active',i===id);if(id===1)rCat('all');if(id===2)rW();if(id===3)rC();window.scrollTo(0,0);cm();}
 function tm(){document.getElementById('um').classList.toggle('open');}
 function cm(){document.getElementById('um').classList.remove('open');}
 
-// Profile
 function lP(){const s=JSON.parse(localStorage.getItem('tp'))||{};let initials='N';if(s.name){initials=s.name[0].toUpperCase();document.getElementById('nNm').textContent=s.name;}document.getElementById('nAv').innerHTML='<span>'+initials+'</span>';document.getElementById('mAv').innerHTML='<span>'+initials+'</span>';if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.initDataUnsafe&&Telegram.WebApp.initDataUnsafe.user){const u=Telegram.WebApp.initDataUnsafe.user;const nm=u.first_name+(u.last_name?' '+u.last_name:'');const hd=u.username?'@'+u.username:'';document.getElementById('nNm').textContent=nm;document.getElementById('mNm').textContent=nm;document.getElementById('nHdl').textContent=hd||'';document.getElementById('mHdl').textContent=hd||'';if(u.photo_url){document.getElementById('nAv').innerHTML='<img src="'+u.photo_url+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';document.getElementById('mAv').innerHTML='<img src="'+u.photo_url+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';}}}
 function ep(){const n=prompt('Ваше имя:',prof.name||'');if(n){prof.name=n;localStorage.setItem('tp',JSON.stringify(prof));lP();t('Готово ✓')}cm()}
 function cd(){if(confirm('Очистить данные?')){localStorage.clear();cart=[];wish=[];location.reload()}}
 
-// Render New Arrivals
 function rP(){const html=P.slice(0,6).map((p,i)=>{const isLiked=wish.some(w=>w.n===p.n)?'liked':'';const catName=p.cat==='bag'?'Сумка':p.cat==='shoes'?'Обувь':p.cat==='acc'?'Аксессуар':'Одежда';const emoji=p.e||'🎁';return`<div class="pc" onclick="openModal(${i})"><div class="pi">${emoji}<div class="pw ${isLiked}" onclick="event.stopPropagation();tw(${i})"></div></div><div class="pb"><div class="pt">${catName}</div><div class="pn">${p.n}</div><div class="ppc">${p.c}</div><div class="pr"><div class="ppr">${p.p.toLocaleString()} ₽</div><div class="padd" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div></div>`;}).join('');document.getElementById('pS').innerHTML=html;}
 
-// Render Catalog
-function rCat(f){const fl=f==='all'?P:P.filter(i=>i.cat===f);document.getElementById('cG').innerHTML=fl.map((p,idx)=>{const isLiked=wish.some(w=>w.n===p.n)?'liked':'';return`<div class="cac" onclick="openModal(${P.indexOf(p)})"><div class="cai">${p.e||''}<div class="pw ${isLiked}" onclick="event.stopPropagation();tw(${P.indexOf(p)})"></div></div><div class="cainf"><div class="can">${p.n}</div><div class="cat2">${p.c}</div><div class="cab"><div class="cap">${p.p.toLocaleString()} ₽</div><div class="cbtn" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div></div>`;}).join('');}
+function rCat(f){const fl=f==='all'?P:P.filter(i=>i.cat===f);document.getElementById('cG').innerHTML=fl.map((p,idx)=>{const isLiked=wish.some(w=>w.n===p.n)?'liked':'';return`<div class="cac" onclick="openModal(${P.indexOf(p)})"><div class="cai">${p.e||'🎁'}<div class="pw ${isLiked}" onclick="event.stopPropagation();tw(${P.indexOf(p)})"></div></div><div class="cainf"><div class="can">${p.n}</div><div class="cat2">${p.c}</div><div class="cab"><div class="cap">${p.p.toLocaleString()} ₽</div><div class="cbtn" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div></div>`;}).join('');}
 function fl(f,e){document.querySelectorAll('.fc').forEach(b=>b.classList.remove('active'));e.classList.add('active');rCat(f);}
 
-// Wishlist
-function tw(idx){const p=P[idx];const i=wish.findIndex(w=>w.n===p.n);if(i>-1){wish.splice(i,1);t('Удалено из избранного');}else{wish.push(p);t('Добавлено в избранное ❤');}localStorage.setItem('tw',JSON.stringify(wish));rP();rCat(document.querySelector('.fc.active')?.textContent==='Все'?'all':'bag');rW();updateBadges();}
-function rW(){if(wish.length===0){document.getElementById('wC').innerHTML='<div class="ce">Пока пусто ❤️<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>';updateBadges();return;}document.getElementById('wC').innerHTML=wish.map(p=>{const productIdx=P.findIndex(item=>item.n===p.n);if(productIdx===-1)return'';return`<div class="wc"><div class="wi" style="position:relative">${p.e||''}<div class="pw" onclick="event.stopPropagation();tw(${productIdx})" style="position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:rgba(255,71,87,0.2);border:1px solid rgba(255,71,87,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer"><span style="color:#ff4757;font-size:18px">×</span></div></div><div class="winf"><div class="wn">${p.n}</div><div class="wt">${p.c}</div><div class="wb"><div class="wp">${p.p.toLocaleString()} ₽</div><div class="wac" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">В корзину</div></div></div></div>`;}).join('');updateBadges();}
+// FIXED Wishlist Layout
+function tw(idx){const p=P[idx];const i=wish.findIndex(w=>w.n===p.n);if(i>-1){wish.splice(i,1);t('Удалено');}else{wish.push(p);t('Добавлено ❤');}localStorage.setItem('tw',JSON.stringify(wish));rP();rCat(document.querySelector('.fc.active')?.textContent==='Все'?'all':'bag');rW();updateBadges();}
+function rW(){
+  if(wish.length===0){document.getElementById('wC').innerHTML='<div class="ce">Пока пусто ❤️<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>';updateBadges();return;}
+  document.getElementById('wC').innerHTML=wish.map(p=>{
+    const idx=P.findIndex(x=>x.n===p.n);
+    return `<div class="wc">
+      <div class="wi">${p.e||'🎁'}<div class="wr" onclick="event.stopPropagation();tw(${idx})">×</div></div>
+      <div class="winf"><div class="wn">${p.n}</div><div class="wt">${p.c}</div>
+      <div class="wb"><div class="wp">${p.p.toLocaleString()} ₽</div><div class="wac" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">В корзину</div></div></div></div>`;
+  }).join('');updateBadges();
+}
 
-// Cart
 function rC(){if(cart.length===0){document.getElementById('cC').innerHTML='<div class="ce">Корзина пуста <br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>';updateBadges();return;}const qty=cart.reduce((a,b)=>a+b.q,0);const sum=cart.reduce((a,b)=>a+b.p*b.q,0);let h='<div class="cil">';cart.forEach((item,idx)=>{h+=`<div class="cii"><div class="cr" onclick="rm(${idx})">×</div><div class="cimg">${item.e||'🎁'}</div><div class="cinf"><div class="cnm">${item.n}</div><div class="cty">${item.c}</div><div class="cib"><div class="cip">${item.p.toLocaleString()} ₽</div><div class="qt"><button onclick="uq(${idx},-1)">−</button><span>${item.q}</span><button onclick="uq(${idx},1)">+</button></div></div></div></div>`;});h+='</div>';h+=`<div class="cs"><div class="sr"><span class="lb">Товары</span><span class="vl">${qty} шт.</span></div><div class="sr"><span class="lb">Доставка</span><span class="vl">Бесплатно</span></div><div class="sr tot"><span class="lb">Итого</span><span class="vl">${sum.toLocaleString()} ₽</span></div></div>`;document.getElementById('cC').innerHTML=h;updateBadges();}
 function uq(i,d){cart[i].q=Math.max(1,cart[i].q+d);localStorage.setItem('tc',JSON.stringify(cart));rC();}
 function rm(i){cart.splice(i,1);localStorage.setItem('tc',JSON.stringify(cart));t('Товар удалён');rC();}
-function ad(n,c,p,e){const ex=cart.find(i=>i.n===n);if(ex)ex.q++;else cart.push({n,c,p,e,q:1});localStorage.setItem('tc',JSON.stringify(cart));t('Добавлено в корзину ✓');rC();updateBadges();}
+function ad(n,c,p,e){const ex=cart.find(i=>i.n===n);if(ex)ex.q++;else cart.push({n,c,p,e,q:1});localStorage.setItem('tc',JSON.stringify(cart));t('Добавлено ✓');rC();updateBadges();}
 
-// Badges
 function updateBadges(){const cq=cart.reduce((a,b)=>a+b.q,0);const wq=wish.length;const cb=document.getElementById('cartBadge');if(cb){if(cq>0){cb.textContent=cq;cb.style.display='flex'}else{cb.style.display='none'}}const wb=document.getElementById('wishBadge');if(wb){if(wq>0){wb.textContent=wq;wb.style.display='flex'}else{wb.style.display='none'}}}
-
-// Toast
 function t(m){const el=document.getElementById('tt');el.textContent=m;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
 
-// Modal
-function openModal(idx){currentModalIdx=idx;const p=P[idx];document.getElementById('mImg').textContent=p.e||'';document.getElementById('mName').textContent=p.n;document.getElementById('mCat').textContent=p.c;document.getElementById('mPrice').textContent=p.p.toLocaleString()+' ₽';document.getElementById('productModal').classList.add('active');}
+// FIXED Modal (shows emoji fallback)
+function openModal(idx){currentModalIdx=idx;const p=P[idx];document.getElementById('mImg').textContent=p.e||'🎁';document.getElementById('mName').textContent=p.n;document.getElementById('mCat').textContent=p.c;document.getElementById('mPrice').textContent=p.p.toLocaleString()+' ₽';document.getElementById('productModal').classList.add('active');}
 function addFromModal(){if(currentModalIdx>=0){const p=P[currentModalIdx];ad(p.n,p.c,p.p,p.e);closeModal();}}
 function closeModal(){document.getElementById('productModal').classList.remove('active');}
 document.getElementById('productModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 
-// Init
-window.onload=function(){console.log('App starting...');if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}lP();rP();rC();console.log('App ready.');};
+window.onload=function(){if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}lP();rP();rC();};
 </script>
 </body>
 </html>
