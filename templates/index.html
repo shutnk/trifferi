@@ -202,7 +202,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 <!-- Profile Modal (Отдельное окно) -->
 <div class="dd" id="profileModal">
   <div class="ddc">
-    <div class="dd-close" onclick="closeProfile()">✕</div>
+    <div class="pbk" onclick="closeProfile()" style="position:fixed;top:16px;left:16px;z-index:50">←</div>
     <div class="ddh">
       <div class="dda" id="mAv"><span>N</span></div>
       <div class="ddn" id="mNm">Гость</div>
@@ -376,15 +376,24 @@ function clearData(){if(confirm('Очистить все данные?')){localS
 
 // Render Functions
 function rP(){
+  console.log('Rendering products, count:', P.length);
+  if(!P || P.length===0){
+    document.getElementById('pS').innerHTML='<div style="padding:40px;text-align:center;color:#888">No products</div>';
+    return;
+  }
   const html=P.slice(0,6).map((p,i)=>{
     const isLiked=wish.some(w=>w.n===p.n)?'liked':'';
     const catName=p.cat==='bag'?'Сумка':p.cat==='shoes'?'Обувь':p.cat==='acc'?'Аксессуар':'Одежда';
+    const emoji=p.e||'🎁';
+    console.log('Product', i, p.n, emoji);
     return `<div class="pc" onclick="openProduct(${i})">
-      <div class="pi">${p.e||'🎁'}<div class="pw ${isLiked}" onclick="event.stopPropagation();tw(${i})"></div></div>
+      <div class="pi">${emoji}<div class="pw ${isLiked}" onclick="event.stopPropagation();tw(${i})"></div></div>
       <div class="pb"><div class="pt">${catName}</div><div class="pn">${p.n}</div><div class="ppc">${p.c}</div>
       <div class="pr"><div class="ppr">${p.p.toLocaleString()} ₽</div><div class="padd" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div></div>`;
   }).join('');
+  console.log('HTML generated, length:', html.length);
   document.getElementById('pS').innerHTML=html;
+  console.log('Products rendered');
 }
 
 function rCat(f){
@@ -476,8 +485,17 @@ function t(m){const el=document.getElementById('tt');el.textContent=m;el.classLi
 
 // Init
 window.onload=function(){
-  if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}
-  lP(); rP(); rC();
+  console.log('App loading...');
+  if(window.Telegram&&Telegram.WebApp){
+    Telegram.WebApp.ready();
+    Telegram.WebApp.expand();
+    console.log('Telegram WebApp initialized');
+  }
+  console.log('Products array:', P);
+  lP();
+  rP();
+  rC();
+  console.log('App loaded');
 };
 </script>
 </body>
