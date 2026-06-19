@@ -132,6 +132,33 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .mad:active{transform:scale(0.98)}
 .mcl{position:absolute;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:#fff}
 .wr{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,71,87,0.2);border:1px solid rgba(255,71,87,0.4);color:#ff4757;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;font-weight:bold;z-index:10}
+
+/* Premium Product Modal */
+.modal{position:fixed;inset:0;z-index:1000;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.6);backdrop-filter:blur(12px)}
+.modal.active{display:flex}
+.mc{width:100%;max-height:90vh;background:#0a0a12;border-radius:24px 24px 0 0;overflow:hidden;overflow-y:auto;animation:slideUp .3s ease-out}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mh{height:320px;display:flex;align-items:center;justify-content:center;font-size:120px;background:linear-gradient(135deg,rgba(26,86,219,.08),rgba(200,182,255,.05));position:relative}
+.mh-close{position:absolute;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:24px;border:1px solid rgba(255,255,255,.1);transition:.2s}
+.mh-close:active{transform:scale(0.9)}
+.mh-fav{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(255,255,255,.15);transition:.3s}
+.mh-fav.liked{background:rgba(255,71,87,.2);border-color:#ff4757}
+.mh-fav.liked::after{content:'';width:20px;height:20px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff4757' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
+.mh-fav:not(.liked)::after{content:'';width:20px;height:20px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(255,255,255,0.8)' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
+.mb{padding:24px 20px 40px}
+.mt{font-size:28px;font-weight:800;margin-bottom:6px;color:#fff}
+.mc2{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:20px;text-transform:uppercase;letter-spacing:1px}
+.mp{font-size:26px;font-weight:800;color:var(--blue2);margin-bottom:24px}
+.mbtns{display:flex;gap:12px}
+.mad{flex:1;padding:16px;border-radius:14px;background:var(--blue);color:#fff;font-size:16px;font-weight:700;border:none;cursor:pointer;transition:.2s;box-shadow:0 4px 16px rgba(26,86,219,.3)}
+.mad:active{transform:scale(0.98)}
+.maf{width:56px;height:56px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
+.maf:active{transform:scale(0.95)}
+.maf::after{content:'';width:24px;height:24px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(255,255,255,0.8)' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E") center/contain no-repeat}
+
+/* Cart Icon Fix */
+.nic{background:rgba(255,255,255,.08) !important;border:1px solid rgba(255,255,255,.1)}
+.nic svg{stroke:#fff !important;stroke-width:2 !important}
 </style>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
@@ -286,10 +313,45 @@ function updateBadges(){const cq=cart.reduce((a,b)=>a+b.q,0);const wq=wish.lengt
 function t(m){const el=document.getElementById('tt');el.textContent=m;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
 
 // FIXED Modal (shows emoji fallback)
-function openModal(idx){currentModalIdx=idx;const p=P[idx];document.getElementById('mImg').textContent=p.e||'🎁';document.getElementById('mName').textContent=p.n;document.getElementById('mCat').textContent=p.c;document.getElementById('mPrice').textContent=p.p.toLocaleString()+' ₽';document.getElementById('productModal').classList.add('active');}
-function addFromModal(){if(currentModalIdx>=0){const p=P[currentModalIdx];ad(p.n,p.c,p.p,p.e);closeModal();}}
-function closeModal(){document.getElementById('productModal').classList.remove('active');}
-document.getElementById('productModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+function openModal(idx){
+      currentModalIdx=idx;const p=P[idx];
+      document.getElementById('mImg').childNodes[0].textContent=p.e||''; // Keep emoji, remove old text
+      // Fix for mixed content in mImg
+      const imgDiv = document.getElementById('mImg');
+      // Clear text nodes but keep buttons
+      let emojiNode = null;
+      for(let child of imgDiv.childNodes){
+        if(child.nodeType === 3) { child.textContent = p.e||''; emojiNode=child; break; }
+      }
+      if(!emojiNode) imgDiv.insertBefore(document.createTextNode(p.e||''), imgDiv.firstChild);
+      
+      document.getElementById('mName').textContent=p.n;
+      document.getElementById('mCat').textContent=p.c;
+      document.getElementById('mPrice').textContent=p.p.toLocaleString()+' ₽';
+      
+      // Update Fav Button state
+      const isLiked = wish.some(w=>w.n===p.n);      const favBtn = document.getElementById('mFavBtn');
+      if(isLiked) favBtn.classList.add('liked'); else favBtn.classList.remove('liked');
+      
+      document.getElementById('productModal').classList.add('active');
+    }
+    function addFromModal(){if(currentModalIdx>=0){const p=P[currentModalIdx];ad(p.n,p.c,p.p,p.e);closeModal();}}
+    function toggleModalFav(){
+      if(currentModalIdx>=0){
+        const idx = currentModalIdx;
+        const p=P[idx];
+        const i=wish.findIndex(w=>w.n===p.n);
+        if(i>-1){wish.splice(i,1);t('Убрано из избранного');}
+        else{wish.push(p);t('Добавлено в избранное ❤');}
+        localStorage.setItem('tw',JSON.stringify(wish));
+        // Update button UI
+        const favBtn = document.getElementById('mFavBtn');
+        if(wish.find(w=>w.n===p.n)) favBtn.classList.add('liked'); else favBtn.classList.remove('liked');
+        rP();rW();updateBadges();
+      }
+    }
+    function closeModal(){document.getElementById('productModal').classList.remove('active');}
+    document.getElementById('productModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 
 window.onload=function(){if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}lP();rP();rC();};
 </script>
