@@ -14,7 +14,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .o1{width:300px;height:300px;background:rgba(37,99,235,.4);top:-100px;left:-100px}
 .o2{width:250px;height:250px;background:rgba(139,92,246,.3);bottom:10%;right:-80px}
 @keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
-.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,10,.95);backdrop-filter:blur(15px)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,10,.95);backdrop-filter:blur(15px);transition:all .3s}
 .nl{display:flex;align-items:center;gap:10px;cursor:pointer}
 .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--accent));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;overflow:hidden}
 .av img{width:100%;height:100%;object-fit:cover}
@@ -217,7 +217,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
     <h1 class="ht">Весенний <span>Блеск</span></h1>
     <p class="hs">Откройте мир стиля и элегантности.</p>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-      <button class="btn b1" onclick="go(1)">Каталог →</button>
+      <button class="btn b1" onclick="goToCatalog()">Каталог →</button>
       <button class="btn b2" onclick="go(2)">Избранное</button>
     </div>
   </section>
@@ -288,11 +288,11 @@ function go(id){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function goToCategory(cat){
+function goToCatalog(){go(1);setTimeout(()=>{document.querySelectorAll('.fc').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.fc')[0].classList.add('active');rCat('all');},100);}function goToCategory(cat){
   go(1);
   setTimeout(()=>{
     document.querySelectorAll('.fc').forEach(b=>b.classList.remove('active'));
-    const map={bag:1,shoes:2,acc:3,clothes:4};
+    const map={'bag':1,'shoes':2,'acc':3,'clothes':4};
     if(map[cat]!==undefined) document.querySelectorAll('.fc')[map[cat]].classList.add('active');
     rCat(cat);
   },100);
