@@ -499,6 +499,13 @@ window.onload=function(){
 </html>
 
 
+
+  if(wb){wb.textContent=wq;wb.style.display=wq>0?'flex':'none';}
+  document.getElementById('s1').textContent='0';
+  document.getElementById('s2').textContent=wq;
+  document.getElementById('s3').textContent=cq;
+}
+
 // Update Badges Counters
 function updateBadges(){
   const cq=cart.reduce((a,b)=>a+b.q,0);
@@ -506,12 +513,6 @@ function updateBadges(){
   const cb=document.getElementById('cartBadge');
   const wb=document.getElementById('wishBadge');
   if(cb){cb.textContent=cq;cb.style.display=cq>0?'flex':'none';}
-  if(wb){wb.textContent=wq;wb.style.display=wq>0?'flex':'none';}
-  document.getElementById('s1').textContent='0';
-  document.getElementById('s2').textContent=wq;
-  document.getElementById('s3').textContent=cq;
-}
-
 </script>
 </body>
-</html> 
+</html>
