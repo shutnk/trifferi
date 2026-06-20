@@ -172,7 +172,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .prof-item{display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;cursor:pointer;font-size:14px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.02);margin-bottom:8px;transition:all .2s}
 .prof-item:active{background:rgba(255,255,255,.05)}
 </style>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://telegram.org/js/telegram-web-app.js">
 </head>
 <body>
 <canvas id="p"></canvas>
@@ -494,7 +494,24 @@ window.onload=function(){
   if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}
   lP();rP();rC();updateBadges();
 };
-</script>
+
 </body>
 </html>
 
+
+// Update Badges Counters
+function updateBadges(){
+  const cq=cart.reduce((a,b)=>a+b.q,0);
+  const wq=wish.length;
+  const cb=document.getElementById('cartBadge');
+  const wb=document.getElementById('wishBadge');
+  if(cb){cb.textContent=cq;cb.style.display=cq>0?'flex':'none';}
+  if(wb){wb.textContent=wq;wb.style.display=wq>0?'flex':'none';}
+  document.getElementById('s1').textContent='0';
+  document.getElementById('s2').textContent=wq;
+  document.getElementById('s3').textContent=cq;
+}
+
+</script>
+</body>
+</html>
