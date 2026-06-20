@@ -302,8 +302,8 @@ const P=[
   {n:'LUX',c:'Сумка',cat:'bag',p:28900,e:'👜',desc:'Премиальная сумка из итальянской кожи.'}
 ];
 
-let cart=JSON.parse(localStorage.getItem('tc'))||[];
-let wish=JSON.parse(localStorage.getItem('tw'))||[];
+let cart=JSON.parse(localStorage.getItem('tc')||'[]');
+let wish=JSON.parse(localStorage.getItem('tw')||'[]');
 let currentIdx=-1,selectedSize=null;
 
 // Navigation
