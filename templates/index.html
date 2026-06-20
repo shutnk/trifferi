@@ -90,16 +90,17 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .wrm{width:28px;height:28px;border-radius:8px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:#ef4444}
 .ce{text-align:center;padding:60px 16px;color:rgba(255,255,255,.4)}
 .cil{padding:0 16px}
-.cii{display:flex;gap:12px;padding:14px;margin-bottom:10px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);position:relative}
+.cii{display:flex;gap:12px;padding:14px;margin-bottom:10px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);position:relative;cursor:pointer}
+.cii:active{background:rgba(255,255,255,.06)}
 .cimg{width:56px;height:56px;border-radius:10px;background:rgba(37,99,235,.08);display:flex;align-items:center;justify-content:center;font-size:24px}
-.cinf{flex:1}
-.cnm{font-size:14px;font-weight:700}.cty{font-size:10px;color:rgba(255,255,255,.4);margin-bottom:6px}
+.cinf{flex:1}.cnm{font-size:14px;font-weight:700}
+.cty{font-size:10px;color:rgba(255,255,255,.4);margin-bottom:6px}
 .cib{display:flex;align-items:center;justify-content:space-between}
 .cip{font-size:14px;font-weight:800;color:var(--blue2)}
 .qt{display:flex;align-items:center;gap:8px}
 .qt button{width:26px;height:26px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;cursor:pointer;font-size:14px}
 .qt span{font-size:13px;font-weight:700;min-width:20px;text-align:center}
-.cr{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:8px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:#ef4444}
+.cr{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:8px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:#ef4444;z-index:2}
 .cs{margin:20px 16px;padding:16px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
 .sr{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px}
 .sr .lb{color:rgba(255,255,255,.4)}
@@ -108,6 +109,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .sr.tot .vl{font-size:18px;font-weight:800;color:var(--blue2)}
 .toast{position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(20px);padding:10px 20px;border-radius:100px;background:rgba(37,99,235,.9);color:#fff;font-size:12px;font-weight:600;z-index:500;opacity:0;transition:.3s;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* Full Screen Pages */
 .pg-full{position:fixed;inset:0;z-index:300;display:none;background:#05050a;overflow-y:auto}
 .pg-full.active{display:block}
 .prod-hero{height:45vh;min-height:350px;background:linear-gradient(180deg,#1e1b4b 0%,#05050a 100%);display:flex;align-items:center;justify-content:center;position:relative}
@@ -125,7 +127,13 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .size-row{display:flex;gap:10px;flex-wrap:wrap}
 .size-btn{padding:12px 22px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
 .size-btn.active{background:var(--blue);border-color:var(--blue);box-shadow:0 4px 12px rgba(37,99,235,.3)}
-.rec-sec{margin:32px 0}
+.act-row{display:flex;gap:12px;align-items:center;margin-bottom:32px} /* Moved up slightly so recs can be after */
+.btn-cart{flex:1;padding:18px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;font-size:15px;font-weight:700;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(37,99,235,.3)}
+.btn-cart:active{transform:scale(0.98)}
+.btn-fav{width:56px;height:56px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.btn-fav.liked svg{stroke:#ef4444;fill:#ef4444}
+.btn-fav svg{width:26px;height:26px;stroke:rgba(255,255,255,.5);fill:none;stroke-width:2}
+.rec-sec{margin-top:20px; border-top: 1px solid rgba(255,255,255,.05); padding-top: 24px;}
 .rec-title{font-size:18px;font-weight:800;margin-bottom:16px;color:#fff}
 .rec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .rec-item{border-radius:14px;overflow:hidden;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);cursor:pointer}
@@ -133,16 +141,11 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .rec-info{padding:12px}
 .rec-name{font-size:13px;font-weight:700;margin-bottom:4px}
 .rec-price{font-size:14px;font-weight:800;color:var(--blue2)}
-.act-row{display:flex;gap:12px;align-items:center;margin-top:24px}
-.btn-cart{flex:1;padding:18px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;font-size:15px;font-weight:700;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(37,99,235,.3)}
-.btn-cart:active{transform:scale(0.98)}
-.btn-fav{width:56px;height:56px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer}
-.btn-fav.liked svg{stroke:#ef4444;fill:#ef4444}
-.btn-fav svg{width:26px;height:26px;stroke:rgba(255,255,255,.5);fill:none;stroke-width:2}
-.pg-profile{position:fixed;inset:0;z-index:300;display:none;background:#05050a;overflow-y:auto}
-.pg-profile.active{display:block}
+/* Profile */
+.pg-profile{position:fixed;inset:0;z-index:300;display:none;background:#05050a;overflow-y:auto}.pg-profile.active{display:block}
 .prof-head{padding:24px;text-align:center}
-.prof-av{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--accent));display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:#fff;margin:0 auto 16px;overflow:hidden;box-shadow:0 8px 20px rgba(37,99,235,.3)}.prof-av img{width:100%;height:100%;object-fit:cover}
+.prof-av{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--accent));display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:#fff;margin:0 auto 16px;overflow:hidden;box-shadow:0 8px 20px rgba(37,99,235,.3)}
+.prof-av img{width:100%;height:100%;object-fit:cover}
 .prof-name{font-size:22px;font-weight:800;color:#fff;margin-bottom:4px}
 .prof-handle{font-size:12px;color:rgba(255,255,255,.4)}
 .prof-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 20px 24px}
@@ -158,6 +161,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 <canvas id="p"></canvas>
 <div class="orb o1"></div><div class="orb o2"></div>
 
+<!-- Navigation -->
 <nav class="nav">
   <div class="nl" onclick="openProfile()">
     <div class="av" id="nAv"><span>N</span></div>
@@ -189,34 +193,34 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
     <div class="prod-cat" id="mCat">Category</div>
     <div class="prod-price" id="mPrice">0 ₽</div>
     
-    <!-- Описание товара -->
+    <!-- Описание -->
     <div class="prod-desc" id="mDesc">
-      Премиальный товар с безупречным качеством. Идеально подходит для повседневного использования и особых случаев.
+      Описание товара появится здесь...
     </div>
     
-    <!-- Размерная сетка (только для одежды) -->
+    <!-- Размеры (Одежда + Обувь) -->
     <div class="size-sec" id="sizeSection" style="display:none">
       <div class="size-lbl">Выберите размер:</div>
       <div class="size-row">
-        <button class="size-btn" onclick="selectSize('XS')">XS</button>
-        <button class="size-btn" onclick="selectSize('S')">S</button>
-        <button class="size-btn" onclick="selectSize('M')">M</button>
-        <button class="size-btn" onclick="selectSize('L')">L</button>
-        <button class="size-btn" onclick="selectSize('XL')">XL</button>
+        <button class="size-btn" onclick="selectSize('36')">36</button>
+        <button class="size-btn" onclick="selectSize('37')">37</button>
+        <button class="size-btn" onclick="selectSize('38')">38</button>
+        <button class="size-btn" onclick="selectSize('39')">39</button>
+        <button class="size-btn" onclick="selectSize('40')">40</button>
       </div>
-    </div>
-        <!-- Рекомендованные товары -->
-    <div class="rec-sec">
-      <div class="rec-title">Вам также понравится</div>
-      <div class="rec-grid" id="recGrid"></div>
-    </div>
-    
+    </div>    
     <!-- Кнопки действий -->
     <div class="act-row">
       <button class="btn-cart" onclick="addFromModal()">В корзину</button>
       <div class="btn-fav" id="mFavBtnSmall" onclick="toggleModalFav()">
         <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       </div>
+    </div>
+
+    <!-- Рекомендации (НИЖЕ КНОПОК) -->
+    <div class="rec-sec">
+      <div class="rec-title">Вам также понравится</div>
+      <div class="rec-grid" id="recGrid"></div>
     </div>
   </div>
 </div>
@@ -240,7 +244,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
   </div>
 </div>
 
-<!-- Main Page (Home) -->
+<!-- Main Page -->
 <div class="pg active" id="pg0">
   <section class="hero">
     <div class="hb">✨ Новая коллекция 2026</div>
@@ -253,15 +257,16 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
   </section>
   <section class="sec">
     <div class="sh"><div><div class="sl">Коллекция</div><div class="st">Новинки</div></div><div class="sa" onclick="go(1)">Все →</div></div>
-    <div class="ps" id="pS"></div>
-  </section>  <section class="sec">
+    <div class="ps" id="pS"></div>  </section>
+  <section class="sec">
     <div class="sl">Категории</div>
     <div class="st" style="margin-bottom:14px">Навигация</div>
     <div class="cg">
-      <div class="cc" onclick="go(1)"><div class="ci">👜</div><div class="cn">Сумки</div></div>
-      <div class="cc" onclick="go(1)"><div class="ci">👟</div><div class="cn">Обувь</div></div>
-      <div class="cc" onclick="go(1)"><div class="ci">🕶</div><div class="cn">Аксессуары</div></div>
-      <div class="cc" onclick="go(1)"><div class="ci">👗</div><div class="cn">Одежда</div></div>
+      <!-- Категории теперь ведут в каталог с фильтром -->
+      <div class="cc" onclick="goToCategory('bag')"><div class="ci"></div><div class="cn">Сумки</div></div>
+      <div class="cc" onclick="goToCategory('shoes')"><div class="ci">👟</div><div class="cn">Обувь</div></div>
+      <div class="cc" onclick="goToCategory('acc')"><div class="ci">🕶</div><div class="cn">Аксессуары</div></div>
+      <div class="cc" onclick="goToCategory('clothes')"><div class="ci">👗</div><div class="cn">Одежда</div></div>
     </div>
   </section>
 </div>
@@ -279,6 +284,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
   <div class="cag" id="cG"></div>
 </div>
 
+
 <!-- Wishlist Page -->
 <div class="pg" id="pg2">
   <div class="ph"><div class="pbk" onclick="go(0)"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div><h1 class="pt2">Избранное</h1></div>
@@ -292,6 +298,7 @@ canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 </div>
 
 <div class="toast" id="tt"></div>
+
 <script>
 // Canvas Animation
 const cv=document.getElementById('p'),cx=cv.getContext('2d');let W,H;
@@ -299,165 +306,183 @@ function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();onresize=rs;
 const pts=Array.from({length:30},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()+.5,dx:(Math.random()-.5)*.15,dy:(Math.random()-.5)*.15,o:Math.random()*.2+.1}));
 !function dr(){cx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.dx;p.y+=p.dy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fillStyle=`rgba(37,99,235,${p.o})`;cx.fill()});requestAnimationFrame(dr)}();
 
-// Data с описаниями
+// Data
 const P=[
-  {n:'LUNA',c:'Сумка',cat:'bag',p:12990,e:'👜',desc:'Элегантная сумка из натуральной кожи. Вмещает все необходимое: ноутбук, документы, косметику. Идеальна для офиса и прогулок.'},
-  {n:'AURORA',c:'Кроссовки',cat:'shoes',p:7450,e:'👟',desc:'Легкие спортивные кроссовки с амортизирующей подошвой. Дышащий материал обеспечивает комфорт в течение всего дня.'},
-  {n:'SKY',c:'Очки',cat:'acc',p:4100,e:'🕶',desc:'Солнцезащитные очки с поляризационными линзами. Защищают от УФ-излучения и подчеркивают ваш стиль.'},
-  {n:'VELVET',c:'Платье',cat:'clothes',p:18900,e:'👗',desc:'Изысканное бархатное платье для особых случаев. Мягкая ткань приятно облегает фигуру, создавая силуэт мечты.'},
-  {n:'NOIR',c:'Часы',cat:'acc',p:24500,e:'⌚',desc:'Классические наручные часы с кожаным ремешком. Швейцарский механизм гарантирует точность хода.'},
-  {n:'BLAZE',c:'Куртка',cat:'clothes',p:15600,e:'',desc:'Стильная куртка из плотной ткани. Защищает от ветра и холода, сохраняя современный городской образ.'},
-  {n:'LUNA MINI',c:'Кошелёк',cat:'bag',p:5990,e:'👛',desc:'Компактный кошелёк из той же коллекции, что и сумка LUNA. Множество отделений для карт и наличных.'},
-  {n:'SPORT',c:'Футболка',cat:'clothes',p:2990,e:'👕',desc:'Базовая футболка из 100% хлопка. Идеально сидит, не теряет форму после стирок. Must-have гардероба.'},
-  {n:'ELEGANCE',c:'Туфли',cat:'shoes',p:11200,e:'',desc:'Элегантные туфли на среднем каблуке. Удобная колодка позволяет носить их весь день без усталости.'},
-  {n:'LUX',c:'Сумка',cat:'bag',p:28900,e:'👜',desc:'Премиальная сумка из итальянской кожи. Ручная работа, фурнитура из латуни. Статусная вещь на годы.'}
+  {n:'LUNA',c:'Сумка',cat:'bag',p:12990,e:'👜',desc:'Элегантная сумка из натуральной кожи. Вмещает ноутбук, документы и косметику. Идеальна для офиса.'},
+  {n:'AURORA',c:'Кроссовки',cat:'shoes',p:7450,e:'👟',desc:'Легкие спортивные кроссовки с амортизирующей подошвой. Дышащий материал для комфорта весь день.'},
+  {n:'SKY',c:'Очки',cat:'acc',p:4100,e:'🕶',desc:'Солнцезащитные очки с поляризационными линзами. Защита от УФ и современный дизайн.'},
+  {n:'VELVET',c:'Платье',cat:'clothes',p:18900,e:'👗',desc:'Изысканное бархатное платье для особых случаев. Мягкая ткань создает силуэт мечты.'},
+  {n:'NOIR',c:'Часы',cat:'acc',p:24500,e:'⌚',desc:'Классические часы с кожаным ремешком. Швейцарский механизм гарантирует точность.'},
+  {n:'BLAZE',c:'Куртка',cat:'clothes',p:15600,e:'',desc:'Стильная куртка из плотной ткани. Защищает от ветра, сохраняя городской образ.'},
+  {n:'LUNA MINI',c:'Кошелёк',cat:'bag',p:5990,e:'',desc:'Компактный кошелёк из той же коллекции. Множество отделений для карт и наличных.'},
+  {n:'SPORT',c:'Футболка',cat:'clothes',p:2990,e:'👕',desc:'Базовая футболка из 100% хлопка. Идеально сидит и не теряет форму после стирок.'},
+  {n:'ELEGANCE',c:'Туфли',cat:'shoes',p:11200,e:'',desc:'Элегантные туфли на среднем каблуке. Удобная колодка для комфорта весь день.'},
+  {n:'LUX',c:'Сумка',cat:'bag',p:28900,e:'',desc:'Премиальная сумка из итальянской кожи. Ручная работа, статусная вещь на годы.'}
 ];
+
 let cart=JSON.parse(localStorage.getItem('tc'))||[];
 let wish=JSON.parse(localStorage.getItem('tw'))||[];
-let prof=JSON.parse(localStorage.getItem('tp'))||{name:'Гость'};
-let currentModalIdx=-1;
+let currentIdx=-1;
 let selectedSize=null;
 
-// Navigation
+// Navigation & Routing
 function go(id){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   document.getElementById('pg'+id).classList.add('active');
   document.getElementById('pgProfile').classList.remove('active');
   document.getElementById('pgProduct').classList.remove('active');
   for(let i=0;i<3;i++) document.getElementById('lk'+i).classList.toggle('active',i===id);
-  if(id===0) rP(); if(id===1) rCat('all'); if(id===2) rW(); if(id===3) rC();
-  window.scrollTo({top:0, behavior:'smooth'});
+  if(id===0) rP(); if(id===1) rCat('all'); if(id===2) rW(); if(id===3) rC();  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function goToCategory(cat){
+  go(1); // Switch to catalog
+  setTimeout(()=>{
+    document.querySelectorAll('.fc').forEach(b=>{
+      b.classList.toggle('active', b.textContent.trim().toLowerCase().includes(cat==='bag'?'сумки':cat==='shoes'?'обувь':cat==='acc'?'аксессуары':'одежда'));
+    });
+    rCat(cat);
+  },50);
+}
+
+function fl(f,e){
+  document.querySelectorAll('.fc').forEach(b=>b.classList.remove('active'));
+  e.classList.add('active');
+  rCat(f);
+}
+
+// Product Page Logic
+function openProduct(idx){
+  currentIdx=idx; selectedSize=null;
+  const p=P[idx];
+  document.getElementById('mImg').textContent=p.e||'';
+  document.getElementById('mName').textContent=p.n;
+  document.getElementById('mCat').textContent=p.c;
+  document.getElementById('mPrice').textContent=p.p.toLocaleString()+' ₽';
+  document.getElementById('mDesc').textContent=p.desc||'Описание скоро появится.';
+  
+  // Sizes for Clothes & Shoes
+  const sizeSec=document.getElementById('sizeSection');
+  const sizeRow=document.querySelector('.size-row');
+  if(p.cat==='clothes'){
+    sizeSec.style.display='block';
+    sizeRow.innerHTML=['XS','S','M','L','XL'].map(s=>`<button class="size-btn" onclick="selectSize('${s}')">${s}</button>`).join('');
+  }else if(p.cat==='shoes'){
+    sizeSec.style.display='block';
+    sizeRow.innerHTML=['36','37','38','39','40','41'].map(s=>`<button class="size-btn" onclick="selectSize('${s}')">${s}</button>`).join('');
+  }else{
+    sizeSec.style.display='none';
+  }
+
+  // Update Heart
+  const isLiked=wish.some(w=>w.n===p.n);
+  document.getElementById('mFavBtnSmall').classList.toggle('liked', isLiked);
+  
+  // Recommendations
+  renderRecs(idx);
+  
+  document.getElementById('pgProduct').classList.add('active');}
+function closeProduct(){ document.getElementById('pgProduct').classList.remove('active'); }
+
+function renderRecs(current){
+  const others=P.filter((_,i)=>i!==current);
+  const shuffled=others.sort(()=>0.5-Math.random()).slice(0,3);
+  document.getElementById('recGrid').innerHTML=shuffled.map(p=>`
+    <div class="rec-item" onclick="openProduct(${P.indexOf(p)})">
+      <div class="rec-img">${p.e||'🎁'}</div>
+      <div class="rec-info"><div class="rec-name">${p.n}</div><div class="rec-price">${p.p.toLocaleString()} ₽</div></div>
+    </div>
+  `).join('');
+}
+
+function selectSize(s){
+  selectedSize=s;
+  document.querySelectorAll('.size-btn').forEach(b=>b.classList.toggle('active',b.textContent===s));
+}
+function toggleModalFav(){ if(currentIdx>=0) tw(currentIdx); }
+function addFromModal(){
+  if(currentIdx>=0){
+    const p=P[currentIdx];
+    if((p.cat==='clothes'||p.cat==='shoes') && !selectedSize){ t('⚠️ Выберите размер!'); return; }
+    const name=selectedSize?`${p.n} (${selectedSize})`:p.n;
+    ad(name,p.c,p.p,p.e); closeProduct();
+  }
+}
+
+// Renderers
+function rP(){
+  document.getElementById('pS').innerHTML=P.slice(0,6).map((p,i)=>{
+    const liked=wish.some(w=>w.n===p.n)?'liked':'';
+    const cat=p.cat==='bag'?'Сумка':p.cat==='shoes'?'Обувь':p.cat==='acc'?'Аксессуар':'Одежда';
+    return `<div class="pc" onclick="openProduct(${i})"><div class="pi">${p.e||''}<div class="pw ${liked}" onclick="event.stopPropagation();tw(${i})"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div></div><div class="pb"><div class="pt">${cat}</div><div class="pn">${p.n}</div><div class="ppc">${p.c}</div><div class="pr"><div class="ppr">${p.p.toLocaleString()} ₽</div><div class="padd" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div></div>`;
+  }).join('');
+}
+function rCat(f){
+  const list=f==='all'?P:P.filter(i=>i.cat===f);
+  document.getElementById('cG').innerHTML=list.map(p=>{
+    const idx=P.indexOf(p);
+    const liked=wish.some(w=>w.n===p.n)?'liked':'';
+    return `<div class="cac" onclick="openProduct(${idx})"><div class="cai">${p.e||'🎁'}<div class="pw ${liked}" onclick="event.stopPropagation();tw(${idx})"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div></div><div class="cainf"><div class="can">${p.n}</div><div class="cat2">${p.c}</div><div class="cab"><div class="cap">${p.p.toLocaleString()} ₽</div><div class="cbtn" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div></div>`;
+  }).join('');
+}
+function rW(){
+  if(wish.length===0){ document.getElementById('wC').innerHTML='<div class="ce">Пока пусто ❤️<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>'; return; }
+  document.getElementById('wC').innerHTML=wish.map(p=>{
+    const idx=P.findIndex(x=>x.n===p.n);
+    return `<div class="wc"><div class="wi" onclick="openProduct(${idx})">${p.e||'🎁'}</div><div class="winf"><div class="wn">${p.n}</div><div class="wt">${p.c}</div><div class="wb"><div class="wp">${p.p.toLocaleString()} ₽</div><div class="wac" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">В корзину</div><div class="wrm" onclick="event.stopPropagation();tw(${idx})">×</div></div></div></div>`;
+  }).join('');}
+function rC(){
+  if(cart.length===0){ document.getElementById('cC').innerHTML='<div class="ce">Корзина пуста 🛒<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>'; return; }
+  const qty=cart.reduce((a,b)=>a+b.q,0); const sum=cart.reduce((a,b)=>a+b.p*b.q,0);
+  let h='<div class="cil">';
+  cart.forEach((item,i)=>{
+    const prodIdx=P.findIndex(p=>p.n===item.n.replace(/ \(.*\)/,''));
+    h+=`<div class="cii" onclick="openProduct(${prodIdx>=0?prodIdx:0})"><div class="cr" onclick="event.stopPropagation();rm(${i})">×</div><div class="cimg">${item.e||''}</div><div class="cinf"><div class="cnm">${item.n}</div><div class="cty">${item.c}</div><div class="cib"><div class="cip">${item.p.toLocaleString()} ₽</div><div class="qt"><button onclick="event.stopPropagation();uq(${i},-1)">−</button><span>${item.q}</span><button onclick="event.stopPropagation();uq(${i},1)">+</button></div></div></div></div>`;
+  });
+  h+=`</div><div class="cs"><div class="sr"><span class="lb">Товары</span><span class="vl">${qty} шт.</span></div><div class="sr"><span class="lb">Доставка</span><span class="vl">Бесплатно</span></div><div class="sr tot"><span class="lb">Итого</span><span class="vl">${sum.toLocaleString()} ₽</span></div></div>`;
+  document.getElementById('cC').innerHTML=h;
+}
+
+// Actions
+function uq(i,d){ cart[i].q=Math.max(1,cart[i].q+d); localStorage.setItem('tc',JSON.stringify(cart)); rC(); }
+function rm(i){ cart.splice(i,1); localStorage.setItem('tc',JSON.stringify(cart)); t('Удалён'); rC(); }
+function ad(n,c,p,e){ 
+  const ex=cart.find(i=>i.n===n); 
+  if(ex) ex.q++; else cart.push({n,c,p,e,q:1}); 
+  localStorage.setItem('tc',JSON.stringify(cart)); 
+  t('Добавлено ✓'); rC(); 
+}
+function tw(idx){
+  const p=P[idx]; const i=wish.findIndex(w=>w.n===p.n);
+  if(i>-1){ wish.splice(i,1); t('Удалено'); } else { wish.push(p); t('В избранное ❤'); }
+  localStorage.setItem('tw',JSON.stringify(wish)); 
+  rP(); rCat(document.querySelector('.fc.active')?.onclick?.toString().includes('all')?'all':document.querySelector('.fc.active')?.textContent.trim().toLowerCase()==='сумки'?'bag':document.querySelector('.fc.active')?.textContent.trim().toLowerCase()==='обувь'?'shoes':document.querySelector('.fc.active')?.textContent.trim().toLowerCase()==='аксессуары'?'acc':'clothes'); 
+  rW();
+  if(currentIdx===idx){ document.getElementById('mFavBtnSmall').classList.toggle('liked', wish.some(w=>w.n===p.n)); }
 }
 
 // Profile
 function openProfile(){ document.getElementById('pgProfile').classList.add('active'); }
 function closeProfile(){ document.getElementById('pgProfile').classList.remove('active'); }
 function lP(){
-  const s=JSON.parse(localStorage.getItem('tp'))||{};
-  let initials='N'; if(s.name){initials=s.name[0].toUpperCase();document.getElementById('nNm').textContent=s.name;}
-  document.getElementById('nAv').innerHTML='<span>'+initials+'</span>';document.getElementById('mAv').innerHTML='<span>'+initials+'</span>';
-  if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.initDataUnsafe&&Telegram.WebApp.initDataUnsafe.user){
+  let n='Гость', h='@user', ini='N';
+  if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.initDataUnsafe?.user){
     const u=Telegram.WebApp.initDataUnsafe.user;
-    const nm=u.first_name+(u.last_name?' '+u.last_name:''); const hd=u.username?'@'+u.username:'';
-    document.getElementById('nNm').textContent=nm;document.getElementById('mNm').textContent=nm;
-    document.getElementById('nHdl').textContent=hd||'';document.getElementById('mHdl').textContent=hd||'';    if(u.photo_url){document.getElementById('nAv').innerHTML='<img src="'+u.photo_url+'">';document.getElementById('mAv').innerHTML='<img src="'+u.photo_url+'">';}
+    n=u.first_name+(u.last_name?' '+u.last_name:''); h=u.username?'@'+u.username:''; ini=n[0].toUpperCase();
+    if(u.photo_url){ document.getElementById('nAv').innerHTML=`<img src="${u.photo_url}">`; document.getElementById('mAv').innerHTML=`<img src="${u.photo_url}">`; }
   }
+  document.getElementById('nNm').textContent=n; document.getElementById('mNm').textContent=n;
+  document.getElementById('nHdl').textContent=h; document.getElementById('mHdl').textContent=h;
+  document.getElementById('nAv').querySelector('span').textContent=ini; document.getElementById('mAv').querySelector('span').textContent=ini;
 }
-function editName(){const n=prompt('Ваше имя:',prof.name||'');if(n){prof.name=n;localStorage.setItem('tp',JSON.stringify(prof));lP();t('Сохранено ✓')}closeProfile();}
-function clearData(){if(confirm('Очистить данные?')){localStorage.clear();cart=[];wish=[];location.reload();}}
-
-// Product Page
-function openProduct(idx){
-  currentModalIdx=idx; selectedSize=null;
-  const p=P[idx];
-  document.getElementById('mImg').textContent=p.e||'';
-  document.getElementById('mName').textContent=p.n;
-  document.getElementById('mCat').textContent=p.c;
-  document.getElementById('mPrice').textContent=p.p.toLocaleString()+' ₽';
-  document.getElementById('mDesc').textContent=p.desc||'Описание товара скоро появится.';
-  
-  // Показываем размеры только для одежды
-  const sizeSec=document.getElementById('sizeSection');
-  if(p.cat==='clothes'){sizeSec.style.display='block';document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));}
-  else sizeSec.style.display='none';
-  
-  // Обновляем сердечко
-  const isLiked=wish.some(w=>w.n===p.n);
-  document.getElementById('mFavBtnSmall').classList.toggle('liked', isLiked);
-  
-  // Показываем рекомендации (3 случайных товара, кроме текущего)
-  renderRecommendations(idx);
-  
-  // Открываем как отдельную страницу
-  document.getElementById('pgProduct').classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function renderRecommendations(currentIdx){
-  // Берем 3 случайных товара, исключая текущий
-  const others=P.filter((_,i)=>i!==currentIdx);
-  const shuffled=others.sort(()=>0.5-Math.random());
-  const recs=shuffled.slice(0,3);
-  
-  document.getElementById('recGrid').innerHTML=recs.map(p=>`
-    <div class="rec-item" onclick="openProduct(${P.indexOf(p)})">
-      <div class="rec-img">${p.e||'🎁'}</div>
-      <div class="rec-info">
-        <div class="rec-name">${p.n}</div>
-        <div class="rec-price">${p.p.toLocaleString()} ₽</div>
-      </div>
-    </div>
-  `).join('');
-}
-function closeProduct(){ 
-  document.getElementById('pgProduct').classList.remove('active');
-}
-function selectSize(size){selectedSize=size;document.querySelectorAll('.size-btn').forEach(b=>b.classList.toggle('active',b.textContent===size));}
-function toggleModalFav(){if(currentModalIdx>=0)tw(currentModalIdx);}
-function addFromModal(){
-  if(currentModalIdx>=0){
-    const p=P[currentModalIdx];
-    if(p.cat==='clothes'&&!selectedSize){t('⚠️ Выберите размер!');return;}
-    const name=selectedSize?`${p.n} (${selectedSize})`:p.n;
-    ad(name,p.c,p.p,p.e);closeProduct();
-  }
-}
-
-// Render Functions
-function rP(){
-  const html=P.slice(0,6).map((p,i)=>{
-    const isLiked=wish.some(w=>w.n===p.n)?'liked':'';
-    const catName=p.cat==='bag'?'Сумка':p.cat==='shoes'?'Обувь':p.cat==='acc'?'Аксессуар':'Одежда';
-    return `<div class="pc" onclick="openProduct(${i})"><div class="pi">${p.e||'🎁'}<div class="pw ${isLiked}" onclick="event.stopPropagation();tw(${i})"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div></div><div class="pb"><div class="pt">${catName}</div><div class="pn">${p.n}</div><div class="ppc">${p.c}</div><div class="pr"><div class="ppr">${p.p.toLocaleString()} ₽</div><div class="padd" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div></div>`;
-  }).join('');
-  document.getElementById('pS').innerHTML=html;
-}
-function rCat(f){
-  const fl=f==='all'?P:P.filter(i=>i.cat===f);
-  document.getElementById('cG').innerHTML=fl.map((p,idx)=>{
-    const isLiked=wish.some(w=>w.n===p.n)?'liked':'';
-    return `<div class="cac" onclick="openProduct(${P.indexOf(p)})"><div class="cai">${p.e||'🎁'}<div class="pw ${isLiked}" onclick="event.stopPropagation();tw(${P.indexOf(p)})"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div></div><div class="cainf"><div class="can">${p.n}</div><div class="cat2">${p.c}</div><div class="cab"><div class="cap">${p.p.toLocaleString()} ₽</div><div class="cbtn" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">+</div></div></div></div>`;
-  }).join('');
-}
-function fl(f,e){document.querySelectorAll('.fc').forEach(b=>b.classList.remove('active'));e.classList.add('active');rCat(f);}
-function rW(){
-  if(wish.length===0){document.getElementById('wC').innerHTML='<div class="ce">Пока пусто ❤️<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>';updateBadges();return;}
-  document.getElementById('wC').innerHTML=wish.map(p=>{
-    const idx=P.findIndex(x=>x.n===p.n);
-    return `<div class="wc"><div class="wi" onclick="openProduct(${idx})">${p.e||'🎁'}</div><div class="winf"><div class="wn">${p.n}</div><div class="wt">${p.c}</div><div class="wb"><div class="wp">${p.p.toLocaleString()} ₽</div><div class="wac" onclick="event.stopPropagation();ad('${p.n}','${p.c}',${p.p},'${p.e}')">В корзину</div><div class="wrm" onclick="event.stopPropagation();tw(${idx})">×</div></div></div></div>`;
-  }).join('');
-  updateBadges();
-}
-function rC(){
-  if(cart.length===0){document.getElementById('cC').innerHTML='<div class="ce">Корзина пуста 🛒<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>';updateBadges();return;}
-  const qty=cart.reduce((a,b)=>a+b.q,0);const sum=cart.reduce((a,b)=>a+b.p*b.q,0);
-  let h='<div class="cil">';
-  cart.forEach((item,idx)=>{h+=`<div class="cii"><div class="cr" onclick="rm(${idx})">×</div><div class="cimg">${item.e||''}</div><div class="cinf"><div class="cnm">${item.n}</div><div class="cty">${item.c}</div><div class="cib"><div class="cip">${item.p.toLocaleString()} ₽</div><div class="qt"><button onclick="uq(${idx},-1)">−</button><span>${item.q}</span><button onclick="uq(${idx},1)">+</button></div></div></div></div>`;});
-  h+='</div>';
-  h+=`<div class="cs"><div class="sr"><span class="lb">Товары</span><span class="vl">${qty} шт.</span></div><div class="sr"><span class="lb">Доставка</span><span class="vl">Бесплатно</span></div><div class="sr tot"><span class="lb">Итого</span><span class="vl">${sum.toLocaleString()} ₽</span></div></div>`;
-  document.getElementById('cC').innerHTML=h;updateBadges();
-}
-
-// Actionsfunction uq(i,d){cart[i].q=Math.max(1,cart[i].q+d);localStorage.setItem('tc',JSON.stringify(cart));rC();}
-function rm(i){cart.splice(i,1);localStorage.setItem('tc',JSON.stringify(cart));t('Удалён');rC();}
-function ad(n,c,p,e){const ex=cart.find(i=>i.n===n);if(ex)ex.q++;else cart.push({n,c,p,e,q:1});localStorage.setItem('tc',JSON.stringify(cart));t('Добавлено ✓');rC();updateBadges();}
-function tw(idx){
-  const p=P[idx];const i=wish.findIndex(w=>w.n===p.n);
-  if(i>-1){wish.splice(i,1);t('Удалено');}else{wish.push(p);t('В избранное ❤');}
-  localStorage.setItem('tw',JSON.stringify(wish));rP();rCat(document.querySelector('.fc.active')?.textContent==='Все'?'all':'bag');rW();
-  if(currentModalIdx===idx){const liked=wish.some(w=>w.n===p.n);document.getElementById('mFavBtnSmall').classList.toggle('liked',liked);}
-  updateBadges();
-}
-
-// UI
-function updateBadges(){
-  const cq=cart.reduce((a,b)=>a+b.q,0);const wq=wish.length;
-  const cb=document.getElementById('cartBadge');if(cb){cb.textContent=cq;cb.style.display=cq>0?'flex':'none';}
-  const wb=document.getElementById('wishBadge');if(wb){wb.textContent=wq;wb.style.display=wq>0?'flex':'none';}
-  document.getElementById('s1').textContent='0';document.getElementById('s2').textContent=wq;document.getElementById('s3').textContent=cq;
-}
+function editName(){ const n=prompt('Имя:',document.getElementById('nNm').textContent); if(n){localStorage.setItem('tp',JSON.stringify({name:n}));lP();t('Сохранено ✓')}closeProfile(); }
+function clearData(){ if(confirm('Очистить?')){localStorage.clear();cart=[];wish=[];location.reload();} }
 function t(m){const el=document.getElementById('tt');el.textContent=m;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
-window.onload=function(){if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}lP();rP();rC();};
+
+// Initwindow.onload=function(){
+  if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}
+  lP(); rP(); rC();
+};
 </script>
 </body>
 </html>
