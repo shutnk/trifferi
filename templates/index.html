@@ -411,6 +411,7 @@ function addFromModal(){
 
 // Render Functions
 function rP(){
+  updateBadges();
   document.getElementById('pS').innerHTML=P.slice(0,6).map((p,i)=>{
     const liked=wish.some(w=>w.n===p.n)?'liked':'';
     const cat=p.cat==='bag'?'Сумка':p.cat==='shoes'?'Обувь':p.cat==='acc'?'Аксессуар':'Одежда';
@@ -428,6 +429,7 @@ function rCat(f){
 }
 
 function rW(){
+  updateBadges();
   if(wish.length===0){document.getElementById('wC').innerHTML='<div class="ce">Пока пусто ❤️<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>';return;}
   document.getElementById('wC').innerHTML=wish.map(p=>{
     const idx=P.findIndex(x=>x.n===p.n);
@@ -436,6 +438,7 @@ function rW(){
 }
 
 function rC(){
+  updateBadges();
   if(cart.length===0){document.getElementById('cC').innerHTML='<div class="ce">Корзина пуста 🛒<br><button class="btn b2" style="margin-top:20px" onclick="go(1)">В каталог</button></div>';return;}
   const qty=cart.reduce((a,b)=>a+b.q,0);const sum=cart.reduce((a,b)=>a+b.p*b.q,0);
   let h='<div class="cil">';
@@ -489,7 +492,7 @@ function t(m){const el=document.getElementById('tt');el.textContent=m;el.classLi
 // Init
 window.onload=function(){
   if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}
-  lP();rP();rC();
+  lP();rP();rC();updateBadges();
 };
 </script>
 </body>
